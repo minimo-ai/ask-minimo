@@ -9,8 +9,8 @@ export const runtime = "nodejs";
 
 type ClientMessage = { role: "user" | "assistant"; content: string };
 
-function getClientIp() {
-  const h = headers();
+async function getClientIp() {
+  const h = await headers();
   const xff = h.get("x-forwarded-for");
   if (xff) return xff.split(",")[0].trim();
   return h.get("x-real-ip") || "unknown";
@@ -18,7 +18,7 @@ function getClientIp() {
 
 export async function POST(req: Request) {
   try {
-    const ip = getClientIp();
+    const ip = await getClientIp();
     const rl = rateLimit(ip);
     if (!rl.ok) {
       return Response.json(
