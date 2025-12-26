@@ -25,3 +25,10 @@ so they can feel confident and informed — without pressure or sales tactics.
 
 ## Running Locally
 1. Install dependencies:
+
+ npm install
+2. Create a `.env` file using `.env.example`
+3. Start the dev server:
+
+npm run dev
+
