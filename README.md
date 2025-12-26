@@ -1,14 +1,27 @@
-# ask-minimo
-Ask MiniMo – a real estate clarity companion
 # Ask MiniMo
 
-A simple, calm real estate clarity chat tool (education only).
+Ask MiniMo is a calm, educational real estate clarity companion.
 
-## Setup
+She helps people understand real estate concepts, timelines, and options
+so they can feel confident and informed — without pressure or sales tactics.
 
-### Requirements
-- Node.js 18+
+## What MiniMo Is
+- Educational only
+- Plain-language explanations
+- Friendly, neutral, and reassuring
+- Designed for the general public and real estate professionals
 
-### Install
-```bash
-npm install
+## What MiniMo Is Not
+- Not a lender
+- Not a lawyer
+- Not a salesperson
+- Does not provide interest rates, payment quotes, or legal advice
+
+## Tech Stack
+- Next.js (App Router)
+- TypeScript
+- Tailwind CSS
+- OpenAI API
+
+## Running Locally
+1. Install dependencies:
