@@ -36,7 +36,7 @@ export async function POST(req: Request) {
 
     const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
-    const model = process.env.OPENAI_MODEL || "gpt-4.1-mini";
+    const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
 
     const clientMessages: ClientMessage[] = Array.isArray(body.messages) ? body.messages : [];
     const recent = clientMessages.slice(-12).map((m) => ({
