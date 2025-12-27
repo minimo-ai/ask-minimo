@@ -1,24 +1,198 @@
-import Chat from "@/components/Chat";
-import Disclaimer from "@/components/Disclaimer";
+"use client";
+
+import { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 import Logo from "@/components/Logo";
 
+interface Message {
+  role: "user" | "assistant";
+  content: string;
+}
+
 export default function AskPage() {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isAgent, setIsAgent] = useState(false);
+  const [messageCount, setMessageCount] = useState(0);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setIsAgent(params.get("mode") === "agent");
+  }, []);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  const sendMessage = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage = input.trim();
+    setInput("");
+    setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
+    setMessageCount((prev) => prev + 1);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: [...messages, { role: "user", content: userMessage }],
+          isAgent,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Failed to get response");
+
+      const data = await response.json();
+      setMessages((prev) => [...prev, { role: "assistant", content: data.message }]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: "I'm sorry, I'm having trouble connecting right now. Please try again in a moment." },
+      ]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const upgradeUrl = isAgent 
+    ? "https://buy.stripe.com/bJebJ2dYW2x44tx48rawo01" 
+    : "https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00";
+
+  const upgradeName = isAgent ? "Agent Pro — $49/mo" : "Clarity Plus — $9/mo";
+
   return (
-    <main className="px-4 py-8 md:py-12">
-      <div className="mx-auto max-w-2xl">
-        <header className="mb-4 flex items-center justify-between">
-          <Logo />
-          <span className="text-xs text-black/50">
-            Educational only
-          </span>
-        </header>
-
-        <div className="rounded-3xl border border-black/5 bg-white shadow-soft">
-          <Chat />
+    <main className="flex flex-col h-screen bg-gradient-to-b from-cream-50 to-white">
+      <header className="flex items-center justify-between px-4 py-3 border-b border-sage-100 bg-white/80 backdrop-blur-sm">
+        <Link href="/" className="hover:opacity-80 transition">
+          <Logo size="small" />
+        </Link>
+        <div className="flex items-center gap-3">
+          
+            href={upgradeUrl}
+            className="text-xs bg-sage-500 text-white px-3 py-1.5 rounded-full hover:bg-sage-600 transition font-medium hidden sm:block"
+          >
+            Upgrade to {upgradeName}
+          </a>
+          <div className="flex items-center gap-2">
+            <span className={`text-xs ${!isAgent ? "text-sage-600 font-medium" : "text-ink-400"}`}>Buyer</span>
+            <button
+              onClick={() => setIsAgent(!isAgent)}
+              className={`relative w-10 h-5 rounded-full transition-colors ${isAgent ? "bg-sage-500" : "bg-sage-200"}`}
+            >
+              <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${isAgent ? "translate-x-5" : "translate-x-0.5"}`} />
+            </button>
+            <span className={`text-xs ${isAgent ? "text-sage-600 font-medium" : "text-ink-400"}`}>Agent</span>
+          </div>
         </div>
+      </header>
 
-        <div className="mt-4">
-          <Disclaimer />
+      <div className="flex-1 overflow-y-auto px-4 py-6">
+        <div className="max-w-2xl mx-auto space-y-4">
+          {messages.length === 0 && (
+            <div className="text-center py-12">
+              <div className="w-16 h-16 rounded-full bg-sage-100 flex items-center justify-center mx-auto mb-4">
+                <span className="text-2xl">💚</span>
+              </div>
+              <h2 className="text-xl font-display font-semibold text-ink-800 mb-2">
+                {isAgent ? "Hey there, fellow agent!" : "Hi, I'm MiniMo!"}
+              </h2>
+              <p className="text-ink-600 max-w-md mx-auto">
+                {isAgent
+                  ? "I'm here to help you find the right words for client conversations. What situation can I help you navigate?"
+                  : "I'm your real estate clarity companion. Ask me anything about buying, selling, or understanding your options. No pressure, just clarity."}
+              </p>
+            </div>
+          )}
+
+          {messages.map((message, index) => (
+            <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div
+                className={`max-w-[85%] rounded-2xl px-4 py-3 ${
+                  message.role === "user"
+                    ? "bg-sage-500 text-white"
+                    : "bg-white border border-sage-100 text-ink-700"
+                }`}
+              >
+                <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</p>
+              </div>
+            </div>
+          ))}
+
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="bg-white border border-sage-100 rounded-2xl px-4 py-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" />
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce [animation-delay:0.1s]" />
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce [animation-delay:0.2s]" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {messageCount >= 3 && (
+            <div className="bg-gradient-to-r from-sage-50 to-cream-50 border border-sage-200 rounded-2xl p-4 my-4">
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <p className="font-semibold text-ink-800 text-sm">Enjoying MiniMo? 💚</p>
+                  <p className="text-xs text-ink-600">Unlock deeper guidance and personalized support</p>
+                </div>
+                
+                  href={upgradeUrl}
+                  className="whitespace-nowrap text-sm bg-sage-500 text-white px-4 py-2 rounded-xl hover:bg-sage-600 transition font-medium"
+                >
+                  Upgrade to {upgradeName}
+                </a>
+              </div>
+            </div>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
+      </div>
+
+      <div className="bg-sage-50 border-t border-sage-100 px-4 py-2 sm:hidden">
+        <div className="flex items-center justify-center">
+          
+            href={upgradeUrl}
+            className="text-xs text-sage-600 hover:text-sage-700 font-medium"
+          >
+            💚 Upgrade to {upgradeName}
+          </a>
+        </div>
+      </div>
+
+      <div className="border-t border-sage-100 bg-white px-4 py-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
+              placeholder={isAgent ? "Ask about client conversations..." : "Ask me anything about real estate..."}
+              className="flex-1 rounded-2xl border border-sage-200 bg-white px-4 py-3 text-sm text-ink-800 placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-sage-300 focus:border-transparent"
+            />
+            <button
+              onClick={sendMessage}
+              disabled={!input.trim() || isLoading}
+              className="rounded-2xl bg-sage-500 px-5 py-3 text-white font-medium hover:bg-sage-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </button>
+          </div>
+          <p className="text-xs text-ink-400 text-center mt-3">
+            MiniMo provides educational guidance only, not professional advice.{" "}
+            <Link href="/terms" className="underline hover:text-ink-600">Terms</Link> •{" "}
+            <Link href="/privacy" className="underline hover:text-ink-600">Privacy</Link>
+          </p>
         </div>
       </div>
     </main>
