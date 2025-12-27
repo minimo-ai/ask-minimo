@@ -1,12 +1,6 @@
 import type { Metadata } from "next";
-import { Nunito, Playfair_Display } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
-
-const nunito = Nunito({
-  subsets: ["latin"],
-  variable: "--font-nunito",
-  display: "swap",
-});
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
@@ -14,35 +8,50 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "Ask MiniMo — Real Estate Clarity Companion",
-  description:
-    "Get clear on real estate. Understand your options, know what comes next, and feel confident — no pressure, no sales pitch. Educational guidance for homebuyers and sellers.",
-  keywords: [
-    "real estate help",
-    "homebuying education",
-    "first time homebuyer",
-    "real estate questions",
-    "mortgage help",
-    "VA loan help",
-    "home buying process",
-  ],
-  verification: {
-    google: "BOmcVzyzcTlfvOi2m0uG5Ftmp0yi5PglzgOnX4-sgbM",
-  },
+  title: "Ask MiniMo | Real Estate Clarity Companion",
+  description: "Get clear on real estate with MiniMo — your AI-powered clarity companion. Understand your options, bust the myths, and feel confident. No pressure, no sales pitch. Just clarity.",
+  keywords: ["real estate", "homebuying", "first time buyer", "VA loans", "real estate education", "home buying process", "real estate agent tools"],
+  authors: [{ name: "Ask MiniMo" }],
+  creator: "Ask MiniMo",
+  publisher: "Ask MiniMo",
+  metadataBase: new URL("https://askminimo.com"),
   openGraph: {
-    title: "Ask MiniMo — Real Estate Clarity Companion",
-    description: "Get clear on real estate. No pressure. Ever.",
     type: "website",
+    locale: "en_US",
     url: "https://askminimo.com",
+    siteName: "Ask MiniMo",
+    title: "Ask MiniMo | Real Estate Clarity Companion",
+    description: "Get clear on real estate with MiniMo — your AI-powered clarity companion. No pressure, no sales pitch. Just clarity.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Ask MiniMo - Real Estate Clarity Companion",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ask MiniMo — Real Estate Clarity Companion",
-    description: "Get clear on real estate. No pressure. Ever.",
+    title: "Ask MiniMo | Real Estate Clarity Companion",
+    description: "Get clear on real estate with MiniMo — your AI-powered clarity companion. No pressure, no sales pitch. Just clarity.",
+    images: ["/og-image.png"],
   },
   icons: {
     icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -52,8 +61,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${nunito.variable} ${playfair.variable}`}>
-      <body className="font-sans antialiased text-ink-800 bg-cream-50">
+    <html lang="en">
+      <body className={`${playfair.variable} ${inter.variable} font-sans antialiased`}>
         {children}
       </body>
     </html>
