@@ -59,11 +59,19 @@ export default function AskPage() {
     }
   };
 
-  const upgradeUrl = isAgent 
-    ? "https://buy.stripe.com/bJebJ2dYW2x44tx48rawo01" 
-    : "https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00";
+  const getUpgradeUrl = () => {
+    if (isAgent) {
+      return "https://buy.stripe.com/bJebJ2dYW2x44tx48rawo01";
+    }
+    return "https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00";
+  };
 
-  const upgradeName = isAgent ? "Agent Pro — $49/mo" : "Clarity Plus — $9/mo";
+  const getUpgradeName = () => {
+    if (isAgent) {
+      return "Agent Pro - $49/mo";
+    }
+    return "Clarity Plus - $9/mo";
+  };
 
   return (
     <main className="flex flex-col h-screen bg-gradient-to-b from-cream-50 to-white">
@@ -73,10 +81,10 @@ export default function AskPage() {
         </Link>
         <div className="flex items-center gap-3">
           
-            href={upgradeUrl}
+            href={getUpgradeUrl()}
             className="text-xs bg-sage-500 text-white px-3 py-1.5 rounded-full hover:bg-sage-600 transition font-medium hidden sm:block"
           >
-            Upgrade to {upgradeName}
+            Upgrade
           </a>
           <div className="flex items-center gap-2">
             <span className={`text-xs ${!isAgent ? "text-sage-600 font-medium" : "text-ink-400"}`}>Buyer</span>
@@ -139,14 +147,14 @@ export default function AskPage() {
             <div className="bg-gradient-to-r from-sage-50 to-cream-50 border border-sage-200 rounded-2xl p-4 my-4">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                  <p className="font-semibold text-ink-800 text-sm">Enjoying MiniMo? 💚</p>
+                  <p className="font-semibold text-ink-800 text-sm">Enjoying MiniMo?</p>
                   <p className="text-xs text-ink-600">Unlock deeper guidance and personalized support</p>
                 </div>
                 
-                  href={upgradeUrl}
+                  href={getUpgradeUrl()}
                   className="whitespace-nowrap text-sm bg-sage-500 text-white px-4 py-2 rounded-xl hover:bg-sage-600 transition font-medium"
                 >
-                  Upgrade to {upgradeName}
+                  {getUpgradeName()}
                 </a>
               </div>
             </div>
@@ -159,10 +167,10 @@ export default function AskPage() {
       <div className="bg-sage-50 border-t border-sage-100 px-4 py-2 sm:hidden">
         <div className="flex items-center justify-center">
           
-            href={upgradeUrl}
+            href={getUpgradeUrl()}
             className="text-xs text-sage-600 hover:text-sage-700 font-medium"
           >
-            💚 Upgrade to {upgradeName}
+            {getUpgradeName()}
           </a>
         </div>
       </div>
@@ -189,9 +197,7 @@ export default function AskPage() {
             </button>
           </div>
           <p className="text-xs text-ink-400 text-center mt-3">
-            MiniMo provides educational guidance only, not professional advice.{" "}
-            <Link href="/terms" className="underline hover:text-ink-600">Terms</Link> •{" "}
-            <Link href="/privacy" className="underline hover:text-ink-600">Privacy</Link>
+            MiniMo provides educational guidance only, not professional advice.
           </p>
         </div>
       </div>
