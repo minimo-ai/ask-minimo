@@ -57,8 +57,9 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['var(--font-nunito)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-fraunces)', 'Georgia', 'serif'],
+  sans: ['var(--font-nunito)', 'system-ui', 'sans-serif'],
+  display: ['var(--font-playfair)', 'Georgia', 'serif'],
+},
       },
       boxShadow: {
         soft: "0 10px 30px rgba(17, 24, 39, 0.06)",
