@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Nunito, Fraunces } from "next/font/google";
+import { Nunito, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 const nunito = Nunito({
@@ -8,9 +8,9 @@ const nunito = Nunito({
   display: "swap",
 });
 
-const fraunces = Fraunces({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  variable: "--font-fraunces",
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${nunito.variable} ${fraunces.variable}`}>
+    <html lang="en" className={`${nunito.variable} ${playfair.variable}`}>
       <body className="font-sans antialiased text-ink-800 bg-cream-50">
         {children}
       </body>
