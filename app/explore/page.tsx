@@ -4,7 +4,6 @@ import Logo from "@/components/Logo";
 export default function ExplorePage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-cream-50 via-white to-sage-50">
-      {/* Background elements */}
       <div className="fixed inset-0 opacity-30 pointer-events-none">
         <div className="absolute top-20 left-10 w-72 h-72 bg-sage-200 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-cream-200 rounded-full blur-3xl" />
@@ -12,7 +11,6 @@ export default function ExplorePage() {
 
       <div className="relative px-4 py-12 md:py-16">
         <div className="mx-auto max-w-4xl">
-          {/* Header */}
           <header className="flex items-center justify-between mb-12">
             <Link href="/" className="hover:opacity-80 transition">
               <Logo size="default" />
@@ -22,7 +20,6 @@ export default function ExplorePage() {
             </Link>
           </header>
 
-          {/* Hero */}
           <section className="text-center mb-16 animate-slide-up">
             <div className="inline-flex items-center gap-2 rounded-full bg-sage-100 px-4 py-2 text-sm text-sage-700 font-medium mb-6">
               <span>🏠</span>
@@ -36,8 +33,7 @@ export default function ExplorePage() {
             </h1>
             
             <p className="text-lg md:text-xl text-ink-600 leading-relaxed max-w-2xl mx-auto mb-8">
-              MiniMo helps you understand your options, know what comes next, and feel confident — 
-              before you ever talk to an agent or lender.
+              MiniMo helps you understand your options, know what comes next, and feel confident — before you ever talk to an agent or lender.
             </p>
 
             <Link href="/ask" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-500 px-8 py-4 text-lg font-semibold text-white shadow-soft hover:bg-sage-600 hover:shadow-glow transition-all duration-300">
@@ -48,7 +44,6 @@ export default function ExplorePage() {
             </Link>
           </section>
 
-          {/* What MiniMo Helps With */}
           <section className="mb-16">
             <div className="rounded-4xl border border-sage-100 bg-white/70 backdrop-blur-sm p-8 md:p-10">
               <h2 className="text-2xl font-display font-semibold text-ink-800 mb-8 text-center">
@@ -119,7 +114,6 @@ export default function ExplorePage() {
             </div>
           </section>
 
-          {/* Pricing Section */}
           <section className="mb-16">
             <h2 className="text-2xl font-display font-semibold text-ink-800 mb-3 text-center">
               Simple, honest pricing
@@ -129,7 +123,6 @@ export default function ExplorePage() {
             </p>
 
             <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              {/* Free Tier */}
               <div className="rounded-4xl border-2 border-sage-200 bg-white/80 backdrop-blur-sm p-8">
                 <div className="text-sm font-semibold text-sage-600 uppercase tracking-wide mb-2">Free</div>
                 <div className="text-3xl font-display font-semibold text-ink-800 mb-4">$0</div>
@@ -167,11 +160,7 @@ export default function ExplorePage() {
                 </Link>
               </div>
 
-              {/* Paid Tier */}
               <div className="rounded-4xl border-2 border-sage-400 bg-white/80 backdrop-blur-sm p-8 relative">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-sage-500 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                  Coming Soon
-                </div>
                 <div className="text-sm font-semibold text-sage-600 uppercase tracking-wide mb-2">Clarity Plus</div>
                 <div className="text-3xl font-display font-semibold text-ink-800 mb-4">$9<span className="text-lg text-ink-500">/mo</span></div>
                 <p className="text-ink-600 mb-6">For when you want deeper guidance and personalized support.</p>
@@ -209,24 +198,21 @@ export default function ExplorePage() {
                   </li>
                 </ul>
 
-                <button disabled className="block w-full text-center rounded-2xl bg-sage-200 px-6 py-3 font-semibold text-sage-500 cursor-not-allowed">
-                  Join waitlist
-                </button>
+                <a href="https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00" className="block w-full text-center rounded-2xl bg-sage-500 px-6 py-3 font-semibold text-white hover:bg-sage-600 transition-all">
+                  Subscribe Now
+                </a>
               </div>
             </div>
           </section>
 
-          {/* Trust Section */}
           <section className="mb-16">
             <div className="rounded-2xl border border-ink-100 bg-ink-50/50 p-6 text-center">
               <p className="text-sm text-ink-600 leading-relaxed">
-                MiniMo provides educational guidance only. She is not a lender, agent, attorney, or financial advisor. 
-                For specific rates, legal questions, or professional advice, always consult a licensed professional.
+                MiniMo provides educational guidance only. She is not a lender, agent, attorney, or financial advisor. For specific rates, legal questions, or professional advice, always consult a licensed professional.
               </p>
             </div>
           </section>
 
-          {/* Footer */}
           <footer className="pt-8 border-t border-sage-100">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-2 text-sm text-ink-500">
