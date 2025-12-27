@@ -255,31 +255,31 @@ export async function POST(request: NextRequest) {
 
     const systemPrompt = isAgent ? MINIMO_AGENT_PROMPT : MINIMO_CONSUMER_PROMPT;
 
-    const response = await fetch("https://api.anthropic.com/v1/messages", {
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.ANTHROPIC_API_KEY || "",
-        "anthropic-version": "2023-06-01",
+        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}`,
       },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "gpt-4o",
+        messages: [
+          { role: "system", content: systemPrompt },
+          ...messages.map((msg: { role: string; content: string }) => ({
+            role: msg.role,
+            content: msg.content,
+          })),
+        ],
         max_tokens: 1024,
-        system: systemPrompt,
-        messages: messages.map((msg: { role: string; content: string }) => ({
-          role: msg.role,
-          content: msg.content,
-        })),
       }),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to get response from Anthropic");
+      throw new Error("Failed to get response from OpenAI");
     }
 
     const data = await response.json();
-    const textContent = data.content?.find((block: { type: string }) => block.type === "text");
-    const message = textContent ? textContent.text : "I'm sorry, I couldn't generate a response.";
+    const message = data.choices?.[0]?.message?.content || "I'm sorry, I couldn't generate a response.";
 
     return NextResponse.json({ message });
   } catch (error) {
