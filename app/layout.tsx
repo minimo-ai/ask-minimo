@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 
@@ -14,14 +14,30 @@ const inter = Inter({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  themeColor: "#6B8A7A",
+};
+
 export const metadata: Metadata = {
   title: "Ask MiniMo | Real Estate Clarity Companion",
   description: "Get clear on real estate with MiniMo — your AI-powered clarity companion. Understand your options, bust the myths, and feel confident. No pressure, no sales pitch. Just clarity.",
-  keywords: ["real estate", "homebuying", "first time buyer", "VA loans", "real estate education", "home buying process", "real estate agent tools"],
+  keywords: ["real estate", "homebuying", "first time buyer", "VA loans", "real estate education", "home buying process", "real estate agent tools", "Texas real estate", "DFW homes"],
   authors: [{ name: "Ask MiniMo" }],
   creator: "Ask MiniMo",
   publisher: "Ask MiniMo",
   metadataBase: new URL("https://askminimo.com"),
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "MiniMo",
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -62,6 +78,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="MiniMo" />
+        <meta name="mobile-web-app-capable" content="yes" />
+      </head>
       <body className={`${playfair.variable} ${inter.variable} font-sans antialiased`}>
         {children}
       </body>
