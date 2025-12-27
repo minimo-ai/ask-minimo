@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     "VA loan help",
     "home buying process",
   ],
+  verification: {
+    google: "BOmcVzyzcTlfvOi2m0uG5Ftmp0yi5PglzgOnX4-sgbM",
+  },
   openGraph: {
     title: "Ask MiniMo — Real Estate Clarity Companion",
     description: "Get clear on real estate. No pressure. Ever.",
