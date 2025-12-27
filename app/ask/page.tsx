@@ -59,19 +59,12 @@ export default function AskPage() {
     }
   };
 
-  const getUpgradeUrl = () => {
-    if (isAgent) {
-      return "https://buy.stripe.com/bJebJ2dYW2x44tx48rawo01";
-    }
-    return "https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00";
-  };
+  const upgradeUrl = isAgent
+    ? "https://buy.stripe.com/bJebJ2dYW2x44tx48rawo01"
+    : "https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00";
 
-  const getUpgradeName = () => {
-    if (isAgent) {
-      return "Agent Pro - $49/mo";
-    }
-    return "Clarity Plus - $9/mo";
-  };
+  const upgradeName = isAgent ? "Agent Pro" : "Clarity Plus";
+  const upgradePrice = isAgent ? "$49/mo" : "$9/mo";
 
   return (
     <main className="flex flex-col h-screen bg-gradient-to-b from-cream-50 to-white">
@@ -80,21 +73,18 @@ export default function AskPage() {
           <Logo size="small" />
         </Link>
         <div className="flex items-center gap-3">
-          
-            href={getUpgradeUrl()}
-            className="text-xs bg-sage-500 text-white px-3 py-1.5 rounded-full hover:bg-sage-600 transition font-medium hidden sm:block"
-          >
+          <a href={upgradeUrl} className="text-xs bg-sage-500 text-white px-3 py-1.5 rounded-full hover:bg-sage-600 transition font-medium hidden sm:block">
             Upgrade
           </a>
           <div className="flex items-center gap-2">
-            <span className={`text-xs ${!isAgent ? "text-sage-600 font-medium" : "text-ink-400"}`}>Buyer</span>
+            <span className={!isAgent ? "text-xs text-sage-600 font-medium" : "text-xs text-ink-400"}>Buyer</span>
             <button
               onClick={() => setIsAgent(!isAgent)}
-              className={`relative w-10 h-5 rounded-full transition-colors ${isAgent ? "bg-sage-500" : "bg-sage-200"}`}
+              className={isAgent ? "relative w-10 h-5 rounded-full transition-colors bg-sage-500" : "relative w-10 h-5 rounded-full transition-colors bg-sage-200"}
             >
-              <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform ${isAgent ? "translate-x-5" : "translate-x-0.5"}`} />
+              <span className={isAgent ? "absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform translate-x-5" : "absolute top-0.5 w-4 h-4 bg-white rounded-full shadow transition-transform translate-x-0.5"} />
             </button>
-            <span className={`text-xs ${isAgent ? "text-sage-600 font-medium" : "text-ink-400"}`}>Agent</span>
+            <span className={isAgent ? "text-xs text-sage-600 font-medium" : "text-xs text-ink-400"}>Agent</span>
           </div>
         </div>
       </header>
@@ -118,14 +108,8 @@ export default function AskPage() {
           )}
 
           {messages.map((message, index) => (
-            <div key={index} className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}>
-              <div
-                className={`max-w-[85%] rounded-2xl px-4 py-3 ${
-                  message.role === "user"
-                    ? "bg-sage-500 text-white"
-                    : "bg-white border border-sage-100 text-ink-700"
-                }`}
-              >
+            <div key={index} className={message.role === "user" ? "flex justify-end" : "flex justify-start"}>
+              <div className={message.role === "user" ? "max-w-[85%] rounded-2xl px-4 py-3 bg-sage-500 text-white" : "max-w-[85%] rounded-2xl px-4 py-3 bg-white border border-sage-100 text-ink-700"}>
                 <p className="whitespace-pre-wrap text-sm leading-relaxed">{message.content}</p>
               </div>
             </div>
@@ -136,8 +120,8 @@ export default function AskPage() {
               <div className="bg-white border border-sage-100 rounded-2xl px-4 py-3">
                 <div className="flex items-center gap-2">
                   <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" />
-                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce [animation-delay:0.1s]" />
-                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce [animation-delay:0.2s]" />
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
+                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
                 </div>
               </div>
             </div>
@@ -150,11 +134,8 @@ export default function AskPage() {
                   <p className="font-semibold text-ink-800 text-sm">Enjoying MiniMo?</p>
                   <p className="text-xs text-ink-600">Unlock deeper guidance and personalized support</p>
                 </div>
-                
-                  href={getUpgradeUrl()}
-                  className="whitespace-nowrap text-sm bg-sage-500 text-white px-4 py-2 rounded-xl hover:bg-sage-600 transition font-medium"
-                >
-                  {getUpgradeName()}
+                <a href={upgradeUrl} className="whitespace-nowrap text-sm bg-sage-500 text-white px-4 py-2 rounded-xl hover:bg-sage-600 transition font-medium">
+                  {upgradeName} - {upgradePrice}
                 </a>
               </div>
             </div>
@@ -164,13 +145,10 @@ export default function AskPage() {
         </div>
       </div>
 
-      <div className="bg-sage-50 border-t border-sage-100 px-4 py-2 sm:hidden">
+      <div className="bg-sage-50 border-t border-sage-100 px-4 py-2 block sm:hidden">
         <div className="flex items-center justify-center">
-          
-            href={getUpgradeUrl()}
-            className="text-xs text-sage-600 hover:text-sage-700 font-medium"
-          >
-            {getUpgradeName()}
+          <a href={upgradeUrl} className="text-xs text-sage-600 hover:text-sage-700 font-medium">
+            Upgrade to {upgradeName} - {upgradePrice}
           </a>
         </div>
       </div>
