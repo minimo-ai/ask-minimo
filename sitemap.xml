@@ -20,4 +20,19 @@
     <lastmod>2025-12-27</lastmod>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://askminimo.com/faq</loc>
+    <lastmod>2025-12-27</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://askminimo.com/privacy</loc>
+    <lastmod>2025-12-27</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://askminimo.com/terms</loc>
+    <lastmod>2025-12-27</lastmod>
+    <priority>0.3</priority>
+  </url>
 </urlset>
