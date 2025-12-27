@@ -4,7 +4,6 @@ import Logo from "@/components/Logo";
 export default function AgentsPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-cream-50 via-white to-sage-50">
-      {/* Background elements */}
       <div className="fixed inset-0 opacity-30 pointer-events-none">
         <div className="absolute top-20 right-10 w-72 h-72 bg-sage-200 rounded-full blur-3xl" />
         <div className="absolute bottom-20 left-10 w-96 h-96 bg-cream-200 rounded-full blur-3xl" />
@@ -12,7 +11,6 @@ export default function AgentsPage() {
 
       <div className="relative px-4 py-12 md:py-16">
         <div className="mx-auto max-w-4xl">
-          {/* Header */}
           <header className="flex items-center justify-between mb-12">
             <Link href="/" className="hover:opacity-80 transition">
               <Logo size="default" />
@@ -22,7 +20,6 @@ export default function AgentsPage() {
             </Link>
           </header>
 
-          {/* Hero */}
           <section className="text-center mb-16 animate-slide-up">
             <div className="inline-flex items-center gap-2 rounded-full bg-sage-100 px-4 py-2 text-sm text-sage-700 font-medium mb-6">
               <span>💼</span>
@@ -36,8 +33,7 @@ export default function AgentsPage() {
             </h1>
             
             <p className="text-lg md:text-xl text-ink-600 leading-relaxed max-w-2xl mx-auto mb-8">
-              MiniMo is the calm voice in your ear — helping you explain complex topics clearly, 
-              stay compliant, and sound confident with every client conversation.
+              MiniMo is the calm voice in your ear — helping you explain complex topics clearly, stay compliant, and sound confident with every client conversation.
             </p>
 
             <Link href="/ask?mode=agent" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-500 px-8 py-4 text-lg font-semibold text-white shadow-soft hover:bg-sage-600 hover:shadow-glow transition-all duration-300">
@@ -48,7 +44,6 @@ export default function AgentsPage() {
             </Link>
           </section>
 
-          {/* What This Is / Is Not */}
           <section className="mb-16">
             <div className="grid md:grid-cols-2 gap-6">
               <div className="rounded-4xl border border-sage-100 bg-white/70 backdrop-blur-sm p-8">
@@ -101,7 +96,6 @@ export default function AgentsPage() {
             </div>
           </section>
 
-          {/* What MiniMo Helps With */}
           <section className="mb-16">
             <div className="rounded-4xl border border-sage-100 bg-white/70 backdrop-blur-sm p-8 md:p-10">
               <h2 className="text-2xl font-display font-semibold text-ink-800 mb-8 text-center">
@@ -168,29 +162,21 @@ export default function AgentsPage() {
             </div>
           </section>
 
-          {/* Use Cases */}
           <section className="mb-16">
             <h2 className="text-2xl font-display font-semibold text-ink-800 mb-6 text-center">
               When agents use MiniMo
             </h2>
             
             <div className="flex flex-wrap justify-center gap-3">
-              {[
-                "Responding to nervous buyers",
-                "Answering repeated questions",
-                "Preparing for consultations",
-                "Writing educational captions",
-                "Calming a transaction moment",
-                "Finding the right words quickly"
-              ].map((useCase) => (
-                <span key={useCase} className="rounded-full border border-sage-200 bg-white px-4 py-2 text-sm text-ink-600">
-                  {useCase}
-                </span>
-              ))}
+              <span className="rounded-full border border-sage-200 bg-white px-4 py-2 text-sm text-ink-600">Responding to nervous buyers</span>
+              <span className="rounded-full border border-sage-200 bg-white px-4 py-2 text-sm text-ink-600">Answering repeated questions</span>
+              <span className="rounded-full border border-sage-200 bg-white px-4 py-2 text-sm text-ink-600">Preparing for consultations</span>
+              <span className="rounded-full border border-sage-200 bg-white px-4 py-2 text-sm text-ink-600">Writing educational captions</span>
+              <span className="rounded-full border border-sage-200 bg-white px-4 py-2 text-sm text-ink-600">Calming a transaction moment</span>
+              <span className="rounded-full border border-sage-200 bg-white px-4 py-2 text-sm text-ink-600">Finding the right words quickly</span>
             </div>
           </section>
 
-          {/* Pricing Section */}
           <section className="mb-16">
             <h2 className="text-2xl font-display font-semibold text-ink-800 mb-3 text-center">
               Invest in your conversations
@@ -256,7 +242,6 @@ export default function AgentsPage() {
             </div>
           </section>
 
-          {/* Quote */}
           <section className="mb-16">
             <div className="rounded-4xl bg-sage-50 border border-sage-100 p-8 md:p-10 text-center">
               <p className="text-xl md:text-2xl font-display text-ink-700 italic mb-4">
@@ -266,17 +251,14 @@ export default function AgentsPage() {
             </div>
           </section>
 
-          {/* Trust Section */}
           <section className="mb-16">
             <div className="rounded-2xl border border-ink-100 bg-ink-50/50 p-6 text-center">
               <p className="text-sm text-ink-600 leading-relaxed">
-                MiniMo provides conversation support and educational guidance only. She does not replace broker training, 
-                compliance education, or mentorship. Always follow your brokerage policies and consult licensed professionals for specific advice.
+                MiniMo provides conversation support and educational guidance only. She does not replace broker training, compliance education, or mentorship. Always follow your brokerage policies and consult licensed professionals for specific advice.
               </p>
             </div>
           </section>
 
-          {/* Footer */}
           <footer className="pt-8 border-t border-sage-100">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-2 text-sm text-ink-500">
@@ -295,28 +277,3 @@ export default function AgentsPage() {
     </main>
   );
 }
-```
-
----
-
-## 🎉 THAT'S ALL 3 PAGES!
-
-**Quick checklist:**
-
-| # | File | Action | Done? |
-|---|---|---|---|
-| 1 | `app/page.tsx` | Replace existing | ⬜ |
-| 2 | `app/explore/page.tsx` | Create NEW file | ⬜ |
-| 3 | `app/agents/page.tsx` | Create NEW file | ⬜ |
-
-**Also make sure you still have:**
-- The updated `lib/systemPrompt.ts` (dual-mode version)
-
----
-
-Once you commit all of these, you'll have:
-```
-askminimo.com          → Front door with self-select
-askminimo.com/explore  → Consumer path (free + $9/mo coming soon)
-askminimo.com/agents   → Agent path ($49/mo coming soon)
-askminimo.com/ask      → The chat (serves both)
