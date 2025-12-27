@@ -1,0 +1,8 @@
+# Ask MiniMo - Real Estate Clarity Companion
+# https://askminimo.com
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://askminimo.com/sitemap.xml
