@@ -1,0 +1,24 @@
+{
+  "name": "Ask MiniMo - Real Estate Clarity Companion",
+  "short_name": "MiniMo",
+  "description": "Your AI-powered real estate clarity companion. Get clear on real estate with no pressure, no sales pitch — just clarity.",
+  "start_url": "/ask",
+  "display": "standalone",
+  "background_color": "#FCFAF5",
+  "theme_color": "#6B8A7A",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
