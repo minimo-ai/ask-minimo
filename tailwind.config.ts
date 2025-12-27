@@ -5,7 +5,6 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Original warm colors (kept for compatibility)
         warm: {
           50: "#fff7f5",
           100: "#fdecea",
@@ -13,7 +12,6 @@ export default {
           300: "#f2beb8",
           600: "#c26a62"
         },
-        // MiniMo's New Soul Colors
         sage: {
           50: "#f6f7f6",
           100: "#e3e7e3",
@@ -57,9 +55,8 @@ export default {
         },
       },
       fontFamily: {
-  sans: ['var(--font-nunito)', 'system-ui', 'sans-serif'],
-  display: ['var(--font-playfair)', 'Georgia', 'serif'],
-},
+        sans: ['var(--font-nunito)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-playfair)', 'Georgia', 'serif'],
       },
       boxShadow: {
         soft: "0 10px 30px rgba(17, 24, 39, 0.06)",
