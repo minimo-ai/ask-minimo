@@ -22,11 +22,28 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Ask MiniMo | Real Estate Clarity Companion",
-  description: "Get clear on real estate with MiniMo — your AI-powered clarity companion. Understand your options, bust the myths, and feel confident. No pressure, no sales pitch. Just clarity.",
-  keywords: ["real estate", "homebuying", "first time buyer", "VA loans", "real estate education", "home buying process", "real estate agent tools", "Texas real estate", "DFW homes"],
-  authors: [{ name: "Ask MiniMo" }],
-  creator: "Ask MiniMo",
+  title: "Ask MiniMo | Free Real Estate Education for Texas Homebuyers & Agents",
+  description: "Get free real estate education from a Texas broker with 14+ years experience. MiniMo helps first-time buyers, veterans, and agents understand VA loans, new construction, and the DFW market. No pressure, no sales pitch — just clarity.",
+  keywords: [
+    "Texas real estate education",
+    "VA loan Texas",
+    "VA home loan DFW",
+    "first time home buyer Texas",
+    "first time home buyer Dallas",
+    "new construction homes DFW",
+    "Dallas Fort Worth real estate",
+    "TREC compliance",
+    "real estate agent tools Texas",
+    "homebuying education",
+    "veteran home buying",
+    "military family real estate",
+    "Dallas new construction",
+    "Fort Worth new homes",
+    "Grapevine real estate",
+    "Texas homebuyer education"
+  ],
+  authors: [{ name: "Momentus Real Estate Group" }],
+  creator: "Maureen Cappallo",
   publisher: "Ask MiniMo",
   metadataBase: new URL("https://askminimo.com"),
   manifest: "/manifest.json",
@@ -43,22 +60,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://askminimo.com",
     siteName: "Ask MiniMo",
-    title: "Ask MiniMo | Real Estate Clarity Companion",
-    description: "Get clear on real estate with MiniMo — your AI-powered clarity companion. No pressure, no sales pitch. Just clarity.",
+    title: "Ask MiniMo | Free Real Estate Education for Texas Homebuyers",
+    description: "Free real estate clarity from a Texas broker. Understand VA loans, new construction, and the DFW market. Education-first, zero pressure. Built for first-time buyers, veterans, and agents.",
     images: [
       {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Ask MiniMo - Real Estate Clarity Companion",
+        alt: "Ask MiniMo - Real Estate Clarity Companion for Texas Homebuyers",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Ask MiniMo | Real Estate Clarity Companion",
-    description: "Get clear on real estate with MiniMo — your AI-powered clarity companion. No pressure, no sales pitch. Just clarity.",
+    title: "Ask MiniMo | Free Real Estate Education for Texas",
+    description: "Free real estate clarity from a Texas broker. Understand VA loans, new construction, DFW market. Zero pressure, just education.",
     images: ["/og-image.png"],
+    creator: "@momentusregroup",
   },
   icons: {
     icon: "/favicon.ico",
@@ -68,7 +86,18 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
+  alternates: {
+    canonical: "https://askminimo.com",
+  },
+  category: "Real Estate Education",
 };
 
 export default function RootLayout({
@@ -84,6 +113,60 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
         <meta name="apple-mobile-web-app-title" content="MiniMo" />
         <meta name="mobile-web-app-capable" content="yes" />
+        
+        {/* Additional SEO */}
+        <meta name="geo.region" content="US-TX" />
+        <meta name="geo.placename" content="Dallas-Fort Worth" />
+        
+        {/* Schema.org structured data for local business */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Ask MiniMo",
+              "description": "AI-powered real estate education tool for Texas homebuyers and agents",
+              "url": "https://askminimo.com",
+              "applicationCategory": "EducationalApplication",
+              "operatingSystem": "Web",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD",
+                "description": "Free real estate education with premium options available"
+              },
+              "creator": {
+                "@type": "RealEstateAgent",
+                "name": "Maureen Cappallo",
+                "jobTitle": "Broker/Owner",
+                "worksFor": {
+                  "@type": "RealEstateAgent",
+                  "name": "Momentus Real Estate Group",
+                  "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "4501 Merlot Ave, Suite 200",
+                    "addressLocality": "Grapevine",
+                    "addressRegion": "TX",
+                    "postalCode": "76051",
+                    "addressCountry": "US"
+                  },
+                  "areaServed": {
+                    "@type": "Place",
+                    "name": "Dallas-Fort Worth Metroplex"
+                  }
+                }
+              },
+              "about": [
+                "Real Estate Education",
+                "VA Loans",
+                "New Construction Homes",
+                "First-Time Home Buyers",
+                "Dallas Fort Worth Real Estate"
+              ]
+            }),
+          }}
+        />
       </head>
       <body className={`${playfair.variable} ${inter.variable} font-sans antialiased`}>
         {children}
