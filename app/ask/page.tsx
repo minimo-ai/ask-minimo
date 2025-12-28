@@ -15,7 +15,10 @@ export default function AskPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isAgent, setIsAgent] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
+  const [showDisclaimer, setShowDisclaimer] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  const FREE_MESSAGE_LIMIT = 15;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -27,13 +30,14 @@ export default function AskPage() {
   }, [messages]);
 
   const sendMessage = async () => {
-    if (!input.trim() || isLoading || messageCount >= 10) return;
+    if (!input.trim() || isLoading || messageCount >= FREE_MESSAGE_LIMIT) return;
 
     const userMessage = input.trim();
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
     setMessageCount((prev) => prev + 1);
     setIsLoading(true);
+    setShowDisclaimer(false);
 
     try {
       const response = await fetch("/api/chat", {
@@ -60,13 +64,13 @@ export default function AskPage() {
   };
 
   const upgradeUrl = isAgent
-    ? "https://buy.stripe.com/bJebJ2dYW2x44tx48rawo01"
+    ? "https://buy.stripe.com/eVq28sdYW1t0d03eN5awo02"  // $19/mo Launch Price
     : "https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00";
 
   const upgradeName = isAgent ? "Agent Pro" : "Clarity Plus";
-  const upgradePrice = isAgent ? "$49/mo" : "$9/mo";
-  const messagesLeft = 10 - messageCount;
-  const isLocked = messageCount >= 10;
+  const upgradePrice = isAgent ? "$19/mo" : "$9/mo";
+  const messagesLeft = FREE_MESSAGE_LIMIT - messageCount;
+  const isLocked = messageCount >= FREE_MESSAGE_LIMIT;
 
   return (
     <main className="flex flex-col h-screen bg-gradient-to-b from-cream-50 to-white">
@@ -106,7 +110,18 @@ export default function AskPage() {
                   ? "I'm here to help you find the right words for client conversations. What situation can I help you navigate?"
                   : "I'm your real estate clarity companion. Ask me anything about buying, selling, or understanding your options. No pressure, just clarity."}
               </p>
-              <p className="text-xs text-ink-400 mt-4">10 free messages to get started</p>
+              <p className="text-xs text-ink-400 mt-4">15 free messages to get started</p>
+            </div>
+          )}
+
+          {/* Educational Disclaimer - Shows at start */}
+          {showDisclaimer && messages.length === 0 && (
+            <div className="bg-cream-50 border border-sage-200 rounded-xl p-4 text-center">
+              <p className="text-xs text-ink-500 leading-relaxed">
+                <strong>Educational Purposes Only:</strong> MiniMo provides general real estate education based on Texas practices. 
+                This is not legal, financial, or professional advice. Rules and regulations change — always verify current information 
+                with a licensed real estate professional, lender, or attorney for your specific situation.
+              </p>
             </div>
           )}
 
@@ -130,7 +145,8 @@ export default function AskPage() {
             </div>
           )}
 
-          {messageCount >= 3 && messageCount < 7 && (
+          {/* First upgrade prompt - appears after 5 messages */}
+          {messageCount >= 5 && messageCount < 10 && (
             <div className="bg-gradient-to-r from-sage-50 to-cream-50 border border-sage-200 rounded-2xl p-4 my-4">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
@@ -144,11 +160,12 @@ export default function AskPage() {
             </div>
           )}
 
-          {messageCount >= 7 && messageCount < 10 && (
+          {/* Urgency prompt - appears after 10 messages */}
+          {messageCount >= 10 && messageCount < FREE_MESSAGE_LIMIT && (
             <div className="bg-gradient-to-r from-coral-50 to-cream-50 border border-coral-200 rounded-2xl p-4 my-4">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div>
-                  <p className="font-semibold text-ink-800 text-sm">You are getting great clarity! 🌟</p>
+                  <p className="font-semibold text-ink-800 text-sm">You're getting great clarity! 🌟</p>
                   <p className="text-xs text-ink-600">Only {messagesLeft} free messages left. Keep this momentum going.</p>
                 </div>
                 <a href={upgradeUrl} className="whitespace-nowrap text-sm bg-coral-500 text-white px-4 py-2 rounded-xl hover:bg-coral-600 transition font-medium">
@@ -158,13 +175,14 @@ export default function AskPage() {
             </div>
           )}
 
+          {/* Locked state - after 15 messages */}
           {isLocked && (
             <div className="bg-gradient-to-r from-sage-100 to-sage-50 border-2 border-sage-300 rounded-2xl p-6 my-4 text-center">
               <div className="w-16 h-16 rounded-full bg-sage-200 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl">💚</span>
               </div>
-              <h3 className="font-display font-semibold text-ink-800 text-lg mb-2">You have used your 10 free messages</h3>
-              <p className="text-ink-600 text-sm mb-4">MiniMo already knows your situation. Do not lose this progress.</p>
+              <h3 className="font-display font-semibold text-ink-800 text-lg mb-2">You've used your 15 free messages</h3>
+              <p className="text-ink-600 text-sm mb-4">MiniMo already knows your situation. Don't lose this progress.</p>
               <p className="text-ink-600 text-sm mb-6">Upgrade now to continue your journey with unlimited clarity.</p>
               <a href={upgradeUrl} className="inline-block bg-sage-500 text-white px-8 py-3 rounded-2xl hover:bg-sage-600 transition font-semibold text-lg">
                 Unlock Unlimited - {upgradePrice}
@@ -173,7 +191,8 @@ export default function AskPage() {
             </div>
           )}
 
-          {!isAgent && messageCount >= 5 && messageCount < 10 && (
+          {/* Momentus CTA - appears after 7 messages for buyers */}
+          {!isAgent && messageCount >= 7 && messageCount < FREE_MESSAGE_LIMIT && (
             <div className="bg-white border border-sage-100 rounded-2xl p-4 my-4 text-center">
               <p className="text-sm text-ink-600 mb-2">Ready to work with a real agent in DFW?</p>
               <a 
