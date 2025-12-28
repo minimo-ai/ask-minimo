@@ -16,6 +16,7 @@ export default function AskPage() {
   const [isAgent, setIsAgent] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
+  const [acceptedDisclaimer, setAcceptedDisclaimer] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const FREE_MESSAGE_LIMIT = 15;
@@ -72,6 +73,74 @@ export default function AskPage() {
   const messagesLeft = FREE_MESSAGE_LIMIT - messageCount;
   const isLocked = messageCount >= FREE_MESSAGE_LIMIT;
 
+  // Show disclaimer acceptance modal first
+  if (!acceptedDisclaimer) {
+    return (
+      <main className="flex flex-col h-screen bg-gradient-to-b from-cream-50 to-white items-center justify-center p-4">
+        <div className="max-w-lg w-full bg-white rounded-3xl shadow-soft border border-sage-100 p-8">
+          <div className="text-center mb-6">
+            <div className="w-16 h-16 rounded-full bg-sage-100 flex items-center justify-center mx-auto mb-4">
+              <span className="text-2xl">💚</span>
+            </div>
+            <h1 className="text-2xl font-display font-semibold text-ink-800 mb-2">
+              Welcome to MiniMo
+            </h1>
+            <p className="text-ink-600">
+              Before we chat, please review and acknowledge the following:
+            </p>
+          </div>
+
+          <div className="bg-sage-50 border border-sage-200 rounded-2xl p-5 mb-6 space-y-4 text-sm text-ink-600">
+            <div>
+              <h3 className="font-semibold text-ink-800 mb-1">📚 Educational Use Only</h3>
+              <p>
+                Ask MiniMo is an independent educational AI tool designed to provide general real estate information. 
+                It does not provide legal, financial, or real estate brokerage services.
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="font-semibold text-ink-800 mb-1">🤝 No Professional Relationship</h3>
+              <p>
+                Use of this platform does not create an agent-client, broker-client, or fiduciary relationship.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-ink-800 mb-1">🏢 Independent from Momentus</h3>
+              <p>
+                Ask MiniMo operates independently of Momentus Real Estate Group. Any real estate services are 
+                offered separately and only through a direct client relationship.
+              </p>
+            </div>
+
+            <div>
+              <h3 className="font-semibold text-ink-800 mb-1">⚖️ Consult Licensed Professionals</h3>
+              <p>
+                Always verify information with licensed real estate professionals, lenders, and attorneys 
+                for your specific situation.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setAcceptedDisclaimer(true)}
+            className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
+          >
+            I Understand — Let's Chat
+          </button>
+
+          <p className="text-xs text-ink-400 text-center mt-4">
+            By continuing, you agree to our{" "}
+            <Link href="/terms" className="underline hover:text-sage-600">Terms of Service</Link>
+            {" "}and{" "}
+            <Link href="/privacy" className="underline hover:text-sage-600">Privacy Policy</Link>.
+          </p>
+        </div>
+      </main>
+    );
+  }
+
   return (
     <main className="flex flex-col h-screen bg-gradient-to-b from-cream-50 to-white">
       <header className="flex items-center justify-between px-4 py-3 border-b border-sage-100 bg-white/80 backdrop-blur-sm">
@@ -118,9 +187,9 @@ export default function AskPage() {
           {showDisclaimer && messages.length === 0 && (
             <div className="bg-cream-50 border border-sage-200 rounded-xl p-4 text-center">
               <p className="text-xs text-ink-500 leading-relaxed">
-                <strong>Educational Purposes Only:</strong> MiniMo provides general real estate education based on Texas practices. 
-                This is not legal, financial, or professional advice. Rules and regulations change — always verify current information 
-                with a licensed real estate professional, lender, or attorney for your specific situation.
+                <strong>📚 Educational Purposes Only:</strong> MiniMo provides general real estate education based on Texas practices. 
+                This is not legal, financial, or professional advice. Always verify information with licensed professionals. 
+                No agent-client or broker-client relationship is created.
               </p>
             </div>
           )}
@@ -203,6 +272,9 @@ export default function AskPage() {
               >
                 Meet the Momentus Real Estate Group team →
               </a>
+              <p className="text-xs text-ink-400 mt-2">
+                Brokerage services provided separately through direct client relationship.
+              </p>
             </div>
           )}
 
@@ -251,7 +323,7 @@ export default function AskPage() {
                 </button>
               </div>
               <p className="text-xs text-ink-400 text-center mt-3">
-                {messagesLeft} free messages left. MiniMo provides educational guidance only.
+                {messagesLeft} free messages left • Educational guidance only • Not professional advice
               </p>
             </>
           )}
@@ -264,6 +336,7 @@ export default function AskPage() {
           <div className="flex items-center gap-3">
             <Link href="/terms" className="hover:text-ink-600">Terms</Link>
             <Link href="/privacy" className="hover:text-ink-600">Privacy</Link>
+            <Link href="/faq" className="hover:text-ink-600">FAQ</Link>
             <a href="https://www.momentusrealestategroup.com" target="_blank" rel="noopener noreferrer" className="hover:text-sage-600">
               Powered by Momentus Real Estate Group
             </a>
