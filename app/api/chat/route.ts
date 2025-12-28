@@ -1,11 +1,14 @@
 // app/api/chat/route.ts
 // MiniMo's Brain - Mo's Methodology Embedded
 // "Clarity before houses. Calm before decisions."
+// Uses OpenAI GPT-4o
 
-import Anthropic from "@anthropic-ai/sdk";
 import { NextRequest, NextResponse } from "next/server";
+import OpenAI from "openai";
 
-const client = new Anthropic();
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 // MiniMo's Complete System Prompt - Mo's Soul
 const MINIMO_SYSTEM_PROMPT = `You are MiniMo, the AI assistant for Momentus Real Estate Group in DFW, Texas.
@@ -221,35 +224,44 @@ Every person deserves to feel heard, understood, and never pressured. That's wha
 
 export async function POST(request: NextRequest) {
   try {
-    const { messages, isPremium = false, isAgentPro = false } = await request.json();
+    const { messages, isAgent = false, isPremium = false, isAgentPro = false } = await request.json();
 
     // Token limits based on subscription tier
     const maxTokens = isAgentPro ? 2000 : isPremium ? 1500 : 800;
 
-    // Add context about subscription tier
+    // Add context about subscription tier and mode
     let tierContext = "";
-    if (isAgentPro) {
-      tierContext = "\n\nThis user is an Agent Pro subscriber — a real estate professional. You can go deeper on industry topics, market analysis, and professional strategies.";
+    if (isAgentPro || isAgent) {
+      tierContext = "\n\nThis user is a real estate professional (Agent Pro). You can go deeper on industry topics, TREC compliance, client conversation strategies, and professional language.";
     } else if (isPremium) {
       tierContext = "\n\nThis user is a Clarity Plus subscriber. Provide thorough, detailed responses.";
     } else {
       tierContext = "\n\nThis is a free-tier user. Be helpful but keep responses focused. If they ask complex questions requiring deep analysis, mention they can upgrade for more comprehensive guidance.";
     }
 
-    const response = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: maxTokens,
-      system: MINIMO_SYSTEM_PROMPT + tierContext,
-      messages: messages.map((msg: { role: string; content: string }) => ({
+    // Build messages array for OpenAI
+    const openAIMessages = [
+      {
+        role: "system" as const,
+        content: MINIMO_SYSTEM_PROMPT + tierContext,
+      },
+      ...messages.map((msg: { role: string; content: string }) => ({
         role: msg.role as "user" | "assistant",
         content: msg.content,
       })),
+    ];
+
+    // Call OpenAI API using the SDK
+    const completion = await openai.chat.completions.create({
+      model: process.env.OPENAI_MODEL || "gpt-4o",
+      max_tokens: maxTokens,
+      temperature: 0.7,
+      messages: openAIMessages,
     });
 
-    const textContent = response.content.find((block) => block.type === "text");
-    const reply = textContent ? textContent.text : "I'm here to help you get clarity on your real estate journey. What's on your mind?";
+    const reply = completion.choices[0]?.message?.content || "I'm here to help you get clarity on your real estate journey. What's on your mind?";
 
-    return NextResponse.json({ reply });
+    return NextResponse.json({ message: reply });
   } catch (error) {
     console.error("MiniMo API Error:", error);
     return NextResponse.json(
