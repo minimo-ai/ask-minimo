@@ -145,6 +145,20 @@ export default function DisclaimerPage() {
               </div>
             </div>
 
+            {/* Fair Housing Statement */}
+            <div className="bg-sage-50 border-2 border-sage-200 rounded-xl p-6">
+              <h2 className="text-xl font-semibold text-ink-800 mb-4 flex items-center gap-2">
+                <span className="text-sage-500">🏠</span>
+                Fair Housing Statement
+              </h2>
+              <p className="text-ink-600 leading-relaxed text-base">
+                We are committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity 
+                throughout the Nation. We encourage and support an affirmative advertising and marketing program in which 
+                there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, 
+                or national origin.
+              </p>
+            </div>
+
             {/* Texas Real Estate Notice */}
             <div className="border-t border-sage-100 pt-8">
               <h2 className="text-xl font-semibold text-ink-800 mb-4">Texas Real Estate Notice</h2>
@@ -188,8 +202,8 @@ export default function DisclaimerPage() {
             <div className="border-t border-sage-100 pt-8">
               <h2 className="text-xl font-semibold text-ink-800 mb-4">About the Creator</h2>
               <p className="text-ink-600 leading-relaxed mb-4">
-                Ask MiniMo was created by Maureen "Mo" Cappallo, a licensed Texas real estate broker with 14+ years 
-                of experience and 1,500+ families served.
+                Ask MiniMo was created by Maureen "Mo" Cappallo, a licensed Texas real estate broker with extensive 
+                experience serving families across DFW, including veterans and first-time homebuyers.
               </p>
               <div className="bg-ink-50 rounded-xl p-4 text-sm text-ink-600">
                 <p><strong>Maureen Cappallo</strong></p>
