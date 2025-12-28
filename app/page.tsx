@@ -122,13 +122,60 @@ export default function HomePage() {
             </div>
           </section>
 
-          {/* Trust Note */}
+          {/* TREC-Compliant Legal Disclaimer Section */}
           <section className="mb-16">
-            <div className="rounded-2xl border border-ink-100 bg-ink-50/50 p-6 text-center">
-              <p className="text-sm text-ink-600 leading-relaxed">
-                MiniMo provides educational guidance only. She is not a lender, agent, attorney, or financial advisor. 
-                For specific rates, legal questions, or professional advice, always consult a licensed professional.
-              </p>
+            <div className="rounded-2xl border-2 border-sage-200 bg-white p-6 md:p-8">
+              {/* Educational Use Only */}
+              <div className="mb-6">
+                <h3 className="font-semibold text-ink-800 mb-2 flex items-center gap-2">
+                  <span className="text-sage-500">📚</span>
+                  Educational Use Only
+                </h3>
+                <p className="text-sm text-ink-600 leading-relaxed">
+                  Ask MiniMo is an independent educational AI tool designed to provide general real estate information. 
+                  It does not provide legal, financial, or real estate brokerage services. Use of this platform does not 
+                  create an agent-client, broker-client, or fiduciary relationship.
+                </p>
+              </div>
+
+              {/* Powered by Momentus */}
+              <div className="mb-6 pt-6 border-t border-sage-100">
+                <h3 className="font-semibold text-ink-800 mb-2 flex items-center gap-2">
+                  <span className="text-sage-500">🏢</span>
+                  Powered by Momentus Real Estate Group
+                </h3>
+                <p className="text-sm text-ink-600 leading-relaxed">
+                  Ask MiniMo operates independently of Momentus Real Estate Group. Momentus Real Estate Group does not 
+                  provide brokerage services through this platform. Any real estate services are offered separately 
+                  and only through a direct client relationship.
+                </p>
+              </div>
+
+              {/* Additional Important Disclosures */}
+              <div className="pt-6 border-t border-sage-100">
+                <h3 className="font-semibold text-ink-800 mb-2 flex items-center gap-2">
+                  <span className="text-sage-500">⚖️</span>
+                  Important Disclosures
+                </h3>
+                <ul className="text-sm text-ink-600 space-y-2">
+                  <li className="flex items-start gap-2">
+                    <span className="text-sage-400 mt-1">•</span>
+                    <span>MiniMo is not a licensed real estate agent, broker, loan officer, attorney, or financial advisor.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-sage-400 mt-1">•</span>
+                    <span>Information provided is for educational purposes only and should not be considered professional advice.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-sage-400 mt-1">•</span>
+                    <span>Always consult with licensed professionals for specific legal, financial, or real estate guidance.</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-sage-400 mt-1">•</span>
+                    <span>Real estate laws and practices vary by state and change frequently. Verify all information with appropriate professionals.</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </section>
 
@@ -143,7 +190,23 @@ export default function HomePage() {
               <div className="flex items-center gap-4 text-sm text-ink-400">
                 <Link href="/explore" className="hover:text-sage-600 transition">For Buyers</Link>
                 <Link href="/agents" className="hover:text-sage-600 transition">For Agents</Link>
+                <Link href="/faq" className="hover:text-sage-600 transition">FAQ</Link>
+                <Link href="/terms" className="hover:text-sage-600 transition">Terms</Link>
+                <Link href="/privacy" className="hover:text-sage-600 transition">Privacy</Link>
               </div>
+            </div>
+            <div className="mt-4 text-center">
+              <a 
+                href="https://www.momentusrealestategroup.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-xs text-ink-400 hover:text-sage-600 transition"
+              >
+                Powered by Momentus Real Estate Group
+              </a>
+              <p className="text-xs text-ink-400 mt-1">
+                Maureen Cappallo, Broker • TX License #620163 • Brokerage License #9014872
+              </p>
             </div>
           </footer>
         </div>
