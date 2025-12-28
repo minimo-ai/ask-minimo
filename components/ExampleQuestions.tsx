@@ -4,13 +4,20 @@ type Props = {
   onPick: (question: string) => void;
 };
 
+// Targeted questions for Mo's ideal clients: veterans, first-time buyers, sellers, new construction
 const questions = [
-  "What credit score do I really need to buy a home?",
-  "How much do I actually need for a down payment?",
-  "I'm self-employed — can I still get a mortgage?",
-  "What's the difference between pre-qualified and pre-approved?",
-  "I'm a veteran — how do VA loans work?",
-  "How do I know if I'm ready to buy?",
+  // Veteran focus
+  "I'm a veteran — what should I know about VA loans?",
+  // Buyer myths
+  "Do I really need 20% down to buy a house?",
+  // Seller focus
+  "I'm thinking about selling — where do I even start?",
+  // New construction
+  "What's the difference between buying new construction vs. resale?",
+  // Seller pricing
+  "How do I figure out what my home is worth?",
+  // Readiness (works for both buyers and sellers)
+  "How do I know if I'm ready to make a move?",
 ];
 
 export default function ExampleQuestions({ onPick }: Props) {
