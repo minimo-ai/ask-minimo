@@ -173,6 +173,20 @@ export default function AskPage() {
             </div>
           )}
 
+          {!isAgent && messageCount >= 5 && messageCount < 10 && (
+            <div className="bg-white border border-sage-100 rounded-2xl p-4 my-4 text-center">
+              <p className="text-sm text-ink-600 mb-2">Ready to work with a real agent in DFW?</p>
+              <a 
+                href="https://www.momentusrealestategroup.com" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-sm text-sage-600 hover:text-sage-700 font-medium underline"
+              >
+                Meet the Momentus Real Estate Group team →
+              </a>
+            </div>
+          )}
+
           <div ref={messagesEndRef} />
         </div>
       </div>
@@ -224,6 +238,19 @@ export default function AskPage() {
           )}
         </div>
       </div>
+
+      <footer className="border-t border-sage-100 bg-white px-4 py-3">
+        <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ink-400">
+          <span>© {new Date().getFullYear()} Ask MiniMo</span>
+          <div className="flex items-center gap-3">
+            <Link href="/terms" className="hover:text-ink-600">Terms</Link>
+            <Link href="/privacy" className="hover:text-ink-600">Privacy</Link>
+            <a href="https://www.momentusrealestategroup.com" target="_blank" rel="noopener noreferrer" className="hover:text-sage-600">
+              Powered by Momentus Real Estate Group
+            </a>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
