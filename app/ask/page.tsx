@@ -9,6 +9,19 @@ interface Message {
   content: string;
 }
 
+// Mo's Warm Greeting - MiniMo speaks first with heart
+const INITIAL_GREETING = `Hey there! I'm MiniMo — think of me as your guide to figuring out your next move in real estate. No pressure, no sales pitch. Just clarity.
+
+Whether you're thinking about buying, selling, or just trying to understand your options — I'm here to help you get clear on what makes sense for *you*.
+
+What's on your mind?`;
+
+const AGENT_GREETING = `Hey there, fellow agent! I'm MiniMo — think of me as your calm voice when you need the right words for client conversations.
+
+Whether you need help explaining something clearly, staying TREC-compliant, or navigating a tough conversation — I've got you.
+
+What situation can I help you with?`;
+
 export default function AskPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -17,14 +30,25 @@ export default function AskPage() {
   const [messageCount, setMessageCount] = useState(0);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [acceptedDisclaimer, setAcceptedDisclaimer] = useState(false);
+  const [hasInitialized, setHasInitialized] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const FREE_MESSAGE_LIMIT = 15;
 
+  // Check for agent mode from URL
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     setIsAgent(params.get("mode") === "agent");
   }, []);
+
+  // Add warm greeting when disclaimer is accepted
+  useEffect(() => {
+    if (acceptedDisclaimer && !hasInitialized) {
+      const greeting = isAgent ? AGENT_GREETING : INITIAL_GREETING;
+      setMessages([{ role: "assistant", content: greeting }]);
+      setHasInitialized(true);
+    }
+  }, [acceptedDisclaimer, hasInitialized, isAgent]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -166,25 +190,9 @@ export default function AskPage() {
 
       <div className="flex-1 overflow-y-auto px-4 py-6">
         <div className="max-w-2xl mx-auto space-y-4">
-          {messages.length === 0 && (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 rounded-full bg-sage-100 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">💚</span>
-              </div>
-              <h2 className="text-xl font-display font-semibold text-ink-800 mb-2">
-                {isAgent ? "Hey there, fellow agent!" : "Hi, I'm MiniMo!"}
-              </h2>
-              <p className="text-ink-600 max-w-md mx-auto">
-                {isAgent
-                  ? "I'm here to help you find the right words for client conversations. What situation can I help you navigate?"
-                  : "I'm your real estate clarity companion. Ask me anything about buying, selling, or understanding your options. No pressure, just clarity."}
-              </p>
-              <p className="text-xs text-ink-400 mt-4">15 free messages to get started</p>
-            </div>
-          )}
-
+          
           {/* Educational Disclaimer - Shows at start */}
-          {showDisclaimer && messages.length === 0 && (
+          {showDisclaimer && messages.length <= 1 && (
             <div className="bg-cream-50 border border-sage-200 rounded-xl p-4 text-center">
               <p className="text-xs text-ink-500 leading-relaxed">
                 <strong>📚 Educational Purposes Only:</strong> MiniMo provides general real estate education based on Texas practices. 
