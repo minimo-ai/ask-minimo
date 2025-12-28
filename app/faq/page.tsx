@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import Logo from "@/components/Logo";
 
@@ -28,21 +30,21 @@ export default function FAQPage() {
             <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
               <h2 className="text-lg font-semibold text-ink-800 mb-2">What is Ask MiniMo?</h2>
               <p className="text-ink-600 leading-relaxed">
-                Ask MiniMo is an AI-powered real estate clarity companion. She helps homebuyers, sellers, and real estate agents understand the real estate process with calm, clear, educational guidance — without the pressure of a sales pitch.
+                Ask MiniMo is an AI-powered real estate clarity companion. It helps homebuyers, sellers, and real estate agents understand the real estate process with calm, clear, educational guidance — without the pressure of a sales pitch.
               </p>
             </div>
 
             <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
               <h2 className="text-lg font-semibold text-ink-800 mb-2">Is MiniMo a real estate agent?</h2>
               <p className="text-ink-600 leading-relaxed">
-                No. MiniMo is an educational tool, not a licensed real estate agent, broker, lender, or attorney. She provides information to help you understand your options and feel confident — but she does not provide professional advice. Always consult licensed professionals for specific guidance.
+                No. MiniMo is an educational tool, not a licensed real estate agent, broker, lender, or attorney. It provides information to help you understand your options and feel confident — but it does not provide professional advice. Always consult licensed professionals for specific guidance.
               </p>
             </div>
 
             <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
               <h2 className="text-lg font-semibold text-ink-800 mb-2">Is Ask MiniMo free?</h2>
               <p className="text-ink-600 leading-relaxed">
-                Yes! You can start conversations with MiniMo completely free. We also offer premium subscriptions (Clarity Plus for consumers at $9/month and Agent Pro for real estate agents at $49/month) for deeper guidance and additional features.
+                Yes! You can start conversations with MiniMo completely free. We also offer premium subscriptions (Clarity Plus for consumers at $9/month and Agent Pro for real estate agents at $19/month) for unlimited access and additional features.
               </p>
             </div>
 
@@ -63,7 +65,7 @@ export default function FAQPage() {
             <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
               <h2 className="text-lg font-semibold text-ink-800 mb-2">How is MiniMo different from searching Google?</h2>
               <p className="text-ink-600 leading-relaxed">
-                Google gives you thousands of links. MiniMo gives you a conversation. She listens to your specific situation, answers in plain English, and helps you understand what applies to YOU — without the overwhelm of sifting through articles and ads.
+                Google gives you thousands of links. MiniMo gives you a conversation. It listens to your specific situation, answers in plain English, and helps you understand what applies to YOU — without the overwhelm of sifting through articles and ads.
               </p>
             </div>
 
@@ -84,7 +86,7 @@ export default function FAQPage() {
             <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
               <h2 className="text-lg font-semibold text-ink-800 mb-2">Who created MiniMo?</h2>
               <p className="text-ink-600 leading-relaxed">
-                MiniMo was created by a licensed Texas broker with 14+ years of real estate experience and a passion for education. After serving 1,500+ families, she built MiniMo to give everyone access to the clarity they deserve — before they ever feel pressured to make a decision.
+                MiniMo was created by a licensed Texas broker with extensive real estate experience and a passion for education. After serving families across DFW — including many veterans — she built MiniMo to give everyone access to the clarity they deserve, before they ever feel pressured to make a decision.
               </p>
             </div>
 
@@ -101,6 +103,13 @@ export default function FAQPage() {
             <a href="mailto:hello@askminimo.com" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-500 px-6 py-3 font-semibold text-white hover:bg-sage-600 transition-all">
               Contact Us
             </a>
+          </div>
+
+          {/* Fair Housing Statement */}
+          <div className="mt-12 p-6 bg-sage-50 border border-sage-200 rounded-2xl text-center">
+            <p className="text-sm text-ink-600 leading-relaxed">
+              <strong>Fair Housing Statement:</strong> We are committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the Nation. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.
+            </p>
           </div>
 
           <footer className="pt-8 mt-12 border-t border-sage-100">
