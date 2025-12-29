@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -100,6 +101,10 @@ export const metadata: Metadata = {
   category: "Real Estate Education",
 };
 
+// ⚠️ REPLACE THIS WITH YOUR ACTUAL GOOGLE ANALYTICS ID
+// Get it from: https://analytics.google.com → Admin → Data Streams → your stream → Measurement ID
+const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // ← REPLACE THIS
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -169,6 +174,23 @@ export default function RootLayout({
         />
       </head>
       <body className={`${playfair.variable} ${inter.variable} font-sans antialiased`}>
+        {/* Google Analytics */}
+        <Script
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_MEASUREMENT_ID}', {
+              page_title: document.title,
+              page_location: window.location.href,
+            });
+          `}
+        </Script>
+        
         {children}
       </body>
     </html>
