@@ -103,7 +103,7 @@ export const metadata: Metadata = {
 
 // ⚠️ REPLACE THIS WITH YOUR ACTUAL GOOGLE ANALYTICS ID
 // Get it from: https://analytics.google.com → Admin → Data Streams → your stream → Measurement ID
-const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // ← REPLACE THIS
+const GA_MEASUREMENT_ID = "G-68EGN0G21R";
 
 export default function RootLayout({
   children,
