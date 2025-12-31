@@ -15,16 +15,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true });
     }
 
-    const tags = ["Ask MiniMo", "New Lead Unscreened"];
-    if (type === "buyer") tags.push("Buyer");
-
     const fubPayload = {
       source: "Ask MiniMo",
       firstName: email.split("@")[0],
       emails: [{ value: email }],
-      tags,
-      assignedTo: "jim@momentusrealestate.com",
-      notes: [{ body: `New lead from Ask MiniMo. Started chatting at ${new Date().toLocaleString()}.` }],
+      tags: ["Ask MiniMo", "New Lead Unscreened", "Buyer"],
     };
 
     console.log("📤 Sending to FUB:", JSON.stringify(fubPayload));
