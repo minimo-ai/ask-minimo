@@ -23,7 +23,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Ask MiniMo | Free Real Estate Education for Texas Homebuyers & Agents",
+  title: "Ask MiniMo | Real Estate Clarity for Texas Agents, Buyers & Sellers",
   description: "Get free real estate education from a Texas broker with 14+ years experience. MiniMo helps first-time buyers, veterans, and agents understand VA loans, new construction, and the DFW market. No pressure, no sales pitch — just clarity.",
   keywords: [
     "Texas real estate education",
