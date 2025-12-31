@@ -20,29 +20,31 @@ export async function POST(request: NextRequest) {
 
     const fubPayload = {
       source: "Ask MiniMo",
-      system: "AskMiniMo",
-      type: "Buyer",
-      emails: [{ value: email, type: "primary" }],
+      firstName: email.split("@")[0],
+      emails: [{ value: email }],
       tags,
       assignedTo: "jim@momentusrealestate.com",
       notes: [{ body: `New lead from Ask MiniMo. Started chatting at ${new Date().toLocaleString()}.` }],
     };
+
+    console.log("📤 Sending to FUB:", JSON.stringify(fubPayload));
 
     const fubResponse = await fetch("https://api.followupboss.com/v1/people", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "Authorization": `Basic ${Buffer.from(apiKey + ":").toString("base64")}`,
-        "X-System": "AskMiniMo",
-        "X-System-Key": "askminimo-v1",
       },
       body: JSON.stringify(fubPayload),
     });
 
-    if (fubResponse.status === 409) {
-      console.log("Lead already exists:", email);
+    const responseData = await fubResponse.json();
+    console.log("📥 FUB Response:", fubResponse.status, JSON.stringify(responseData));
+
+    if (fubResponse.ok) {
+      console.log("✅ Lead created in FUB:", email, "ID:", responseData.id);
     } else {
-      console.log("✅ Lead created in FUB:", email);
+      console.error("❌ FUB Error:", responseData);
     }
 
     return NextResponse.json({ success: true });
