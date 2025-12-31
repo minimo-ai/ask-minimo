@@ -126,12 +126,11 @@ export default function AskBuyerPage() {
       // Store email locally
       localStorage.setItem(STORAGE_KEYS.userEmail, email);
       
-      // TODO: Send to FUB via webhook
-      // await fetch("/api/capture-lead", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ email, type: "buyer" }),
-      // });
+    await fetch("/api/capture-lead", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, type: "buyer" }),
+});
 
       setHasProvidedEmail(true);
       setShowEmailGate(false);
