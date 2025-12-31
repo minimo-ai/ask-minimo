@@ -154,17 +154,11 @@ export default function AskAgentPage() {
       localStorage.setItem(STORAGE_KEYS.userEmail, email);
       localStorage.setItem(STORAGE_KEYS.licenseNumber, licenseNumber);
       
-      // TODO: Send to FUB via webhook + store for recruiting list
-      // await fetch("/api/capture-agent-lead", {
-      //   method: "POST",
-      //   headers: { "Content-Type": "application/json" },
-      //   body: JSON.stringify({ 
-      //     email, 
-      //     licenseNumber, 
-      //     type: "agent",
-      //     certifiedAt: new Date().toISOString()
-      //   }),
-      // });
+      await fetch("/api/capture-agent-lead", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ email, licenseNumber }),
+});
 
       setHasVerified(true);
       setShowVerificationGate(false);
