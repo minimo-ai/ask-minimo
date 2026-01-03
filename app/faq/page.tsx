@@ -79,7 +79,7 @@ export default function FAQPage() {
             <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
               <h2 className="text-lg font-semibold text-ink-800 mb-2">Can I cancel my subscription anytime?</h2>
               <p className="text-ink-600 leading-relaxed">
-                Absolutely. You can cancel your subscription at any time — no questions asked, no hoops to jump through. Just email us at hello@askminimo.com or manage your subscription through Stripe.
+                Absolutely. You can cancel your subscription at any time — no questions asked, no hoops to jump through. Just email us at maureen@momentusrealestate.com or manage your subscription through Stripe.
               </p>
             </div>
 
@@ -100,7 +100,7 @@ export default function FAQPage() {
 
           <div className="mt-12 text-center">
             <p className="text-ink-600 mb-4">Still have questions?</p>
-            <a href="mailto:hello@askminimo.com" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-500 px-6 py-3 font-semibold text-white hover:bg-sage-600 transition-all">
+            <a href="mailto:maureen@momentusrealestate.com" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-500 px-6 py-3 font-semibold text-white hover:bg-sage-600 transition-all">
               Contact Us
             </a>
           </div>
