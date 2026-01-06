@@ -2,8 +2,8 @@ import Link from "next/link";
 import Logo from "@/components/Logo";
 
 export const metadata = {
-  title: "MiniMo for Agents | AI Clarity Companion for Real Estate Professionals",
-  description: "Your AI clarity companion for client conversations and TREC compliance. Find the right words, stay compliant, and serve your clients better.",
+  title: "MiniMo for Agents | Free AI Clarity Companion for Real Estate Professionals",
+  description: "Your free AI clarity companion for client conversations and TREC compliance. Find the right words, stay compliant, and serve your clients better.",
 };
 
 export default function AgentsPage() {
@@ -23,7 +23,7 @@ export default function AgentsPage() {
               href="/ask/agent"
               className="bg-sage-500 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-sage-600 transition"
             >
-              Start Free Trial
+              Start Free
             </Link>
           </div>
         </div>
@@ -34,7 +34,7 @@ export default function AgentsPage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-sage-100 text-sage-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <span>🏠</span>
-            <span>Built by agents, for agents</span>
+            <span>Built by agents, for agents — 100% free</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-ink-800 mb-6 leading-tight">
@@ -43,7 +43,7 @@ export default function AgentsPage() {
           </h1>
           
           <p className="text-lg md:text-xl text-ink-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-            MiniMo is your AI clarity companion for client conversations, compliance questions, 
+            MiniMo is your free AI clarity companion for client conversations, compliance questions, 
             and those moments when you need the perfect script — fast.
           </p>
           
@@ -52,7 +52,7 @@ export default function AgentsPage() {
               href="/ask/agent"
               className="bg-sage-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-600 transition shadow-soft"
             >
-              Try 15 Messages Free →
+              Start Chatting — It's Free →
             </Link>
             <a
               href="#features"
@@ -86,7 +86,7 @@ export default function AgentsPage() {
                   client-friendly words — that's the challenge.
                 </p>
                 <p className="font-semibold text-ink-800">
-                  MiniMo gives you those words, instantly.
+                  MiniMo gives you those words, instantly. And it's completely free.
                 </p>
               </div>
             </div>
@@ -184,72 +184,47 @@ export default function AgentsPage() {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Free CTA Section */}
       <section className="py-16 bg-white">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-display font-bold text-ink-800 mb-4">
-              Simple, transparent pricing
+          <div className="rounded-4xl border-2 border-sage-300 bg-gradient-to-br from-sage-50 to-white p-8 md:p-10 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full bg-sage-100 px-4 py-2 text-sm text-sage-700 font-medium mb-6">
+              <span>💚</span>
+              <span>100% Free — No Catch</span>
+            </div>
+            
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-ink-800 mb-4">
+              MiniMo is completely free for agents
             </h2>
-            <p className="text-ink-600">
-              Start free. Upgrade when you're ready.
+            
+            <p className="text-ink-600 max-w-xl mx-auto mb-8">
+              No subscriptions. No limits. No credit card required. Just clarity whenever you need it.
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-            {/* Free Tier */}
-            <div className="bg-cream-50 rounded-3xl p-8 border border-sage-100">
-              <h3 className="text-xl font-display font-bold text-ink-800 mb-2">Free Trial</h3>
-              <p className="text-ink-600 mb-4">Get a feel for MiniMo</p>
-              <p className="text-4xl font-bold text-ink-800 mb-6">$0</p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2 text-ink-600">
-                  <span className="text-sage-500">✓</span> 15 messages to try
-                </li>
-                <li className="flex items-center gap-2 text-ink-600">
-                  <span className="text-sage-500">✓</span> Full agent mode access
-                </li>
-                <li className="flex items-center gap-2 text-ink-600">
-                  <span className="text-sage-500">✓</span> Scripts & compliance help
-                </li>
-              </ul>
-              <Link
-                href="/ask/agent"
-                className="block text-center bg-white text-sage-600 px-6 py-3 rounded-xl font-semibold hover:bg-sage-50 transition border border-sage-200"
-              >
-                Start Free Trial
-              </Link>
-            </div>
-
-            {/* Pro Tier */}
-            <div className="bg-sage-500 rounded-3xl p-8 text-white relative overflow-hidden">
-              <div className="absolute top-4 right-4 bg-white/20 px-3 py-1 rounded-full text-xs font-medium">
-                Most Popular
+            
+            <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-8">
+              <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                <div className="text-2xl mb-2">♾️</div>
+                <p className="text-sm font-semibold text-ink-800">Unlimited Messages</p>
+                <p className="text-xs text-ink-500">Ask as much as you need</p>
               </div>
-              <h3 className="text-xl font-display font-bold mb-2">Agent Pro</h3>
-              <p className="text-sage-100 mb-4">Unlimited clarity</p>
-              <p className="text-4xl font-bold mb-6">$19<span className="text-lg font-normal">/mo</span></p>
-              <ul className="space-y-3 mb-8">
-                <li className="flex items-center gap-2">
-                  <span>✓</span> Unlimited messages
-                </li>
-                <li className="flex items-center gap-2">
-                  <span>✓</span> Priority response time
-                </li>
-                <li className="flex items-center gap-2">
-                  <span>✓</span> Advanced compliance guidance
-                </li>
-                <li className="flex items-center gap-2">
-                  <span>✓</span> Cancel anytime
-                </li>
-              </ul>
-              <a
-                href="https://buy.stripe.com/eVq28sdYW1t0d03eN5awo02"
-                className="block text-center bg-white text-sage-600 px-6 py-3 rounded-xl font-semibold hover:bg-sage-50 transition"
-              >
-                Upgrade to Pro
-              </a>
+              <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                <div className="text-2xl mb-2">⚖️</div>
+                <p className="text-sm font-semibold text-ink-800">TREC-Conscious</p>
+                <p className="text-xs text-ink-500">Built with compliance in mind</p>
+              </div>
+              <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                <div className="text-2xl mb-2">🎓</div>
+                <p className="text-sm font-semibold text-ink-800">14+ Years Experience</p>
+                <p className="text-xs text-ink-500">Real broker knowledge</p>
+              </div>
             </div>
+
+            <Link
+              href="/ask/agent"
+              className="inline-block bg-sage-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-600 transition shadow-soft"
+            >
+              Start Chatting — It's Free →
+            </Link>
           </div>
         </div>
       </section>
@@ -299,13 +274,13 @@ export default function AgentsPage() {
             Ready to find your words?
           </h2>
           <p className="text-sage-100 mb-8 max-w-xl mx-auto">
-            Try MiniMo free with 15 messages. No credit card required.
+            MiniMo is completely free. No credit card required. Start chatting now.
           </p>
           <Link
             href="/ask/agent"
             className="inline-block bg-white text-sage-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-50 transition shadow-soft"
           >
-            Start Your Free Trial →
+            Start Chatting — It's Free →
           </Link>
         </div>
       </section>
