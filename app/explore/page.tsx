@@ -37,11 +37,13 @@ export default function ExplorePage() {
             </p>
 
             <Link href="/ask" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-500 px-8 py-4 text-lg font-semibold text-white shadow-soft hover:bg-sage-600 hover:shadow-glow transition-all duration-300">
-              <span>Start a free conversation</span>
+              <span>Start chatting — it's free!</span>
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </Link>
+            
+            <p className="text-sm text-ink-500 mt-4">💚 100% free • No credit card • No limits</p>
           </section>
 
           <section className="mb-16">
@@ -114,94 +116,46 @@ export default function ExplorePage() {
             </div>
           </section>
 
+          {/* Free CTA Section */}
           <section className="mb-16">
-            <h2 className="text-2xl font-display font-semibold text-ink-800 mb-3 text-center">
-              Simple, honest pricing
-            </h2>
-            <p className="text-ink-500 text-center mb-8 max-w-xl mx-auto">
-              You do not pay to get sold to. You pay to understand your options.
-            </p>
-
-            <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
-              <div className="rounded-4xl border-2 border-sage-200 bg-white/80 backdrop-blur-sm p-8">
-                <div className="text-sm font-semibold text-sage-600 uppercase tracking-wide mb-2">Free</div>
-                <div className="text-3xl font-display font-semibold text-ink-800 mb-4">$0</div>
-                <p className="text-ink-600 mb-6">Everything you need to get started and feel informed.</p>
-                
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>15 free messages to try MiniMo</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Understand your stage</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Bust common myths</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Learn how the process works</span>
-                  </li>
-                </ul>
-
-                <Link href="/ask" className="block w-full text-center rounded-2xl border-2 border-sage-300 bg-white px-6 py-3 font-semibold text-sage-700 hover:bg-sage-50 hover:border-sage-400 transition-all">
-                  Start for free
-                </Link>
+            <div className="rounded-4xl border-2 border-sage-300 bg-gradient-to-br from-sage-50 to-white p-8 md:p-10 text-center">
+              <div className="inline-flex items-center gap-2 rounded-full bg-sage-100 px-4 py-2 text-sm text-sage-700 font-medium mb-6">
+                <span>💚</span>
+                <span>100% Free — No Catch</span>
+              </div>
+              
+              <h2 className="text-2xl md:text-3xl font-display font-semibold text-ink-800 mb-4">
+                MiniMo is completely free
+              </h2>
+              
+              <p className="text-ink-600 max-w-xl mx-auto mb-8">
+                No subscriptions. No limits. No credit card required. Just real estate clarity whenever you need it.
+              </p>
+              
+              <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-8">
+                <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                  <div className="text-2xl mb-2">♾️</div>
+                  <p className="text-sm font-semibold text-ink-800">Unlimited Messages</p>
+                  <p className="text-xs text-ink-500">Ask as much as you need</p>
+                </div>
+                <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                  <div className="text-2xl mb-2">🎓</div>
+                  <p className="text-sm font-semibold text-ink-800">14+ Years Experience</p>
+                  <p className="text-xs text-ink-500">Built by a Texas broker</p>
+                </div>
+                <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                  <div className="text-2xl mb-2">🛡️</div>
+                  <p className="text-sm font-semibold text-ink-800">Safe & Compliant</p>
+                  <p className="text-xs text-ink-500">Built-in guardrails</p>
+                </div>
               </div>
 
-              <div className="rounded-4xl border-2 border-sage-400 bg-white/80 backdrop-blur-sm p-8 relative">
-                <div className="text-sm font-semibold text-sage-600 uppercase tracking-wide mb-2">Clarity Plus</div>
-                <div className="text-3xl font-display font-semibold text-ink-800 mb-4">$9<span className="text-lg text-ink-500">/mo</span></div>
-                <p className="text-ink-600 mb-6">For when you want deeper guidance and personalized support.</p>
-                
-                <ul className="space-y-3 mb-8">
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Everything in Free</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Unlimited messages</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Personalized roadmap conversations</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Scenario exploration ("what if" thinking)</span>
-                  </li>
-                  <li className="flex items-start gap-3 text-sm text-ink-600">
-                    <svg className="w-5 h-5 text-sage-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                    </svg>
-                    <span>Language for talking to agents and lenders</span>
-                  </li>
-                </ul>
-
-                <a href="https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00" className="block w-full text-center rounded-2xl bg-sage-500 px-6 py-3 font-semibold text-white hover:bg-sage-600 transition-all">
-                  Subscribe Now
-                </a>
-              </div>
+              <Link href="/ask" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-500 px-8 py-4 text-lg font-semibold text-white shadow-soft hover:bg-sage-600 hover:shadow-glow transition-all duration-300">
+                <span>Start Chatting Now</span>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+              </Link>
             </div>
           </section>
 
