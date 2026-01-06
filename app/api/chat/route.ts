@@ -2,7 +2,7 @@
 // MiniMo's Brain - Mo's Methodology Embedded
 // "Clarity before houses. Calm before decisions."
 // Momentus Real Estate Group | DFW, Texas
-// Updated: December 2024 - TREC 2025 Knowledge Added
+// Updated: January 2025 - Now 100% Free!
 
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
@@ -384,31 +384,26 @@ export async function POST(request: NextRequest) {
     const {
       messages,
       isAgent = false,
-      isPremium = false,
-      isAgentPro = false,
     } = await request.json();
 
-    // Token limits based on subscription tier
-    const maxTokens = isAgentPro ? 2000 : isPremium ? 1500 : 800;
+    // Everyone gets the best experience now - MiniMo is free!
+    const maxTokens = isAgent ? 2000 : 1500;
 
-    // Add context about subscription tier and mode
-    let tierContext = "";
-    if (isAgentPro || isAgent) {
-      tierContext =
-        "\n\nThis user is a real estate professional (Agent Pro). You can go deeper on industry topics, TREC compliance, client conversation strategies, and professional language. Still remain warm and non-salesy.";
-    } else if (isPremium) {
-      tierContext =
-        "\n\nThis user is a Clarity Plus subscriber. Provide thorough, detailed responses while staying calm, warm, and easy to follow.";
+    // Add context about mode
+    let modeContext = "";
+    if (isAgent) {
+      modeContext =
+        "\n\nThis user is a real estate professional. You can go deeper on industry topics, TREC compliance, client conversation strategies, and professional language. Still remain warm and non-salesy.";
     } else {
-      tierContext =
-        "\n\nThis is a free-tier user. Be helpful but keep responses focused. If they ask complex questions requiring deep analysis, mention they can upgrade for more comprehensive guidance.";
+      modeContext =
+        "\n\nThis user is a consumer (buyer, seller, or curious explorer). Provide thorough, detailed responses while staying calm, warm, and easy to follow.";
     }
 
     // Build messages array for OpenAI
     const openAIMessages = [
       {
         role: "system" as const,
-        content: MINIMO_SYSTEM_PROMPT + tierContext,
+        content: MINIMO_SYSTEM_PROMPT + modeContext,
       },
       ...messages.map((msg: { role: string; content: string }) => ({
         role: msg.role as "user" | "assistant",
