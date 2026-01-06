@@ -1,133 +1,322 @@
-"use client";
-
 import Link from "next/link";
 import Logo from "@/components/Logo";
 
-export default function FAQPage() {
+export const metadata = {
+  title: "MiniMo for Agents | Free AI Clarity Companion for Real Estate Professionals",
+  description: "Your free AI clarity companion for client conversations and TREC compliance. Find the right words, stay compliant, and serve your clients better.",
+};
+
+export default function AgentsPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-cream-50 via-white to-sage-50">
-      <div className="relative px-4 py-12 md:py-16">
-        <div className="mx-auto max-w-3xl">
-          <header className="flex items-center justify-between mb-12">
-            <Link href="/" className="hover:opacity-80 transition">
-              <Logo size="default" />
+    <main className="min-h-screen bg-gradient-to-b from-cream-50 to-white">
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-sm border-b border-sage-100 sticky top-0 z-50">
+        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+          <Link href="/" className="hover:opacity-80 transition">
+            <Logo size="small" />
+          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/ask" className="text-sm text-ink-600 hover:text-sage-600 transition">
+              For Buyers
             </Link>
-            <Link href="/" className="text-sm text-sage-600 hover:text-sage-700 font-medium transition">
-              ← Back home
+            <Link
+              href="/ask/agent"
+              className="bg-sage-500 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-sage-600 transition"
+            >
+              Start Free
             </Link>
-          </header>
-
-          <div className="text-center mb-12">
-            <h1 className="text-3xl md:text-4xl font-display font-semibold text-ink-800 mb-4">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-lg text-ink-600">
-              Everything you need to know about Ask MiniMo
-            </p>
           </div>
+        </div>
+      </header>
 
-          <div className="space-y-6">
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">What is Ask MiniMo?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                Ask MiniMo is an AI-powered real estate clarity companion. It helps homebuyers, sellers, and real estate agents understand the real estate process with calm, clear, educational guidance — without the pressure of a sales pitch.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">Is MiniMo a real estate agent?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                No. MiniMo is an educational tool, not a licensed real estate agent, broker, lender, or attorney. It provides information to help you understand your options and feel confident — but it does not provide professional advice. Always consult licensed professionals for specific guidance.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">Is Ask MiniMo free?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                Yes! You can start conversations with MiniMo completely free. We also offer premium subscriptions (Clarity Plus for consumers at $9/month and Agent Pro for real estate agents at $19/month) for unlimited access and additional features.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">Who is MiniMo for?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                MiniMo serves two audiences: <strong>Consumers</strong> (first-time buyers, sellers, renters exploring homeownership, veterans, and anyone curious about real estate) and <strong>Real Estate Agents</strong> (who need help finding the right words for client conversations, staying compliant, and explaining complex topics simply).
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">What kind of questions can I ask?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                You can ask MiniMo about the homebuying process, what to expect at each stage, common myths (like needing 20% down), VA loans, how to talk to lenders and agents, understanding closing costs, and much more. MiniMo is here to help you feel informed and confident.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">How is MiniMo different from searching Google?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                Google gives you thousands of links. MiniMo gives you a conversation. It listens to your specific situation, answers in plain English, and helps you understand what applies to YOU — without the overwhelm of sifting through articles and ads.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">Is my information private?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                Yes. We take your privacy seriously. We do not sell your personal information. Conversations are used only to provide and improve the service. For full details, please read our <Link href="/privacy" className="text-sage-600 hover:text-sage-700 underline">Privacy Policy</Link>.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">Can I cancel my subscription anytime?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                Absolutely. You can cancel your subscription at any time — no questions asked, no hoops to jump through. Just email us at maureen@momentusrealestate.com or manage your subscription through Stripe.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">Who created MiniMo?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                MiniMo was created by a licensed Texas broker with extensive real estate experience and a passion for education. After serving families across DFW — including many veterans — she built MiniMo to give everyone access to the clarity they deserve, before they ever feel pressured to make a decision.
-              </p>
-            </div>
-
-            <div className="rounded-2xl border border-sage-100 bg-white/70 backdrop-blur-sm p-6">
-              <h2 className="text-lg font-semibold text-ink-800 mb-2">How do I get started?</h2>
-              <p className="text-ink-600 leading-relaxed">
-                Just click "Start a free conversation" on our homepage and ask MiniMo anything! No account required to try it out. When you are ready for more, you can subscribe to unlock premium features.
-              </p>
-            </div>
+      {/* Hero Section */}
+      <section className="py-16 md:py-24 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 bg-sage-100 text-sage-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
+            <span>🏠</span>
+            <span>Built by agents, for agents — 100% free</span>
           </div>
-
-          <div className="mt-12 text-center">
-            <p className="text-ink-600 mb-4">Still have questions?</p>
-            <a href="mailto:maureen@momentusrealestate.com" className="inline-flex items-center justify-center gap-2 rounded-2xl bg-sage-500 px-6 py-3 font-semibold text-white hover:bg-sage-600 transition-all">
-              Contact Us
+          
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-ink-800 mb-6 leading-tight">
+            Find the right words.<br />
+            <span className="text-sage-600">Every time.</span>
+          </h1>
+          
+          <p className="text-lg md:text-xl text-ink-600 mb-8 max-w-2xl mx-auto leading-relaxed">
+            MiniMo is your free AI clarity companion for client conversations, compliance questions, 
+            and those moments when you need the perfect script — fast.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/ask/agent"
+              className="bg-sage-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-600 transition shadow-soft"
+            >
+              Start Chatting — It's Free →
+            </Link>
+            <a
+              href="#features"
+              className="bg-white text-ink-700 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-50 transition border border-sage-200"
+            >
+              See What MiniMo Can Do
             </a>
           </div>
 
-          {/* Fair Housing Statement */}
-          <div className="mt-12 p-6 bg-sage-50 border border-sage-200 rounded-2xl text-center">
-            <p className="text-sm text-ink-600 leading-relaxed">
-              <strong>Fair Housing Statement:</strong> We are committed to the letter and spirit of U.S. policy for the achievement of equal housing opportunity throughout the Nation. We encourage and support an affirmative advertising and marketing program in which there are no barriers to obtaining housing because of race, color, religion, sex, handicap, familial status, or national origin.
+          <p className="text-sm text-ink-400 mt-6">
+            For licensed real estate professionals • License verification required
+          </p>
+        </div>
+      </section>
+
+      {/* Problem/Solution Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-display font-bold text-ink-800 mb-6">
+                Ever frozen on a client call?
+              </h2>
+              <div className="space-y-4 text-ink-600">
+                <p>
+                  A buyer asks about earnest money. A seller wants to know about disclosure requirements. 
+                  A first-timer needs you to explain the whole process — clearly and compliantly.
+                </p>
+                <p>
+                  You know the answer. But finding the <em>right words</em> — the clear, compliant, 
+                  client-friendly words — that's the challenge.
+                </p>
+                <p className="font-semibold text-ink-800">
+                  MiniMo gives you those words, instantly. And it's completely free.
+                </p>
+              </div>
+            </div>
+            <div className="bg-sage-50 rounded-3xl p-8 border border-sage-100">
+              <div className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">💬</span>
+                  <div>
+                    <p className="font-semibold text-ink-800">Client Scripts</p>
+                    <p className="text-sm text-ink-600">Clear explanations for any situation</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">⚖️</span>
+                  <div>
+                    <p className="font-semibold text-ink-800">Compliance Support</p>
+                    <p className="text-sm text-ink-600">TREC-conscious language guidance</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">🎯</span>
+                  <div>
+                    <p className="font-semibold text-ink-800">Tough Conversations</p>
+                    <p className="text-sm text-ink-600">Navigate difficult client moments</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-3">
+                  <span className="text-2xl">📚</span>
+                  <div>
+                    <p className="font-semibold text-ink-800">Process Explanations</p>
+                    <p className="text-sm text-ink-600">Break down complex concepts simply</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Section */}
+      <section id="features" className="py-16 bg-cream-50">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-display font-bold text-ink-800 mb-4">
+              What can you ask MiniMo?
+            </h2>
+            <p className="text-ink-600 max-w-2xl mx-auto">
+              Real questions. Real answers. Real help.
             </p>
           </div>
 
-          <footer className="pt-8 mt-12 border-t border-sage-100">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="flex items-center gap-2 text-sm text-ink-500">
-                <span>© {new Date().getFullYear()} Ask MiniMo</span>
-                <span className="text-ink-300">•</span>
-                <span>Care • Clarity • Confidence</span>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                emoji: "🏠",
+                title: "Explain earnest money to a first-time buyer",
+                description: "Clear, jargon-free language they'll actually understand"
+              },
+              {
+                emoji: "📋",
+                title: "What disclosures are required for foundation issues?",
+                description: "Compliance guidance you can trust"
+              },
+              {
+                emoji: "💰",
+                title: "How do I explain seller concessions?",
+                description: "Scripts that make complex topics simple"
+              },
+              {
+                emoji: "⏰",
+                title: "My buyer wants to waive inspection — what do I say?",
+                description: "Navigate tricky conversations professionally"
+              },
+              {
+                emoji: "📝",
+                title: "Help me write a counter-offer explanation",
+                description: "Clear communication for negotiations"
+              },
+              {
+                emoji: "🔑",
+                title: "Explain the option period to a nervous seller",
+                description: "Calm, confident explanations"
+              },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-2xl p-6 border border-sage-100 hover:shadow-soft transition"
+              >
+                <span className="text-3xl mb-4 block">{feature.emoji}</span>
+                <h3 className="font-semibold text-ink-800 mb-2">{feature.title}</h3>
+                <p className="text-sm text-ink-600">{feature.description}</p>
               </div>
-              <div className="flex items-center gap-4 text-sm text-ink-400">
-                <Link href="/" className="hover:text-sage-600 transition">Home</Link>
-                <Link href="/privacy" className="hover:text-sage-600 transition">Privacy</Link>
-                <Link href="/terms" className="hover:text-sage-600 transition">Terms</Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Free CTA Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="rounded-4xl border-2 border-sage-300 bg-gradient-to-br from-sage-50 to-white p-8 md:p-10 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full bg-sage-100 px-4 py-2 text-sm text-sage-700 font-medium mb-6">
+              <span>💚</span>
+              <span>100% Free — No Catch</span>
+            </div>
+            
+            <h2 className="text-2xl md:text-3xl font-display font-semibold text-ink-800 mb-4">
+              MiniMo is completely free for agents
+            </h2>
+            
+            <p className="text-ink-600 max-w-xl mx-auto mb-8">
+              No subscriptions. No limits. No credit card required. Just clarity whenever you need it.
+            </p>
+            
+            <div className="grid sm:grid-cols-3 gap-4 max-w-2xl mx-auto mb-8">
+              <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                <div className="text-2xl mb-2">♾️</div>
+                <p className="text-sm font-semibold text-ink-800">Unlimited Messages</p>
+                <p className="text-xs text-ink-500">Ask as much as you need</p>
+              </div>
+              <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                <div className="text-2xl mb-2">⚖️</div>
+                <p className="text-sm font-semibold text-ink-800">TREC-Conscious</p>
+                <p className="text-xs text-ink-500">Built with compliance in mind</p>
+              </div>
+              <div className="bg-white rounded-2xl p-4 border border-sage-100">
+                <div className="text-2xl mb-2">🎓</div>
+                <p className="text-sm font-semibold text-ink-800">14+ Years Experience</p>
+                <p className="text-xs text-ink-500">Real broker knowledge</p>
               </div>
             </div>
-          </footer>
+
+            <Link
+              href="/ask/agent"
+              className="inline-block bg-sage-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-600 transition shadow-soft"
+            >
+              Start Chatting — It's Free →
+            </Link>
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Trust Section */}
+      <section className="py-16 bg-cream-50">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-ink-800 mb-8">
+            Built with compliance in mind
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            <div>
+              <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl">⚖️</span>
+              </div>
+              <h3 className="font-semibold text-ink-800 mb-2">TREC-Conscious</h3>
+              <p className="text-sm text-ink-600">
+                Guidance aligned with Texas Real Estate Commission standards
+              </p>
+            </div>
+            <div>
+              <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl">🔒</span>
+              </div>
+              <h3 className="font-semibold text-ink-800 mb-2">License Verified</h3>
+              <p className="text-sm text-ink-600">
+                Access limited to verified licensed professionals
+              </p>
+            </div>
+            <div>
+              <div className="w-12 h-12 bg-sage-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-xl">📚</span>
+              </div>
+              <h3 className="font-semibold text-ink-800 mb-2">Educational Focus</h3>
+              <p className="text-sm text-ink-600">
+                Support tool — your professional judgment always applies
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-sage-500">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <h2 className="text-2xl md:text-3xl font-display font-bold text-white mb-4">
+            Ready to find your words?
+          </h2>
+          <p className="text-sage-100 mb-8 max-w-xl mx-auto">
+            MiniMo is completely free. No credit card required. Start chatting now.
+          </p>
+          <Link
+            href="/ask/agent"
+            className="inline-block bg-white text-sage-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-50 transition shadow-soft"
+          >
+            Start Chatting — It's Free →
+          </Link>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-sage-100 py-8">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="flex items-center gap-4">
+              <Logo size="small" />
+              <span className="text-sm text-ink-400">© {new Date().getFullYear()} Ask MiniMo</span>
+            </div>
+            <div className="flex items-center gap-6 text-sm text-ink-500">
+              <Link href="/terms" className="hover:text-sage-600 transition">Terms</Link>
+              <Link href="/privacy" className="hover:text-sage-600 transition">Privacy</Link>
+              <Link href="/disclaimer" className="hover:text-sage-600 transition">Disclaimer</Link>
+              <Link href="/faq" className="hover:text-sage-600 transition">FAQ</Link>
+            </div>
+          </div>
+          <div className="mt-6 pt-6 border-t border-sage-100 text-center">
+            <p className="text-xs text-ink-400">
+              Ask MiniMo is an independent educational AI tool. It does not provide legal, financial, or real estate brokerage services. 
+              Use of this platform does not create any professional relationship. Always verify guidance with current TREC regulations.
+            </p>
+            <p className="text-xs text-ink-400 mt-2">
+              <a href="https://www.momentusrealestategroup.com" target="_blank" rel="noopener noreferrer" className="hover:text-sage-600">
+                Powered by Momentus Real Estate Group
+              </a>
+              {" | "}
+              <a href="https://www.trec.texas.gov/apps/license-holder-search/" target="_blank" rel="noopener noreferrer" className="hover:text-sage-600">
+                TREC License Search
+              </a>
+            </p>
+          </div>
+        </div>
+      </footer>
     </main>
   );
 }
