@@ -18,19 +18,13 @@ What's on your mind?`;
 
 // localStorage keys
 const STORAGE_KEYS = {
-  messageCount: "minimo_buyer_message_count",
-  lastReset: "minimo_buyer_last_reset",
   userEmail: "minimo_buyer_email",
 };
-
-const RESET_PERIOD_DAYS = 30;
-const FREE_MESSAGE_LIMIT = 15;
 
 export default function AskBuyerPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [messageCount, setMessageCount] = useState(0);
   const [showDisclaimer, setShowDisclaimer] = useState(true);
   const [acceptedDisclaimer, setAcceptedDisclaimer] = useState(false);
   const [hasInitialized, setHasInitialized] = useState(false);
@@ -54,43 +48,12 @@ export default function AskBuyerPage() {
           setEmail(storedEmail);
           setHasProvidedEmail(true);
         }
-
-        // Check if we should reset (monthly reset)
-        const lastReset = localStorage.getItem(STORAGE_KEYS.lastReset);
-        const now = Date.now();
-        
-        if (lastReset) {
-          const daysSinceReset = (now - parseInt(lastReset)) / (1000 * 60 * 60 * 24);
-          if (daysSinceReset > RESET_PERIOD_DAYS) {
-            localStorage.setItem(STORAGE_KEYS.messageCount, "0");
-            localStorage.setItem(STORAGE_KEYS.lastReset, now.toString());
-          }
-        } else {
-          localStorage.setItem(STORAGE_KEYS.lastReset, now.toString());
-        }
-
-        // Load the message count
-        const storedCount = localStorage.getItem(STORAGE_KEYS.messageCount);
-        if (storedCount) {
-          setMessageCount(parseInt(storedCount, 10));
-        }
       } catch (error) {
         console.warn("localStorage not available:", error);
       }
       setIsHydrated(true);
     }
   }, []);
-
-  // Save message count to localStorage whenever it changes
-  useEffect(() => {
-    if (isHydrated && typeof window !== "undefined") {
-      try {
-        localStorage.setItem(STORAGE_KEYS.messageCount, messageCount.toString());
-      } catch (error) {
-        console.warn("Could not save to localStorage:", error);
-      }
-    }
-  }, [messageCount, isHydrated]);
 
   // Show email gate after disclaimer is accepted
   useEffect(() => {
@@ -126,11 +89,11 @@ export default function AskBuyerPage() {
       // Store email locally
       localStorage.setItem(STORAGE_KEYS.userEmail, email);
       
-    await fetch("/api/capture-lead", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, type: "buyer" }),
-});
+      await fetch("/api/capture-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, type: "buyer" }),
+      });
 
       setHasProvidedEmail(true);
       setShowEmailGate(false);
@@ -143,12 +106,11 @@ export default function AskBuyerPage() {
   };
 
   const sendMessage = async () => {
-    if (!input.trim() || isLoading || messageCount >= FREE_MESSAGE_LIMIT) return;
+    if (!input.trim() || isLoading) return;
 
     const userMessage = input.trim();
     setInput("");
     setMessages((prev) => [...prev, { role: "user", content: userMessage }]);
-    setMessageCount((prev) => prev + 1);
     setIsLoading(true);
     setShowDisclaimer(false);
 
@@ -158,7 +120,7 @@ export default function AskBuyerPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           messages: [...messages, { role: "user", content: userMessage }],
-          isAgent: false, // Always buyer mode
+          isAgent: false,
           userEmail: email,
         }),
       });
@@ -176,10 +138,6 @@ export default function AskBuyerPage() {
       setIsLoading(false);
     }
   };
-
-  const upgradeUrl = "https://buy.stripe.com/eVqbJ28EC7Ro1hlbATawo00"; // $9/mo Clarity Plus
-  const messagesLeft = FREE_MESSAGE_LIMIT - messageCount;
-  const isLocked = messageCount >= FREE_MESSAGE_LIMIT;
 
   // Loading state
   if (!isHydrated) {
@@ -274,7 +232,7 @@ export default function AskBuyerPage() {
               One Quick Thing
             </h1>
             <p className="text-ink-600">
-              Enter your email to start your 15 free messages with MiniMo.
+              Enter your email to start chatting with MiniMo — it's completely free!
             </p>
           </div>
 
@@ -300,7 +258,7 @@ export default function AskBuyerPage() {
               onClick={handleEmailSubmit}
               className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
             >
-              Start Chatting — It's Free
+              Start Chatting — It's Free!
             </button>
           </div>
 
@@ -319,9 +277,7 @@ export default function AskBuyerPage() {
           <Logo size="small" />
         </Link>
         <div className="flex items-center gap-3">
-          <a href={upgradeUrl} className="text-xs bg-sage-500 text-white px-3 py-1.5 rounded-full hover:bg-sage-600 transition font-medium">
-            Upgrade
-          </a>
+          <span className="text-xs bg-sage-100 text-sage-700 px-3 py-1 rounded-full font-medium">100% Free</span>
           <Link href="/agents" className="text-xs text-ink-500 hover:text-sage-600 transition">
             For Agents →
           </Link>
@@ -362,54 +318,8 @@ export default function AskBuyerPage() {
             </div>
           )}
 
-          {/* Upgrade prompt - appears after 5 messages */}
-          {messageCount >= 5 && messageCount < 10 && (
-            <div className="bg-gradient-to-r from-sage-50 to-cream-50 border border-sage-200 rounded-2xl p-4 my-4">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <p className="font-semibold text-ink-800 text-sm">Enjoying MiniMo? 💚</p>
-                  <p className="text-xs text-ink-600">{messagesLeft} free messages left. Upgrade for unlimited clarity.</p>
-                </div>
-                <a href={upgradeUrl} className="whitespace-nowrap text-sm bg-sage-500 text-white px-4 py-2 rounded-xl hover:bg-sage-600 transition font-medium">
-                  Clarity Plus - $9/mo
-                </a>
-              </div>
-            </div>
-          )}
-
-          {/* Urgency prompt - appears after 10 messages */}
-          {messageCount >= 10 && messageCount < FREE_MESSAGE_LIMIT && (
-            <div className="bg-gradient-to-r from-coral-50 to-cream-50 border border-coral-200 rounded-2xl p-4 my-4">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-                <div>
-                  <p className="font-semibold text-ink-800 text-sm">You're getting great clarity! 🌟</p>
-                  <p className="text-xs text-ink-600">Only {messagesLeft} free messages left. Keep this momentum going.</p>
-                </div>
-                <a href={upgradeUrl} className="whitespace-nowrap text-sm bg-coral-500 text-white px-4 py-2 rounded-xl hover:bg-coral-600 transition font-medium">
-                  Continue with Clarity Plus
-                </a>
-              </div>
-            </div>
-          )}
-
-          {/* Locked state */}
-          {isLocked && (
-            <div className="bg-gradient-to-r from-sage-100 to-sage-50 border-2 border-sage-300 rounded-2xl p-6 my-4 text-center">
-              <div className="w-16 h-16 rounded-full bg-sage-200 flex items-center justify-center mx-auto mb-4">
-                <span className="text-2xl">💚</span>
-              </div>
-              <h3 className="font-display font-semibold text-ink-800 text-lg mb-2">You've used your 15 free messages</h3>
-              <p className="text-ink-600 text-sm mb-4">MiniMo already knows your situation. Don't lose this progress.</p>
-              <p className="text-ink-600 text-sm mb-6">Upgrade now to continue your journey with unlimited clarity.</p>
-              <a href={upgradeUrl} className="inline-block bg-sage-500 text-white px-8 py-3 rounded-2xl hover:bg-sage-600 transition font-semibold text-lg">
-                Unlock Unlimited - $9/mo
-              </a>
-              <p className="text-xs text-ink-400 mt-4">Cancel anytime. No questions asked.</p>
-            </div>
-          )}
-
           {/* Momentus CTA - appears after 7 messages */}
-          {messageCount >= 7 && messageCount < FREE_MESSAGE_LIMIT && (
+          {messages.length >= 7 && (
             <div className="bg-white border border-sage-100 rounded-2xl p-4 my-4 text-center">
               <p className="text-sm text-ink-600 mb-2">Ready to work with a real agent in DFW?</p>
               <a 
@@ -430,51 +340,30 @@ export default function AskBuyerPage() {
         </div>
       </div>
 
-      {!isLocked && (
-        <div className="bg-sage-50 border-t border-sage-100 px-4 py-2 block sm:hidden">
-          <div className="flex items-center justify-center">
-            <a href={upgradeUrl} className="text-xs text-sage-600 hover:text-sage-700 font-medium">
-              Upgrade to Clarity Plus - $9/mo
-            </a>
-          </div>
-        </div>
-      )}
-
       <div className="border-t border-sage-100 bg-white px-4 py-4">
         <div className="max-w-2xl mx-auto">
-          {isLocked ? (
-            <div className="text-center py-2">
-              <p className="text-sm text-ink-500 mb-3">Upgrade to continue chatting with MiniMo</p>
-              <a href={upgradeUrl} className="inline-block bg-sage-500 text-white px-6 py-2 rounded-xl hover:bg-sage-600 transition font-medium">
-                Upgrade Now
-              </a>
-            </div>
-          ) : (
-            <>
-              <div className="flex gap-3">
-                <input
-                  type="text"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
-                  placeholder="Ask me anything about real estate..."
-                  className="flex-1 rounded-2xl border border-sage-200 bg-white px-4 py-3 text-sm text-ink-800 placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-sage-300 focus:border-transparent"
-                />
-                <button
-                  onClick={sendMessage}
-                  disabled={!input.trim() || isLoading}
-                  className="rounded-2xl bg-sage-500 px-5 py-3 text-white font-medium hover:bg-sage-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
-                </button>
-              </div>
-              <p className="text-xs text-ink-400 text-center mt-3">
-                {messagesLeft} free messages left • Educational guidance only • Not professional advice
-              </p>
-            </>
-          )}
+          <div className="flex gap-3">
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
+              placeholder="Ask me anything about real estate..."
+              className="flex-1 rounded-2xl border border-sage-200 bg-white px-4 py-3 text-sm text-ink-800 placeholder:text-ink-400 focus:outline-none focus:ring-2 focus:ring-sage-300 focus:border-transparent"
+            />
+            <button
+              onClick={sendMessage}
+              disabled={!input.trim() || isLoading}
+              className="rounded-2xl bg-sage-500 px-5 py-3 text-white font-medium hover:bg-sage-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+              </svg>
+            </button>
+          </div>
+          <p className="text-xs text-ink-400 text-center mt-3">
+            💚 Completely free • Educational guidance only • Not professional advice
+          </p>
         </div>
       </div>
 
