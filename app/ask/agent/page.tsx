@@ -49,9 +49,11 @@ export default function AskAgentPage() {
         const storedEmail = localStorage.getItem(STORAGE_KEYS.userEmail);
         const storedLicense = localStorage.getItem(STORAGE_KEYS.licenseNumber);
         
-        if (storedEmail && storedLicense) {
+        if (storedEmail) {
           setEmail(storedEmail);
-          setLicenseNumber(storedLicense);
+          if (storedLicense) {
+            setLicenseNumber(storedLicense);
+          }
           setHasVerified(true);
         }
       } catch (error) {
@@ -99,7 +101,8 @@ export default function AskAgentPage() {
       errors.email = "Please enter a valid email address";
     }
 
-    if (!validateLicense(licenseNumber)) {
+    // License number is now optional - only validate if they entered something
+    if (licenseNumber.trim() && !validateLicense(licenseNumber)) {
       errors.license = "Please enter a valid Texas license number (e.g., 123456)";
     }
 
@@ -115,12 +118,14 @@ export default function AskAgentPage() {
     try {
       // Store verification locally
       localStorage.setItem(STORAGE_KEYS.userEmail, email);
-      localStorage.setItem(STORAGE_KEYS.licenseNumber, licenseNumber);
+      if (licenseNumber.trim()) {
+        localStorage.setItem(STORAGE_KEYS.licenseNumber, licenseNumber);
+      }
       
       await fetch("/api/capture-agent-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, licenseNumber }),
+        body: JSON.stringify({ email, licenseNumber: licenseNumber.trim() || null }),
       });
 
       setHasVerified(true);
@@ -218,7 +223,7 @@ export default function AskAgentPage() {
               <h3 className="font-semibold text-ink-800 mb-1">🔒 For Licensed Professionals Only</h3>
               <p>
                 This tool is designed for licensed real estate professionals. 
-                You'll be asked to verify your license on the next screen.
+                You'll be asked to verify your status on the next screen.
               </p>
             </div>
           </div>
@@ -254,7 +259,7 @@ export default function AskAgentPage() {
               Professional Verification
             </h1>
             <p className="text-ink-600">
-              Please verify your credentials to access MiniMo for Agents — it's completely free!
+              Confirm your status to access MiniMo for Agents — it's completely free!
             </p>
           </div>
 
@@ -262,7 +267,7 @@ export default function AskAgentPage() {
             {/* Email */}
             <div>
               <label className="block text-sm font-medium text-ink-700 mb-1">
-                Email Address
+                Email Address <span className="text-coral-500">*</span>
               </label>
               <input
                 type="email"
@@ -279,10 +284,10 @@ export default function AskAgentPage() {
               )}
             </div>
 
-            {/* License Number */}
+            {/* License Number - NOW OPTIONAL */}
             <div>
               <label className="block text-sm font-medium text-ink-700 mb-1">
-                Texas Real Estate License Number
+                Texas Real Estate License Number <span className="text-ink-400 font-normal">(optional)</span>
               </label>
               <input
                 type="text"
@@ -298,14 +303,14 @@ export default function AskAgentPage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.license}</p>
               )}
               <p className="text-xs text-ink-400 mt-1">
-                Find yours at{" "}
+                Add your license to unlock market-specific features later.{" "}
                 <a 
                   href="https://www.trec.texas.gov/apps/license-holder-search/" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="underline hover:text-sage-600"
                 >
-                  TREC License Search
+                  Look up your license
                 </a>
               </p>
             </div>
@@ -325,7 +330,7 @@ export default function AskAgentPage() {
                 <span className="text-sm text-ink-700">
                   I certify that I am a currently licensed real estate professional in good standing 
                   with the Texas Real Estate Commission (TREC), and I understand that MiniMo is an 
-                  educational tool that does not replace my professional judgment.
+                  educational tool that does not replace my professional judgment. <span className="text-coral-500">*</span>
                 </span>
               </label>
               {formErrors.certification && (
@@ -337,12 +342,12 @@ export default function AskAgentPage() {
               onClick={handleVerificationSubmit}
               className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
             >
-              Verify & Start Chatting — It's Free!
+              Start Chatting — It's Free!
             </button>
           </div>
 
           <p className="text-xs text-ink-400 text-center mt-4">
-            Your license number is used for verification purposes only. 
+            Your information is used for verification purposes only. 
             We never share your credentials.
           </p>
 
