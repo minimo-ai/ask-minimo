@@ -22,6 +22,40 @@ const STORAGE_KEYS = {
   licenseNumber: "minimo_agent_license",
 };
 
+// Common fake/test email patterns to block
+const FAKE_EMAIL_PATTERNS = [
+  /^test@/i,
+  /^abc@/i,
+  /^asdf@/i,
+  /^fake@/i,
+  /^none@/i,
+  /^no@/i,
+  /^na@/i,
+  /^noemail@/i,
+  /^email@/i,
+  /^user@/i,
+  /^admin@/i,
+  /^info@test/i,
+  /^a{2,}@/i,
+  /^b{2,}@/i,
+  /^x{2,}@/i,
+  /^123@/i,
+  /^111@/i,
+  /^aaa@/i,
+  /^bbb@/i,
+];
+
+// Disposable email domains to block
+const DISPOSABLE_DOMAINS = [
+  "mailinator.com",
+  "tempmail.com",
+  "throwaway.com",
+  "fakeinbox.com",
+  "guerrillamail.com",
+  "10minutemail.com",
+  "trashmail.com",
+];
+
 export default function AskAgentPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -49,11 +83,9 @@ export default function AskAgentPage() {
         const storedEmail = localStorage.getItem(STORAGE_KEYS.userEmail);
         const storedLicense = localStorage.getItem(STORAGE_KEYS.licenseNumber);
         
-        if (storedEmail) {
+        if (storedEmail && storedLicense) {
           setEmail(storedEmail);
-          if (storedLicense) {
-            setLicenseNumber(storedLicense);
-          }
+          setLicenseNumber(storedLicense);
           setHasVerified(true);
         }
       } catch (error) {
@@ -82,28 +114,67 @@ export default function AskAgentPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+  const validateEmail = (email: string): { valid: boolean; error?: string } => {
+    const trimmedEmail = email.trim().toLowerCase();
+    
+    // Basic format check
+    const formatRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formatRegex.test(trimmedEmail)) {
+      return { valid: false, error: "Please enter a valid email address" };
+    }
+
+    // Check minimum length before @
+    const localPart = trimmedEmail.split("@")[0];
+    if (localPart.length < 3) {
+      return { valid: false, error: "Please enter your full email address" };
+    }
+
+    // Check for fake email patterns
+    for (const pattern of FAKE_EMAIL_PATTERNS) {
+      if (pattern.test(trimmedEmail)) {
+        return { valid: false, error: "Please enter your real email so we can keep you posted on MiniMo updates 💚" };
+      }
+    }
+
+    // Check for disposable domains
+    const domain = trimmedEmail.split("@")[1];
+    if (DISPOSABLE_DOMAINS.includes(domain)) {
+      return { valid: false, error: "Please use your personal or work email address" };
+    }
+
+    return { valid: true };
   };
 
-  const validateLicense = (license: string) => {
-    // Texas license numbers are typically 6-9 digits
-    // We're being lenient here - just checking it's not empty and has some numbers
-    const cleaned = license.replace(/\D/g, '');
-    return cleaned.length >= 5 && cleaned.length <= 10;
+  const validateLicense = (license: string): { valid: boolean; error?: string } => {
+    const cleaned = license.trim().replace(/\D/g, '');
+    
+    if (!cleaned) {
+      return { valid: false, error: "Please enter your Texas real estate license number" };
+    }
+    
+    if (cleaned.length < 5 || cleaned.length > 10) {
+      return { valid: false, error: "Texas license numbers are typically 6-9 digits (e.g., 620163)" };
+    }
+
+    // Block obvious fakes
+    if (/^0+$/.test(cleaned) || /^1+$/.test(cleaned) || /^123456/.test(cleaned)) {
+      return { valid: false, error: "Please enter your real TREC license number" };
+    }
+
+    return { valid: true };
   };
 
   const handleVerificationSubmit = async () => {
     const errors: {email?: string; license?: string; certification?: string} = {};
 
-    if (!validateEmail(email)) {
-      errors.email = "Please enter a valid email address";
+    const emailValidation = validateEmail(email);
+    if (!emailValidation.valid) {
+      errors.email = emailValidation.error;
     }
 
-    // License number is now optional - only validate if they entered something
-    if (licenseNumber.trim() && !validateLicense(licenseNumber)) {
-      errors.license = "Please enter a valid Texas license number (e.g., 123456)";
+    const licenseValidation = validateLicense(licenseNumber);
+    if (!licenseValidation.valid) {
+      errors.license = licenseValidation.error;
     }
 
     if (!certificationChecked) {
@@ -117,15 +188,13 @@ export default function AskAgentPage() {
 
     try {
       // Store verification locally
-      localStorage.setItem(STORAGE_KEYS.userEmail, email);
-      if (licenseNumber.trim()) {
-        localStorage.setItem(STORAGE_KEYS.licenseNumber, licenseNumber);
-      }
+      localStorage.setItem(STORAGE_KEYS.userEmail, email.trim().toLowerCase());
+      localStorage.setItem(STORAGE_KEYS.licenseNumber, licenseNumber.trim());
       
       await fetch("/api/capture-agent-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, licenseNumber: licenseNumber.trim() || null }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), licenseNumber: licenseNumber.trim() }),
       });
 
       setHasVerified(true);
@@ -256,10 +325,10 @@ export default function AskAgentPage() {
               <span className="text-2xl">🪪</span>
             </div>
             <h1 className="text-2xl font-display font-semibold text-ink-800 mb-2">
-              Professional Verification
+              Quick Verification
             </h1>
             <p className="text-ink-600">
-              Confirm your status to access MiniMo for Agents — it's completely free!
+              Just a few quick details so we can tailor MiniMo for Texas pros and keep you posted on TREC updates that matter.
             </p>
           </div>
 
@@ -282,12 +351,15 @@ export default function AskAgentPage() {
               {formErrors.email && (
                 <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
               )}
+              <p className="text-xs text-ink-400 mt-1">
+                We'll only reach out with MiniMo updates and TREC news that helps.
+              </p>
             </div>
 
-            {/* License Number - NOW OPTIONAL */}
+            {/* License Number - NOW REQUIRED */}
             <div>
               <label className="block text-sm font-medium text-ink-700 mb-1">
-                Texas Real Estate License Number <span className="text-ink-400 font-normal">(optional)</span>
+                Texas Real Estate License Number <span className="text-coral-500">*</span>
               </label>
               <input
                 type="text"
@@ -303,7 +375,7 @@ export default function AskAgentPage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.license}</p>
               )}
               <p className="text-xs text-ink-400 mt-1">
-                Add your license to unlock market-specific features later.{" "}
+                This helps us keep MiniMo tailored for licensed Texas professionals.{" "}
                 <a 
                   href="https://www.trec.texas.gov/apps/license-holder-search/" 
                   target="_blank" 
@@ -342,13 +414,12 @@ export default function AskAgentPage() {
               onClick={handleVerificationSubmit}
               className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
             >
-              Start Chatting — It's Free!
+              Let's Go!
             </button>
           </div>
 
           <p className="text-xs text-ink-400 text-center mt-4">
-            Your information is used for verification purposes only. 
-            We never share your credentials.
+            No spam, no selling your info. Just good stuff when it matters. 💚
           </p>
 
           <div className="text-center mt-6 pt-4 border-t border-sage-100">
