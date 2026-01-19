@@ -21,6 +21,40 @@ const STORAGE_KEYS = {
   userEmail: "minimo_buyer_email",
 };
 
+// Common fake/test email patterns to block
+const FAKE_EMAIL_PATTERNS = [
+  /^test@/i,
+  /^abc@/i,
+  /^asdf@/i,
+  /^fake@/i,
+  /^none@/i,
+  /^no@/i,
+  /^na@/i,
+  /^noemail@/i,
+  /^email@/i,
+  /^user@/i,
+  /^admin@/i,
+  /^info@test/i,
+  /^a{2,}@/i,
+  /^b{2,}@/i,
+  /^x{2,}@/i,
+  /^123@/i,
+  /^111@/i,
+  /^aaa@/i,
+  /^bbb@/i,
+];
+
+// Disposable email domains to block
+const DISPOSABLE_DOMAINS = [
+  "mailinator.com",
+  "tempmail.com",
+  "throwaway.com",
+  "fakeinbox.com",
+  "guerrillamail.com",
+  "10minutemail.com",
+  "trashmail.com",
+];
+
 export default function AskBuyerPage() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -74,25 +108,52 @@ export default function AskBuyerPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+  const validateEmail = (email: string): { valid: boolean; error?: string } => {
+    const trimmedEmail = email.trim().toLowerCase();
+    
+    // Basic format check
+    const formatRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formatRegex.test(trimmedEmail)) {
+      return { valid: false, error: "Please enter a valid email address" };
+    }
+
+    // Check minimum length before @
+    const localPart = trimmedEmail.split("@")[0];
+    if (localPart.length < 3) {
+      return { valid: false, error: "Please enter your full email address" };
+    }
+
+    // Check for fake email patterns
+    for (const pattern of FAKE_EMAIL_PATTERNS) {
+      if (pattern.test(trimmedEmail)) {
+        return { valid: false, error: "Please enter your real email address so we can keep you updated 💚" };
+      }
+    }
+
+    // Check for disposable domains
+    const domain = trimmedEmail.split("@")[1];
+    if (DISPOSABLE_DOMAINS.includes(domain)) {
+      return { valid: false, error: "Please use your personal or work email address" };
+    }
+
+    return { valid: true };
   };
 
   const handleEmailSubmit = async () => {
-    if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address");
+    const validation = validateEmail(email);
+    if (!validation.valid) {
+      setEmailError(validation.error || "Please enter a valid email address");
       return;
     }
 
     try {
       // Store email locally
-      localStorage.setItem(STORAGE_KEYS.userEmail, email);
+      localStorage.setItem(STORAGE_KEYS.userEmail, email.trim().toLowerCase());
       
       await fetch("/api/capture-lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, type: "buyer" }),
+        body: JSON.stringify({ email: email.trim().toLowerCase(), type: "buyer" }),
       });
 
       setHasProvidedEmail(true);
@@ -229,10 +290,11 @@ export default function AskBuyerPage() {
               <span className="text-2xl">✉️</span>
             </div>
             <h1 className="text-2xl font-display font-semibold text-ink-800 mb-2">
-              One Quick Thing
+              Let's Stay Connected
             </h1>
             <p className="text-ink-600">
-              Enter your email to start chatting with MiniMo — it's completely free!
+              Drop your email so we can let you know when MiniMo gets even smarter — like new features, 
+              Texas market tips, and updates that actually help.
             </p>
           </div>
 
@@ -258,12 +320,12 @@ export default function AskBuyerPage() {
               onClick={handleEmailSubmit}
               className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
             >
-              Start Chatting — It's Free!
+              Let's Go!
             </button>
           </div>
 
           <p className="text-xs text-ink-400 text-center mt-4">
-            We'll only use this to save your conversation progress. No spam, ever.
+            No spam, no selling your info. Just good stuff when it matters. 💚
           </p>
         </div>
       </main>
