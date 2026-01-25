@@ -15,7 +15,7 @@ export default function Chat() {
     {
       role: "assistant",
       content:
-        "Hi there 💚 I'm MiniMo, your real estate clarity companion. I'm here to help you understand your options and feel confident about your journey — no pressure, no sales pitch. What's on your mind?"
+        "Hey there, I'm MiniMo. Think of me as your calm guide for all things real estate. No pressure, no sales pitch — just clarity and next steps that fit your life. What's on your mind?"
     }
   ]);
   const [input, setInput] = useState("");
