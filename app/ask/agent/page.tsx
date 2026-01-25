@@ -9,12 +9,12 @@ interface Message {
   content: string;
 }
 
-// Mo's Warm Greeting for Agents
-const AGENT_GREETING = `Hey there, fellow agent! I'm MiniMo — think of me as your calm voice when you need the right words for client conversations.
+// MiniMo's New Greeting for Agents (January 2026) - New Soul
+const AGENT_GREETING = `Hey there, fellow agent! I'm MiniMo — think of me as your calm guide when you need the right words for client conversations.
 
 Whether you need help explaining something clearly, staying TREC-compliant, or navigating a tough conversation — I've got you.
 
-What situation can I help you with?`;
+What's on your mind?`;
 
 // localStorage keys - separate from buyer to track independently
 const STORAGE_KEYS = {
@@ -114,8 +114,8 @@ export default function AskAgentPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const validateEmail = (email: string): { valid: boolean; error?: string } => {
-    const trimmedEmail = email.trim().toLowerCase();
+  const validateEmail = (emailInput: string): { valid: boolean; error?: string } => {
+    const trimmedEmail = emailInput.trim().toLowerCase();
     
     // Basic format check
     const formatRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -284,7 +284,7 @@ export default function AskAgentPage() {
               <h3 className="font-semibold text-ink-800 mb-1">⚖️ You Remain Responsible</h3>
               <p>
                 All client communications and advice remain your responsibility as a licensed professional. 
-                Always verify MiniMo's suggestions against current TREC guidelines.
+                Always verify MiniMo&apos;s suggestions against current TREC guidelines.
               </p>
             </div>
 
@@ -292,7 +292,7 @@ export default function AskAgentPage() {
               <h3 className="font-semibold text-ink-800 mb-1">🔒 For Licensed Professionals Only</h3>
               <p>
                 This tool is designed for licensed real estate professionals. 
-                You'll be asked to verify your status on the next screen.
+                You&apos;ll be asked to verify your status on the next screen.
               </p>
             </div>
           </div>
@@ -352,7 +352,7 @@ export default function AskAgentPage() {
                 <p className="text-red-500 text-sm mt-1">{formErrors.email}</p>
               )}
               <p className="text-xs text-ink-400 mt-1">
-                We'll only reach out with MiniMo updates and TREC news that helps.
+                We&apos;ll only reach out with MiniMo updates and TREC news that helps.
               </p>
             </div>
 
@@ -414,7 +414,7 @@ export default function AskAgentPage() {
               onClick={handleVerificationSubmit}
               className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
             >
-              Let's Go!
+              Let&apos;s Go!
             </button>
           </div>
 
