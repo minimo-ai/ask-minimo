@@ -9,10 +9,8 @@ interface Message {
   content: string;
 }
 
-// Mo's Warm Greeting for Buyers
-const INITIAL_GREETING = `Hey there! I'm MiniMo — think of me as your guide to figuring out your next move in real estate. No pressure, no sales pitch. Just clarity.
-
-Whether you're thinking about buying, selling, or just trying to understand your options — I'm here to help you get clear on what makes sense for *you*.
+// MiniMo's New Greeting (January 2026) - New Soul
+const INITIAL_GREETING = `Hey there, I'm MiniMo. Think of me as your calm guide for all things real estate. No pressure, no sales pitch — just clarity and next steps that fit your life.
 
 What's on your mind?`;
 
@@ -108,8 +106,8 @@ export default function AskBuyerPage() {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const validateEmail = (email: string): { valid: boolean; error?: string } => {
-    const trimmedEmail = email.trim().toLowerCase();
+  const validateEmail = (emailInput: string): { valid: boolean; error?: string } => {
+    const trimmedEmail = emailInput.trim().toLowerCase();
     
     // Basic format check
     const formatRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -290,7 +288,7 @@ export default function AskBuyerPage() {
               <span className="text-2xl">✉️</span>
             </div>
             <h1 className="text-2xl font-display font-semibold text-ink-800 mb-2">
-              Let's Stay Connected
+              Let&apos;s Stay Connected
             </h1>
             <p className="text-ink-600">
               Drop your email so we can let you know when MiniMo gets even smarter — like new features, 
@@ -320,7 +318,7 @@ export default function AskBuyerPage() {
               onClick={handleEmailSubmit}
               className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
             >
-              Let's Go!
+              Let&apos;s Go!
             </button>
           </div>
 
