@@ -7,6 +7,18 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
+// CORS headers for embeddable widget support
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type",
+};
+
+// Handle CORS preflight requests
+export async function OPTIONS() {
+  return NextResponse.json({}, { headers: corsHeaders });
+}
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -471,12 +483,12 @@ export async function POST(request: NextRequest) {
       completion.choices[0]?.message?.content ||
       "Hey there — I'm MiniMo. No pressure, just clarity. What's on your mind?";
 
-    return NextResponse.json({ message: reply });
+    return NextResponse.json({ message: reply }, { headers: corsHeaders });
   } catch (error) {
     console.error("MiniMo API Error:", error);
     return NextResponse.json(
       { error: "MiniMo is taking a moment. Please try again." },
-      { status: 500 }
+      { status: 500, headers: corsHeaders }
     );
   }
 }
