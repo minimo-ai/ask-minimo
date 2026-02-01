@@ -30,9 +30,9 @@
       position: fixed;
       bottom: 24px;
       right: 24px;
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
+      height: 48px;
+      padding: 0 20px 0 16px;
+      border-radius: 24px;
       background: var(--minimo-brand);
       border: none;
       cursor: pointer;
@@ -40,16 +40,21 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       transition: all 0.3s ease;
       z-index: 999998;
+      color: var(--minimo-white);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 15px;
+      font-weight: 500;
     }
     #minimo-toggle-btn:hover {
       background: var(--minimo-brand-hover);
-      transform: scale(1.05);
+      transform: translateY(-2px);
       box-shadow: 0 6px 25px rgba(107, 138, 122, 0.5);
     }
-    #minimo-toggle-btn svg { width: 28px; height: 28px; fill: var(--minimo-white); transition: transform 0.3s ease; }
-    #minimo-toggle-btn.open svg { transform: rotate(180deg); }
+    #minimo-toggle-btn svg { width: 20px; height: 20px; fill: var(--minimo-white); flex-shrink: 0; }
+    #minimo-toggle-btn span { white-space: nowrap; }
     #minimo-chat-window {
       position: fixed;
       bottom: 100px;
@@ -140,7 +145,7 @@
     #minimo-footer a:hover { text-decoration: underline; }
     @media (max-width: 480px) {
       #minimo-chat-window { bottom: 0; right: 0; width: 100%; max-width: 100%; height: 100%; max-height: 100%; border-radius: 0; }
-      #minimo-toggle-btn { bottom: 16px; right: 16px; width: 56px; height: 56px; }
+      #minimo-toggle-btn { bottom: 16px; right: 16px; height: 44px; padding: 0 16px 0 12px; font-size: 14px; }
     }
   `;
 
@@ -148,6 +153,7 @@
     <div id="minimo-widget-container">
       <button id="minimo-toggle-btn" aria-label="Open chat with MiniMo">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/></svg>
+        <span>Ask MiniMo</span>
       </button>
       <div id="minimo-chat-window" role="dialog" aria-label="Chat with MiniMo">
         <div id="minimo-header">
