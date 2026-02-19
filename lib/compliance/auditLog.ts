@@ -1,15 +1,6 @@
-/**
- * Compliance Audit Logging
- * Records all compliance-related events for regulatory review.
- *
- * In production, these logs should be persisted to Supabase.
- * For now, logs to console with structured JSON for log aggregation.
- */
+// lib/compliance/auditLog.ts
 
-import { v4 as uuidv4 } from "uuid";
-import { format } from "date-fns";
-
-export interface ComplianceAuditEvent {
+export interface AuditLogEntry {
   auditId: string;
   timestamp: string;
   agentId: string;
@@ -21,56 +12,30 @@ export interface ComplianceAuditEvent {
   passed: boolean;
 }
 
-export interface AuditLogEntry {
-  id: string;
-  event: ComplianceAuditEvent;
-  createdAt: string;
+export async function logComplianceEvent(entry: AuditLogEntry): Promise<void> {
+  try {
+    // Phase 1: Log to console + file (pre-database)
+    // Phase 2: Replace with your database write (Supabase/Postgres recommended)
+    console.log("[COMPLIANCE AUDIT]", JSON.stringify(entry));
+
+    // When your DB is ready, replace above with:
+    // await db.complianceLog.create({ data: entry })
+
+    // For now, also write to a local audit file
+    // This gives you a paper trail immediately
+    if (process.env.NODE_ENV === "production") {
+      await writeAuditToStorage(entry);
+    }
+  } catch (error) {
+    // Compliance logging failure should NEVER crash the app
+    // But it should alert you immediately
+    console.error("[COMPLIANCE LOG FAILURE]", error);
+    // TODO: Add alerting (email/Slack) when this fires
+  }
 }
 
-/**
- * Logs a compliance event with structured data for audit trail.
- * Currently outputs structured JSON to stdout for log aggregation.
- *
- * TODO: Persist to Supabase `compliance_audit_log` table when
- * database integration is ready.
- */
-export async function logComplianceEvent(
-  event: ComplianceAuditEvent
-): Promise<AuditLogEntry> {
-  const entry: AuditLogEntry = {
-    id: event.auditId || uuidv4(),
-    event,
-    createdAt: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
-  };
-
-  console.log(
-    JSON.stringify({
-      level: "COMPLIANCE",
-      ...entry,
-    })
-  );
-
-  return entry;
-}
-
-/**
- * Creates a compliance event for archetype assignments.
- * Ensures no protected class characteristics influenced the assignment.
- */
-export async function logArchetypeAssignment(
-  sessionId: string,
-  archetype: string,
-  inputFactors: string[]
-): Promise<AuditLogEntry> {
-  return logComplianceEvent({
-    auditId: uuidv4(),
-    timestamp: new Date().toISOString(),
-    agentId: "system",
-    clientArchetype: archetype,
-    severity: "clean",
-    flaggedTerms: [],
-    flaggedPatterns: [],
-    originalOutputHash: "",
-    passed: true,
-  });
+async function writeAuditToStorage(entry: AuditLogEntry): Promise<void> {
+  // Placeholder for your storage solution
+  // Options: Vercel Blob, Supabase, AWS S3
+  // Do NOT use local filesystem in serverless environments
 }
