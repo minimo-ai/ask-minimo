@@ -8,40 +8,37 @@
 
 import { v4 as uuidv4 } from "uuid";
 import { format } from "date-fns";
-import type { ViolationCategory } from "./fairHousingFilter";
 
-export enum ComplianceEventType {
-  FAIR_HOUSING_VIOLATION = "FAIR_HOUSING_VIOLATION",
-  RESTRICTED_CONTENT_BLOCKED = "RESTRICTED_CONTENT_BLOCKED",
-  RESPONSE_FILTERED = "RESPONSE_FILTERED",
-  ARCHETYPE_ASSIGNMENT = "ARCHETYPE_ASSIGNMENT",
-}
-
-export interface ComplianceEvent {
-  type: ComplianceEventType;
-  violations?: ViolationCategory[];
-  matchedPatterns?: string[];
+export interface ComplianceAuditEvent {
+  auditId: string;
   timestamp: string;
-  sessionId?: string;
-  metadata?: Record<string, string>;
+  agentId: string;
+  clientArchetype: string;
+  severity: "clean" | "warning" | "blocked";
+  flaggedTerms: string[];
+  flaggedPatterns: string[];
+  originalOutputHash: string;
+  passed: boolean;
 }
 
 export interface AuditLogEntry {
   id: string;
-  event: ComplianceEvent;
+  event: ComplianceAuditEvent;
   createdAt: string;
 }
 
 /**
- * Logs a compliance event with a unique ID and formatted timestamp.
+ * Logs a compliance event with structured data for audit trail.
  * Currently outputs structured JSON to stdout for log aggregation.
  *
  * TODO: Persist to Supabase `compliance_audit_log` table when
  * database integration is ready.
  */
-export function logComplianceEvent(event: ComplianceEvent): AuditLogEntry {
+export async function logComplianceEvent(
+  event: ComplianceAuditEvent
+): Promise<AuditLogEntry> {
   const entry: AuditLogEntry = {
-    id: uuidv4(),
+    id: event.auditId || uuidv4(),
     event,
     createdAt: format(new Date(), "yyyy-MM-dd'T'HH:mm:ss.SSSxxx"),
   };
@@ -60,19 +57,20 @@ export function logComplianceEvent(event: ComplianceEvent): AuditLogEntry {
  * Creates a compliance event for archetype assignments.
  * Ensures no protected class characteristics influenced the assignment.
  */
-export function logArchetypeAssignment(
+export async function logArchetypeAssignment(
   sessionId: string,
   archetype: string,
   inputFactors: string[]
-): AuditLogEntry {
+): Promise<AuditLogEntry> {
   return logComplianceEvent({
-    type: ComplianceEventType.ARCHETYPE_ASSIGNMENT,
+    auditId: uuidv4(),
     timestamp: new Date().toISOString(),
-    sessionId,
-    metadata: {
-      archetype,
-      inputFactors: inputFactors.join(", "),
-      protectedClassCheck: "passed",
-    },
+    agentId: "system",
+    clientArchetype: archetype,
+    severity: "clean",
+    flaggedTerms: [],
+    flaggedPatterns: [],
+    originalOutputHash: "",
+    passed: true,
   });
 }
