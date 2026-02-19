@@ -1,41 +1,10 @@
 // lib/feedback/outcomeTracker.ts
 import { v4 as uuidv4 } from "uuid";
+import type { OutcomeFeedback } from "./schema";
 
-export type TransactionOutcome =
-  | "closed_with_momentus"
-  | "closed_with_other"
-  | "still_searching"
-  | "paused"
-  | "no_longer_interested";
-
-export type ClientSatisfaction = 1 | 2 | 3 | 4 | 5;
-
-export interface OutcomeRecord {
+export interface OutcomeRecord extends OutcomeFeedback {
   id: string;
-  sessionId: string;
-  clientArchetype: string;
-  predictedReadiness: "ready_now" | "3_months" | "6_months" | "12_plus_months";
-  actualOutcome: TransactionOutcome;
-  timeToOutcome: number; // days from first session
-  satisfaction: ClientSatisfaction | null;
-  agentId: string | null;
-  propertyType: string | null;
-  priceRange: string | null;
-  notes: string | null;
   createdAt: string;
-}
-
-export interface OutcomeSubmission {
-  sessionId: string;
-  clientArchetype: string;
-  predictedReadiness: OutcomeRecord["predictedReadiness"];
-  actualOutcome: TransactionOutcome;
-  timeToOutcome: number;
-  satisfaction?: ClientSatisfaction;
-  agentId?: string;
-  propertyType?: string;
-  priceRange?: string;
-  notes?: string;
 }
 
 /**
@@ -43,20 +12,11 @@ export interface OutcomeSubmission {
  * This data feeds into archetype accuracy scoring.
  */
 export async function recordOutcome(
-  submission: OutcomeSubmission
+  feedback: OutcomeFeedback
 ): Promise<OutcomeRecord> {
   const record: OutcomeRecord = {
     id: uuidv4(),
-    sessionId: submission.sessionId,
-    clientArchetype: submission.clientArchetype,
-    predictedReadiness: submission.predictedReadiness,
-    actualOutcome: submission.actualOutcome,
-    timeToOutcome: submission.timeToOutcome,
-    satisfaction: submission.satisfaction ?? null,
-    agentId: submission.agentId ?? null,
-    propertyType: submission.propertyType ?? null,
-    priceRange: submission.priceRange ?? null,
-    notes: submission.notes ?? null,
+    ...feedback,
     createdAt: new Date().toISOString(),
   };
 
@@ -64,35 +24,69 @@ export async function recordOutcome(
   // Phase 2: Replace with Supabase insert
   console.log("[OUTCOME RECORDED]", JSON.stringify(record));
 
-  // TODO: await supabase.from('outcomes').insert(record)
+  // TODO: await supabase.from('outcome_feedback').insert(record)
 
   return record;
 }
 
 /**
- * Calculates conversion rate by archetype.
- * Used to identify which archetypes convert best with Momentus.
+ * Calculates archetype accuracy rate from feedback data.
  */
-export function calculateConversionRate(
-  outcomes: OutcomeRecord[]
-): Map<string, number> {
+export function calculateArchetypeAccuracy(
+  records: OutcomeRecord[]
+): Map<string, { avgRating: number; count: number }> {
+  const archetypeGroups = new Map<string, number[]>();
+
+  for (const record of records) {
+    const existing = archetypeGroups.get(record.assignedArchetype) || [];
+    existing.push(record.archetypeAccuracyRating);
+    archetypeGroups.set(record.assignedArchetype, existing);
+  }
+
+  const accuracy = new Map<string, { avgRating: number; count: number }>();
+
+  for (const [archetype, ratings] of archetypeGroups) {
+    const avg = ratings.reduce((a, b) => a + b, 0) / ratings.length;
+    accuracy.set(archetype, {
+      avgRating: Math.round(avg * 10) / 10,
+      count: ratings.length,
+    });
+  }
+
+  return accuracy;
+}
+
+/**
+ * Identifies archetypes that agents frequently want to change.
+ * Signals potential issues with archetype definitions or assignment logic.
+ */
+export function getArchetypeCorrectionRate(
+  records: OutcomeRecord[]
+): Map<string, { correctionRate: number; suggestedAlternatives: string[] }> {
   const archetypeGroups = new Map<string, OutcomeRecord[]>();
 
-  for (const outcome of outcomes) {
-    const existing = archetypeGroups.get(outcome.clientArchetype) || [];
-    existing.push(outcome);
-    archetypeGroups.set(outcome.clientArchetype, existing);
+  for (const record of records) {
+    const existing = archetypeGroups.get(record.assignedArchetype) || [];
+    existing.push(record);
+    archetypeGroups.set(record.assignedArchetype, existing);
   }
 
-  const conversionRates = new Map<string, number>();
+  const corrections = new Map<
+    string,
+    { correctionRate: number; suggestedAlternatives: string[] }
+  >();
 
   for (const [archetype, records] of archetypeGroups) {
-    const closed = records.filter(
-      (r) => r.actualOutcome === "closed_with_momentus"
-    ).length;
-    const rate = records.length > 0 ? closed / records.length : 0;
-    conversionRates.set(archetype, Math.round(rate * 100));
+    const wantToChange = records.filter((r) => r.wouldChangeArchetype);
+    const alternatives = wantToChange
+      .map((r) => r.suggestedArchetype)
+      .filter((a) => a !== undefined) as string[];
+
+    corrections.set(archetype, {
+      correctionRate: Math.round((wantToChange.length / records.length) * 100),
+      suggestedAlternatives: [...new Set(alternatives)],
+    });
   }
 
-  return conversionRates;
+  return corrections;
 }

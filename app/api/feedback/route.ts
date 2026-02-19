@@ -1,103 +1,46 @@
 // app/api/feedback/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import {
-  OutcomeSubmissionSchema,
-  SessionFeedbackSchema,
-  ArchetypeCorrectionSchema,
-} from "@/lib/feedback/schema";
-import { recordOutcome } from "@/lib/feedback/outcomeTracker";
+import { OutcomeFeedbackSchema } from "@/lib/feedback/schema";
 import { v4 as uuidv4 } from "uuid";
 
 /**
  * POST /api/feedback
  *
- * Accepts three types of feedback:
- * 1. outcome - Transaction outcome for archetype accuracy tracking
- * 2. session - User satisfaction with MiniMo session
- * 3. correction - Agent correction of archetype assignment
+ * Records agent feedback on archetype accuracy and transaction outcomes.
+ * This data feeds the archetype accuracy improvement loop.
  */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { type, data } = body;
 
-    if (!type || !data) {
+    const parsed = OutcomeFeedbackSchema.safeParse(body);
+    if (!parsed.success) {
       return NextResponse.json(
-        { error: "Missing type or data in request body" },
+        { error: "Invalid feedback data", details: parsed.error.issues },
         { status: 400 }
       );
     }
 
-    switch (type) {
-      case "outcome": {
-        const parsed = OutcomeSubmissionSchema.safeParse(data);
-        if (!parsed.success) {
-          return NextResponse.json(
-            { error: "Invalid outcome data", details: parsed.error.issues },
-            { status: 400 }
-          );
-        }
-        const record = await recordOutcome(parsed.data);
-        return NextResponse.json({
-          success: true,
-          id: record.id,
-          type: "outcome",
-        });
-      }
+    const feedbackId = uuidv4();
+    const feedback = parsed.data;
 
-      case "session": {
-        const parsed = SessionFeedbackSchema.safeParse(data);
-        if (!parsed.success) {
-          return NextResponse.json(
-            { error: "Invalid session feedback", details: parsed.error.issues },
-            { status: 400 }
-          );
-        }
-        // Phase 1: Log to console
-        // Phase 2: Replace with Supabase insert
-        const feedbackId = uuidv4();
-        console.log(
-          "[SESSION FEEDBACK]",
-          JSON.stringify({ id: feedbackId, ...parsed.data })
-        );
-        return NextResponse.json({
-          success: true,
-          id: feedbackId,
-          type: "session",
-        });
-      }
+    // Phase 1: Log to console
+    // Phase 2: Replace with Supabase insert
+    console.log(
+      "[OUTCOME FEEDBACK]",
+      JSON.stringify({
+        id: feedbackId,
+        ...feedback,
+        createdAt: new Date().toISOString(),
+      })
+    );
 
-      case "correction": {
-        const parsed = ArchetypeCorrectionSchema.safeParse(data);
-        if (!parsed.success) {
-          return NextResponse.json(
-            {
-              error: "Invalid archetype correction",
-              details: parsed.error.issues,
-            },
-            { status: 400 }
-          );
-        }
-        // Phase 1: Log to console
-        // Phase 2: Replace with Supabase insert
-        const correctionId = uuidv4();
-        console.log(
-          "[ARCHETYPE CORRECTION]",
-          JSON.stringify({ id: correctionId, ...parsed.data })
-        );
-        return NextResponse.json({
-          success: true,
-          id: correctionId,
-          type: "correction",
-        });
-      }
+    // TODO: await supabase.from('outcome_feedback').insert({ id: feedbackId, ...feedback })
 
-      default:
-        return NextResponse.json(
-          { error: `Unknown feedback type: ${type}` },
-          { status: 400 }
-        );
-    }
+    return NextResponse.json({
+      success: true,
+      id: feedbackId,
+    });
   } catch (error) {
     console.error("[FEEDBACK API ERROR]", error);
     return NextResponse.json(

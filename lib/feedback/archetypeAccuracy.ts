@@ -1,167 +1,165 @@
 // lib/feedback/archetypeAccuracy.ts
 import type { OutcomeRecord } from "./outcomeTracker";
 
-export interface AccuracyMetrics {
+export interface ArchetypeMetrics {
   archetype: string;
-  totalPredictions: number;
-  correctPredictions: number;
-  accuracyRate: number;
-  avgTimeToOutcome: number;
+  totalFeedback: number;
+  avgAccuracyRating: number;
   avgSatisfaction: number | null;
-}
-
-export interface ReadinessAccuracy {
-  predictedReadiness: string;
-  actualAvgDays: number;
-  withinRange: number; // percentage within predicted range
-  sampleSize: number;
+  avgShowingsBeforeOffer: number;
+  avgDaysToOffer: number;
+  closeRate: number;
+  unspokenSignalUsageRate: number;
+  unspokenSignalEffectiveRate: number | null;
+  correctionRate: number;
+  suggestedAlternatives: string[];
 }
 
 /**
- * Readiness prediction ranges in days.
- * Used to evaluate if predictions were accurate.
+ * The 5 Mo.ai buyer/seller archetypes.
+ * Core IP — assignment must NEVER be influenced by protected class characteristics.
  */
-const READINESS_RANGES: Record<string, { min: number; max: number }> = {
-  ready_now: { min: 0, max: 60 },
-  "3_months": { min: 61, max: 120 },
-  "6_months": { min: 121, max: 210 },
-  "12_plus_months": { min: 211, max: 730 },
-};
+export const ARCHETYPES = [
+  "Analyst",
+  "Dreamer",
+  "Pragmatist",
+  "Protector",
+  "Investor",
+] as const;
+
+export type Archetype = (typeof ARCHETYPES)[number];
 
 /**
- * Calculates archetype assignment accuracy based on outcomes.
- * Measures how well the 9-archetype framework predicts behavior.
+ * Calculates comprehensive metrics for each archetype based on agent feedback.
+ * Used to refine archetype definitions and improve matching accuracy.
  */
-export function calculateArchetypeAccuracy(
-  outcomes: OutcomeRecord[]
-): AccuracyMetrics[] {
+export function calculateArchetypeMetrics(
+  records: OutcomeRecord[]
+): ArchetypeMetrics[] {
   const archetypeGroups = new Map<string, OutcomeRecord[]>();
 
-  for (const outcome of outcomes) {
-    const existing = archetypeGroups.get(outcome.clientArchetype) || [];
-    existing.push(outcome);
-    archetypeGroups.set(outcome.clientArchetype, existing);
+  for (const record of records) {
+    const existing = archetypeGroups.get(record.assignedArchetype) || [];
+    existing.push(record);
+    archetypeGroups.set(record.assignedArchetype, existing);
   }
 
-  const metrics: AccuracyMetrics[] = [];
+  const metrics: ArchetypeMetrics[] = [];
 
-  for (const [archetype, records] of archetypeGroups) {
-    const correctPredictions = records.filter((r) =>
-      isPredictionCorrect(r.predictedReadiness, r.timeToOutcome)
-    ).length;
+  for (const archetype of ARCHETYPES) {
+    const records = archetypeGroups.get(archetype) || [];
 
-    const satisfactionScores = records
-      .filter((r) => r.satisfaction !== null)
-      .map((r) => r.satisfaction as number);
+    if (records.length === 0) {
+      metrics.push({
+        archetype,
+        totalFeedback: 0,
+        avgAccuracyRating: 0,
+        avgSatisfaction: null,
+        avgShowingsBeforeOffer: 0,
+        avgDaysToOffer: 0,
+        closeRate: 0,
+        unspokenSignalUsageRate: 0,
+        unspokenSignalEffectiveRate: null,
+        correctionRate: 0,
+        suggestedAlternatives: [],
+      });
+      continue;
+    }
 
+    // Calculate averages
+    const avgAccuracy =
+      records.reduce((sum, r) => sum + r.archetypeAccuracyRating, 0) /
+      records.length;
+
+    const satisfactionRecords = records.filter(
+      (r) => r.clientSatisfactionRating !== undefined
+    );
     const avgSatisfaction =
-      satisfactionScores.length > 0
-        ? satisfactionScores.reduce((a, b) => a + b, 0) /
-          satisfactionScores.length
+      satisfactionRecords.length > 0
+        ? satisfactionRecords.reduce(
+            (sum, r) => sum + (r.clientSatisfactionRating || 0),
+            0
+          ) / satisfactionRecords.length
         : null;
+
+    const avgShowings =
+      records.reduce((sum, r) => sum + r.showingsBeforeOffer, 0) /
+      records.length;
+
+    const avgDays =
+      records.reduce((sum, r) => sum + r.daysToOffer, 0) / records.length;
+
+    // Calculate rates
+    const closedCount = records.filter((r) => r.transactionClosed).length;
+    const closeRate = (closedCount / records.length) * 100;
+
+    const signalUsedCount = records.filter((r) => r.unspokenSignalUsed).length;
+    const signalUsageRate = (signalUsedCount / records.length) * 100;
+
+    const signalEffectiveRecords = records.filter(
+      (r) => r.unspokenSignalUsed && r.unspokenSignalEffective !== undefined
+    );
+    const signalEffectiveRate =
+      signalEffectiveRecords.length > 0
+        ? (signalEffectiveRecords.filter((r) => r.unspokenSignalEffective)
+            .length /
+            signalEffectiveRecords.length) *
+          100
+        : null;
+
+    // Correction analysis
+    const wantToChange = records.filter((r) => r.wouldChangeArchetype);
+    const correctionRate = (wantToChange.length / records.length) * 100;
+    const suggestedAlternatives = [
+      ...new Set(
+        wantToChange
+          .map((r) => r.suggestedArchetype)
+          .filter((a) => a !== undefined) as string[]
+      ),
+    ];
 
     metrics.push({
       archetype,
-      totalPredictions: records.length,
-      correctPredictions,
-      accuracyRate:
-        records.length > 0
-          ? Math.round((correctPredictions / records.length) * 100)
-          : 0,
-      avgTimeToOutcome:
-        records.length > 0
-          ? Math.round(
-              records.reduce((sum, r) => sum + r.timeToOutcome, 0) /
-                records.length
-            )
-          : 0,
+      totalFeedback: records.length,
+      avgAccuracyRating: Math.round(avgAccuracy * 10) / 10,
       avgSatisfaction: avgSatisfaction
         ? Math.round(avgSatisfaction * 10) / 10
         : null,
+      avgShowingsBeforeOffer: Math.round(avgShowings * 10) / 10,
+      avgDaysToOffer: Math.round(avgDays),
+      closeRate: Math.round(closeRate),
+      unspokenSignalUsageRate: Math.round(signalUsageRate),
+      unspokenSignalEffectiveRate: signalEffectiveRate
+        ? Math.round(signalEffectiveRate)
+        : null,
+      correctionRate: Math.round(correctionRate),
+      suggestedAlternatives,
     });
   }
 
-  return metrics.sort((a, b) => b.accuracyRate - a.accuracyRate);
-}
-
-/**
- * Evaluates readiness prediction accuracy across all archetypes.
- */
-export function calculateReadinessAccuracy(
-  outcomes: OutcomeRecord[]
-): ReadinessAccuracy[] {
-  const readinessGroups = new Map<string, OutcomeRecord[]>();
-
-  for (const outcome of outcomes) {
-    const existing = readinessGroups.get(outcome.predictedReadiness) || [];
-    existing.push(outcome);
-    readinessGroups.set(outcome.predictedReadiness, existing);
-  }
-
-  const accuracy: ReadinessAccuracy[] = [];
-
-  for (const [readiness, records] of readinessGroups) {
-    const range = READINESS_RANGES[readiness];
-    if (!range) continue;
-
-    const withinRangeCount = records.filter(
-      (r) => r.timeToOutcome >= range.min && r.timeToOutcome <= range.max
-    ).length;
-
-    accuracy.push({
-      predictedReadiness: readiness,
-      actualAvgDays:
-        records.length > 0
-          ? Math.round(
-              records.reduce((sum, r) => sum + r.timeToOutcome, 0) /
-                records.length
-            )
-          : 0,
-      withinRange:
-        records.length > 0
-          ? Math.round((withinRangeCount / records.length) * 100)
-          : 0,
-      sampleSize: records.length,
-    });
-  }
-
-  return accuracy;
-}
-
-/**
- * Checks if a readiness prediction was accurate.
- */
-function isPredictionCorrect(
-  predicted: string,
-  actualDays: number
-): boolean {
-  const range = READINESS_RANGES[predicted];
-  if (!range) return false;
-  return actualDays >= range.min && actualDays <= range.max;
+  return metrics.sort((a, b) => b.avgAccuracyRating - a.avgAccuracyRating);
 }
 
 /**
  * Generates a summary report for Mo's review.
  */
-export function generateAccuracyReport(outcomes: OutcomeRecord[]): string {
-  const archetypeMetrics = calculateArchetypeAccuracy(outcomes);
-  const readinessMetrics = calculateReadinessAccuracy(outcomes);
+export function generateAccuracyReport(records: OutcomeRecord[]): string {
+  const metrics = calculateArchetypeMetrics(records);
 
   const overallAccuracy =
-    archetypeMetrics.length > 0
-      ? Math.round(
-          archetypeMetrics.reduce((sum, m) => sum + m.accuracyRate, 0) /
-            archetypeMetrics.length
-        )
+    metrics.length > 0
+      ? metrics
+          .filter((m) => m.totalFeedback > 0)
+          .reduce((sum, m) => sum + m.avgAccuracyRating, 0) /
+        metrics.filter((m) => m.totalFeedback > 0).length
       : 0;
 
   return JSON.stringify(
     {
       generatedAt: new Date().toISOString(),
-      totalOutcomes: outcomes.length,
-      overallAccuracyRate: overallAccuracy,
-      byArchetype: archetypeMetrics,
-      byReadiness: readinessMetrics,
+      totalFeedbackRecords: records.length,
+      overallAccuracyRating: Math.round(overallAccuracy * 10) / 10,
+      byArchetype: metrics,
     },
     null,
     2
