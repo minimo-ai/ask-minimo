@@ -1,92 +1,50 @@
 // lib/feedback/outcomeTracker.ts
+import { OutcomeFeedback } from "./schema";
 import { v4 as uuidv4 } from "uuid";
-import type { OutcomeFeedback } from "./schema";
 
-export interface OutcomeRecord extends OutcomeFeedback {
+export interface OutcomeRecord {
   id: string;
-  createdAt: string;
+  feedback: OutcomeFeedback;
+  recordedAt: string;
+  version: string; // Mo.ai version that generated this session
 }
 
-/**
- * Records a transaction outcome for feedback loop analysis.
- * This data feeds into archetype accuracy scoring.
- */
 export async function recordOutcome(
   feedback: OutcomeFeedback
-): Promise<OutcomeRecord> {
+): Promise<{ id: string }> {
   const record: OutcomeRecord = {
     id: uuidv4(),
-    ...feedback,
-    createdAt: new Date().toISOString(),
+    feedback,
+    recordedAt: new Date().toISOString(),
+    version: process.env.MOAI_VERSION || "1.0.0",
   };
 
-  // Phase 1: Log to console
-  // Phase 2: Replace with Supabase insert
+  // Phase 1: Log to console (swap for DB write when ready)
   console.log("[OUTCOME RECORDED]", JSON.stringify(record));
 
-  // TODO: await supabase.from('outcome_feedback').insert(record)
+  // Phase 2: When DB is ready:
+  // await db.outcomeLog.create({ data: record })
 
-  return record;
+  // Calculate and store archetype accuracy aggregate
+  await updateArchetypeAccuracy(feedback);
+
+  return { id: record.id };
 }
 
-/**
- * Calculates archetype accuracy rate from feedback data.
- */
-export function calculateArchetypeAccuracy(
-  records: OutcomeRecord[]
-): Map<string, { avgRating: number; count: number }> {
-  const archetypeGroups = new Map<string, number[]>();
+async function updateArchetypeAccuracy(feedback: OutcomeFeedback) {
+  // This is where the learning loop lives
+  // When you have 50+ records per archetype, you can start
+  // identifying which discovery question combinations
+  // most reliably predict the correct archetype
 
-  for (const record of records) {
-    const existing = archetypeGroups.get(record.assignedArchetype) || [];
-    existing.push(record.archetypeAccuracyRating);
-    archetypeGroups.set(record.assignedArchetype, existing);
-  }
+  const accuracySignal = {
+    archetype: feedback.assignedArchetype,
+    accurate: feedback.archetypeAccuracyRating >= 4,
+    showingsResult: feedback.showingsBeforeOffer,
+    closed: feedback.transactionClosed,
+    timestamp: new Date().toISOString(),
+  };
 
-  const accuracy = new Map<string, { avgRating: number; count: number }>();
-
-  for (const [archetype, ratings] of archetypeGroups) {
-    const avg = ratings.reduce((a, b) => a + b, 0) / ratings.length;
-    accuracy.set(archetype, {
-      avgRating: Math.round(avg * 10) / 10,
-      count: ratings.length,
-    });
-  }
-
-  return accuracy;
-}
-
-/**
- * Identifies archetypes that agents frequently want to change.
- * Signals potential issues with archetype definitions or assignment logic.
- */
-export function getArchetypeCorrectionRate(
-  records: OutcomeRecord[]
-): Map<string, { correctionRate: number; suggestedAlternatives: string[] }> {
-  const archetypeGroups = new Map<string, OutcomeRecord[]>();
-
-  for (const record of records) {
-    const existing = archetypeGroups.get(record.assignedArchetype) || [];
-    existing.push(record);
-    archetypeGroups.set(record.assignedArchetype, existing);
-  }
-
-  const corrections = new Map<
-    string,
-    { correctionRate: number; suggestedAlternatives: string[] }
-  >();
-
-  for (const [archetype, records] of archetypeGroups) {
-    const wantToChange = records.filter((r) => r.wouldChangeArchetype);
-    const alternatives = wantToChange
-      .map((r) => r.suggestedArchetype)
-      .filter((a) => a !== undefined) as string[];
-
-    corrections.set(archetype, {
-      correctionRate: Math.round((wantToChange.length / records.length) * 100),
-      suggestedAlternatives: [...new Set(alternatives)],
-    });
-  }
-
-  return corrections;
+  console.log("[ACCURACY SIGNAL]", JSON.stringify(accuracySignal));
+  // Future: feed this into your model retraining pipeline
 }

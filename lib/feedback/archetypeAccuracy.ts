@@ -39,17 +39,18 @@ export function calculateArchetypeMetrics(
   const archetypeGroups = new Map<string, OutcomeRecord[]>();
 
   for (const record of records) {
-    const existing = archetypeGroups.get(record.assignedArchetype) || [];
+    const existing =
+      archetypeGroups.get(record.feedback.assignedArchetype) || [];
     existing.push(record);
-    archetypeGroups.set(record.assignedArchetype, existing);
+    archetypeGroups.set(record.feedback.assignedArchetype, existing);
   }
 
   const metrics: ArchetypeMetrics[] = [];
 
   for (const archetype of ARCHETYPES) {
-    const records = archetypeGroups.get(archetype) || [];
+    const archetypeRecords = archetypeGroups.get(archetype) || [];
 
-    if (records.length === 0) {
+    if (archetypeRecords.length === 0) {
       metrics.push({
         archetype,
         totalFeedback: 0,
@@ -68,59 +69,74 @@ export function calculateArchetypeMetrics(
 
     // Calculate averages
     const avgAccuracy =
-      records.reduce((sum, r) => sum + r.archetypeAccuracyRating, 0) /
-      records.length;
+      archetypeRecords.reduce(
+        (sum, r) => sum + r.feedback.archetypeAccuracyRating,
+        0
+      ) / archetypeRecords.length;
 
-    const satisfactionRecords = records.filter(
-      (r) => r.clientSatisfactionRating !== undefined
+    const satisfactionRecords = archetypeRecords.filter(
+      (r) => r.feedback.clientSatisfactionRating !== undefined
     );
     const avgSatisfaction =
       satisfactionRecords.length > 0
         ? satisfactionRecords.reduce(
-            (sum, r) => sum + (r.clientSatisfactionRating || 0),
+            (sum, r) => sum + (r.feedback.clientSatisfactionRating || 0),
             0
           ) / satisfactionRecords.length
         : null;
 
     const avgShowings =
-      records.reduce((sum, r) => sum + r.showingsBeforeOffer, 0) /
-      records.length;
+      archetypeRecords.reduce(
+        (sum, r) => sum + r.feedback.showingsBeforeOffer,
+        0
+      ) / archetypeRecords.length;
 
     const avgDays =
-      records.reduce((sum, r) => sum + r.daysToOffer, 0) / records.length;
+      archetypeRecords.reduce((sum, r) => sum + r.feedback.daysToOffer, 0) /
+      archetypeRecords.length;
 
     // Calculate rates
-    const closedCount = records.filter((r) => r.transactionClosed).length;
-    const closeRate = (closedCount / records.length) * 100;
+    const closedCount = archetypeRecords.filter(
+      (r) => r.feedback.transactionClosed
+    ).length;
+    const closeRate = (closedCount / archetypeRecords.length) * 100;
 
-    const signalUsedCount = records.filter((r) => r.unspokenSignalUsed).length;
-    const signalUsageRate = (signalUsedCount / records.length) * 100;
+    const signalUsedCount = archetypeRecords.filter(
+      (r) => r.feedback.unspokenSignalUsed
+    ).length;
+    const signalUsageRate = (signalUsedCount / archetypeRecords.length) * 100;
 
-    const signalEffectiveRecords = records.filter(
-      (r) => r.unspokenSignalUsed && r.unspokenSignalEffective !== undefined
+    const signalEffectiveRecords = archetypeRecords.filter(
+      (r) =>
+        r.feedback.unspokenSignalUsed &&
+        r.feedback.unspokenSignalEffective !== undefined
     );
     const signalEffectiveRate =
       signalEffectiveRecords.length > 0
-        ? (signalEffectiveRecords.filter((r) => r.unspokenSignalEffective)
-            .length /
+        ? (signalEffectiveRecords.filter(
+            (r) => r.feedback.unspokenSignalEffective
+          ).length /
             signalEffectiveRecords.length) *
           100
         : null;
 
     // Correction analysis
-    const wantToChange = records.filter((r) => r.wouldChangeArchetype);
-    const correctionRate = (wantToChange.length / records.length) * 100;
+    const wantToChange = archetypeRecords.filter(
+      (r) => r.feedback.wouldChangeArchetype
+    );
+    const correctionRate =
+      (wantToChange.length / archetypeRecords.length) * 100;
     const suggestedAlternatives = [
       ...new Set(
         wantToChange
-          .map((r) => r.suggestedArchetype)
+          .map((r) => r.feedback.suggestedArchetype)
           .filter((a) => a !== undefined) as string[]
       ),
     ];
 
     metrics.push({
       archetype,
-      totalFeedback: records.length,
+      totalFeedback: archetypeRecords.length,
       avgAccuracyRating: Math.round(avgAccuracy * 10) / 10,
       avgSatisfaction: avgSatisfaction
         ? Math.round(avgSatisfaction * 10) / 10
