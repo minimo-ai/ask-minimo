@@ -22,14 +22,13 @@ Full system audit of MiniMo's system prompt, conversation paths, conversion lang
 - All instances of "Clarity Session" replaced throughout system prompt
 - "WHEN SOMEONE WANTS TO TALK TO THE TEAM" section updated
 
-### P2 — Updated Booking URLs (CRITICAL)
+### P2 — Updated Booking URLs (CRITICAL) ✅ VERIFIED
 - **Before:** `https://www.eventbrite.com/o/momentus-real-estate-group-120870625891` (all links)
-- **After:** Three distinct URLs:
-  - Booking: `https://www.momentusrealestategroup.com/ready-or-not`
-  - Webinars: `https://www.momentusrealestategroup.com/events`
-  - Veteran Q&A: `https://www.momentusrealestategroup.com/veterans`
-- **ACTION REQUIRED:** Verify all three URLs are live and resolve to correct pages. If Microsoft Bookings is used, update URLs in system prompt.
-- TODO comments added to top of `app/api/chat/route.ts`
+- **After:** Three verified URLs:
+  - Booking (Ready or Not?): `https://outlook.office.com/book/ReadyorNotAppointment@NETORGFT16233530.onmicrosoft.com/`
+  - Webinar Registration: `https://momentusrealestategroup.com/webinar-registration/`
+  - Veteran Q&A: `https://momentusrealestategroup.com/webinar-registration/` (shares webinar registration page)
+- **STATUS:** All URLs verified by Mo (March 2026). Microsoft Bookings confirmed for Ready or Not? sessions.
 
 ### P3 — Built Dedicated Veteran Path (CRITICAL)
 - **Before:** Veteran content existed but no dedicated journey path. Veterans landed in general buyer flow.
@@ -128,9 +127,9 @@ Scanned entire codebase for retired terminology:
 
 ## ACTION ITEMS REMAINING (For Mo / Team)
 
-1. **VERIFY BOOKING URL:** Confirm `https://www.momentusrealestategroup.com/ready-or-not` resolves to the correct Ready or Not? scheduling page (Microsoft Bookings or equivalent)
-2. **VERIFY EVENTS URL:** Confirm `https://www.momentusrealestategroup.com/events` resolves to webinar registration
-3. **VERIFY VETERAN URL:** Confirm `https://www.momentusrealestategroup.com/veterans` resolves to veteran Q&A registration
+1. ~~**VERIFY BOOKING URL:**~~ ✅ DONE — Updated to Microsoft Bookings: `https://outlook.office.com/book/ReadyorNotAppointment@NETORGFT16233530.onmicrosoft.com/`
+2. ~~**VERIFY EVENTS URL:**~~ ✅ DONE — Updated to: `https://momentusrealestategroup.com/webinar-registration/`
+3. ~~**VERIFY VETERAN URL:**~~ ✅ DONE — Uses webinar registration page: `https://momentusrealestategroup.com/webinar-registration/`
 4. **SET UP MAILERLITE INTEGRATION:** The "not yet" email capture flow directs users to share their email for Mo's monthly content. Ensure this connects to the MailerLite Cold Leads nurture sequence.
 5. **TEST CLAUDE TEMPERATURE:** After Claude integration, test conversations at 0.4, 0.55, and 0.65 temperature settings. Adjust based on voice quality.
 6. **FUB LEAD CAPTURE TEST:** After deployment, test a full conversation through to lead submission. Verify it appears in Follow Up Boss with correct tags and notes.
