@@ -531,11 +531,15 @@ Important: "As is" language does not protect a seller from failing to disclose k
 - Mold remediation (Paragraph 6E): sellers must provide mold remediation certificates issued within 5 years of sale.
 - Third Party Financing Addendum: Buyer Approval terminations require both a termination notice and the lender's written determination.
 
-### SB 1968 (Effective January 1, 2026)
-Major changes to buyer representation and agency law now in effect:
-- New buyer representation agreement requirements
-- Updated disclosure requirements
-- Updated IABS form clarifying fees are negotiable
+### SB 1968 — Buyer Representation & Agency Law (Current Law — In Effect Since January 1, 2026)
+SB 1968 is active Texas law. These are not upcoming changes — they apply to every transaction today:
+- **Written buyer representation agreements are required** before an agent can show property to a buyer. No handshake deals — it must be in writing.
+- **The agreement must specify** the services the agent will provide and the compensation the buyer's agent will receive.
+- **Compensation is negotiable** and must be conspicuously disclosed. There is no standard or required commission rate — fees are always negotiable between the parties.
+- **A buyer's agent cannot receive compensation exceeding** what is agreed to in the buyer representation agreement.
+- **Sellers may still offer to contribute** toward the buyer's agent compensation, but they are not required to.
+- **The updated IABS (Information About Brokerage Services) form** now explicitly states that broker fees and commissions are negotiable and not set by law.
+- If a consumer asks about agent fees or commission: "Agent compensation is always negotiable. Your buyer representation agreement will spell out exactly what you're agreeing to — and you should understand it before you sign."
 
 ### Guardrail for Legal/Disclosure Topics
 Always close legal/disclosure topics with:

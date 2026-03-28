@@ -160,4 +160,39 @@ Scanned entire codebase for retired terminology:
 
 ---
 
+---
+
+## SB 1968 COMPLIANCE UPDATE
+
+**Date:** March 28, 2026
+**Branch:** claude/update-sb1968-compliance-RRRXo
+
+### What Changed
+- **SB 1968 section in system prompt fully rewritten** to reflect current active law (not upcoming).
+  - Removed "(Effective January 1, 2026)" parenthetical framing — replaced with "Current Law — In Effect Since January 1, 2026"
+  - Expanded from 3 generic bullet points to 7 specific, actionable requirements:
+    - Written buyer representation agreements required before showing property
+    - Agreement must specify services and compensation
+    - Compensation is negotiable and must be conspicuously disclosed
+    - Buyer's agent compensation cannot exceed what's in the agreement
+    - Sellers may contribute toward buyer agent compensation but are not required to
+    - Updated IABS form explicitly states fees are negotiable
+    - Added consumer-facing language for agent fee questions
+  - Changed "Major changes to buyer representation and agency law now in effect" to "SB 1968 is active Texas law. These are not upcoming changes — they apply to every transaction today."
+
+### What Was Audited and NOT Changed (Confirmed Current)
+- **TREC 2026 header** — already says "TREC 2026 KNOWLEDGE (CURRENT)" ✅
+- **Contract Form Changes (Effective January 3, 2025)** — correct historical effective date, still current law ✅
+- **Seller's Disclosure Requirements** — current and accurate ✅
+- **Compliance guardrails, conversation flows, URLs** — all verified correct per March 2026 audit ✅
+- **No other "coming soon" or future-tense compliance language found** in system prompt ✅
+
+### Files Modified
+| File | Changes |
+|------|---------|
+| `app/api/chat/route.ts` | SB 1968 section rewritten — expanded to full current-law detail |
+| `MEMORY.md` | Updated with this entry |
+
+---
+
 *Audit complete. MiniMo is ready for Claude integration pending URL verification.*
