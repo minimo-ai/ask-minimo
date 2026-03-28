@@ -195,4 +195,87 @@ Scanned entire codebase for retired terminology:
 
 ---
 
-*Audit complete. MiniMo is ready for Claude integration pending URL verification.*
+## SYSTEM PROMPT EXPANSION — 8 New Sections
+
+**Date:** March 28, 2026
+**Branch:** claude/update-sb1968-compliance-RRRXo
+
+### What Was Added
+
+#### 1. Rebuilding/Comeback Buyer Path (Expanded)
+- **Before:** 5-line skeleton with generic "ask snapshot question, offer next step"
+- **After:** Full dedicated path with:
+  - Orienting questions specific to rebuilding situations
+  - Credit rebuilding general education (redirects to HUD-approved housing counselor)
+  - Post-foreclosure education (general waiting period awareness — redirects to lender)
+  - Post-bankruptcy education (general — redirects to lender)
+  - Divorce/financial reset acknowledgment
+  - Down payment myth-clearing (no specifics — redirects to lender)
+  - Dedicated conversion offer
+  - **GUARDRAIL:** Explicit instruction that MiniMo is not a lender or credit counselor
+
+#### 2. Renter-to-Buyer Bridge (New)
+- Dedicated path for renters exploring homeownership
+- Triggers: renting, lease ending, rent vs. buy, lease questions
+- Covers: rent vs. buy framing (no pressure), lease timing, what "getting ready" looks like while renting, down payment myths
+- **GUARDRAIL:** Never pressure a renter to buy, never frame renting as a failure
+- Dedicated conversion offer
+
+#### 3. First-Time Buyer Myth-Busting (New)
+- Dedicated section for clearing common first-time buyer misconceptions
+- 7 myths addressed:
+  - 20% down requirement
+  - Perfect credit requirement
+  - Self-employment disqualification
+  - Market timing
+  - Agent costs
+  - Pre-approval = commitment
+  - Renting = throwing money away
+- **GUARDRAIL:** Never quote specific credit scores, down payment percentages, rates, or loan program names
+
+#### 4. Texas Property Tax & Homestead Exemption Education (New)
+- Triggers: property taxes, homestead exemption, tax rates, relocating to Texas
+- Covers: general property tax education, how property taxes work, homestead exemption, who qualifies, relocator framing, protest process awareness
+- **GUARDRAIL:** MiniMo is not a tax advisor — never quote specific rates or amounts, always redirect to county appraisal district or CPA
+
+#### 5. Option Period & Earnest Money Education (New)
+- Triggers: option period, earnest money, "what happens after an offer," due diligence
+- Covers: option period explained, option fee, earnest money, the difference between them, what happens during the option period, "can I back out?"
+- **GUARDRAIL:** Never quote specific dollar amounts, never advise on termination, never interpret contract terms
+
+#### 6. HOA Education (New)
+- Triggers: HOAs, HOA fees, deed restrictions, planned communities
+- Covers: what an HOA is, fees, deed restrictions and rules, documents to review, HOA financial health, new construction HOA specifics
+- **GUARDRAIL:** Never quote specific fee amounts, never characterize an HOA as "good" or "bad," never interpret legal documents
+
+#### 7. Out-of-Service-Area Handling (New)
+- Triggers: user mentions city or state outside 8-county DFW area
+- Three sub-paths:
+  - Texas (outside DFW): still educate, acknowledge service area limits
+  - Out of state: educate on universals, acknowledge market limits
+  - Relocating TO DFW: welcome warmly, offer full service
+- **Rule:** Never refuse to help, never recommend agents outside Momentus, never pretend to know other markets
+
+#### 8. Agent Mode Expansion (Major)
+- **SB 1968 client conversation scripts:** 4 pre-built compliant frameworks for explaining buyer representation agreements, compensation, signing hesitation, and seller contributions
+- **Compliance scenarios:** 5 common client questions with compliant response frameworks (monthly payment, neighborhood safety, market timing, home value, unrepresented offers)
+- **Objection handling language:** 4 common buyer objections with compliant reframing language (why need an agent, found house myself, use seller's agent, fee negotiation)
+- **GUARDRAIL:** Never write scripts that guarantee results, never suggest language violating TREC/Fair Housing/RESPA
+
+### Special Path Triggers Updated
+Added to stage identification:
+- Currently Renting / Lease Questions → Renter-to-Buyer Bridge
+- First-Time Buyer Myths or Misconceptions → First-Time Buyer Myth-Busting
+
+### Files Modified
+| File | Changes |
+|------|---------|
+| `app/api/chat/route.ts` | 8 new/expanded sections added to system prompt |
+| `MEMORY.md` | Updated with this entry |
+
+### Guardrail Summary (All New Sections)
+Every new section includes explicit guardrails reminding MiniMo she is NOT a lender, credit counselor, tax advisor, or attorney. All sections redirect to appropriate licensed professionals for specifics. No specific rates, scores, amounts, or program names are quoted anywhere.
+
+---
+
+*All 8 sections complete. MiniMo system prompt expanded with full guardrail compliance.*
