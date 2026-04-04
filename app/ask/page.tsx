@@ -203,7 +203,9 @@ export default function AskBuyerPage() {
     return (
       <main className="flex flex-col h-screen bg-gradient-to-b from-cream-50 to-white items-center justify-center">
         <div className="w-16 h-16 rounded-full bg-sage-100 flex items-center justify-center animate-pulse">
-          <span className="text-2xl">💚</span>
+          <svg className="w-8 h-8 text-sage-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
         </div>
         <p className="text-ink-500 mt-4">Loading MiniMo...</p>
       </main>
@@ -217,7 +219,9 @@ export default function AskBuyerPage() {
         <div className="max-w-lg w-full bg-white rounded-3xl shadow-soft border border-sage-100 p-8">
           <div className="text-center mb-6">
             <div className="w-16 h-16 rounded-full bg-sage-100 flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">💚</span>
+              <svg className="w-8 h-8 text-sage-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
             </div>
             <h1 className="text-2xl font-display font-semibold text-ink-800 mb-2">
               Welcome to MiniMo
@@ -229,7 +233,7 @@ export default function AskBuyerPage() {
 
           <div className="bg-sage-50 border border-sage-200 rounded-2xl p-5 mb-6 space-y-4 text-sm text-ink-600">
             <div>
-              <h3 className="font-semibold text-ink-800 mb-1">📚 Educational Use Only</h3>
+              <h3 className="font-semibold text-ink-800 mb-1">Educational Use Only</h3>
               <p>
                 Ask MiniMo is an independent educational AI tool designed to provide general real estate information. 
                 It does not provide legal, financial, or real estate brokerage services.
@@ -237,14 +241,14 @@ export default function AskBuyerPage() {
             </div>
             
             <div>
-              <h3 className="font-semibold text-ink-800 mb-1">🤝 No Professional Relationship</h3>
+              <h3 className="font-semibold text-ink-800 mb-1">No Professional Relationship</h3>
               <p>
                 Use of this platform does not create an agent-client, broker-client, or fiduciary relationship.
               </p>
             </div>
 
             <div>
-              <h3 className="font-semibold text-ink-800 mb-1">🏢 Independent from Momentus</h3>
+              <h3 className="font-semibold text-ink-800 mb-1">Independent from Momentus</h3>
               <p>
                 Ask MiniMo operates independently of Momentus Real Estate Group. Any real estate services are 
                 offered separately and only through a direct client relationship.
@@ -252,7 +256,7 @@ export default function AskBuyerPage() {
             </div>
 
             <div>
-              <h3 className="font-semibold text-ink-800 mb-1">⚖️ Consult Licensed Professionals</h3>
+              <h3 className="font-semibold text-ink-800 mb-1">Consult Licensed Professionals</h3>
               <p>
                 Always verify information with licensed real estate professionals, lenders, and attorneys 
                 for your specific situation.
@@ -262,7 +266,7 @@ export default function AskBuyerPage() {
 
           <button
             onClick={() => setAcceptedDisclaimer(true)}
-            className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
+            className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition cursor-pointer"
           >
             I Understand — Continue
           </button>
@@ -285,20 +289,24 @@ export default function AskBuyerPage() {
         <div className="max-w-lg w-full bg-white rounded-3xl shadow-soft border border-sage-100 p-8">
           <div className="text-center mb-6">
             <div className="w-16 h-16 rounded-full bg-sage-100 flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl">✉️</span>
+              <svg className="w-8 h-8 text-sage-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg>
             </div>
             <h1 className="text-2xl font-display font-semibold text-ink-800 mb-2">
               Let&apos;s Stay Connected
             </h1>
             <p className="text-ink-600">
-              Drop your email so we can let you know when MiniMo gets even smarter — like new features, 
+              Drop your email so we can let you know when MiniMo gets even smarter — like new features,
               Texas market tips, and updates that actually help.
             </p>
           </div>
 
           <div className="space-y-4">
             <div>
+              <label htmlFor="email-gate-input" className="sr-only">Email address</label>
               <input
+                id="email-gate-input"
                 type="email"
                 value={email}
                 onChange={(e) => {
@@ -316,14 +324,14 @@ export default function AskBuyerPage() {
 
             <button
               onClick={handleEmailSubmit}
-              className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
+              className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition cursor-pointer"
             >
               Let&apos;s Go!
             </button>
           </div>
 
           <p className="text-xs text-ink-400 text-center mt-4">
-            No spam, no selling your info. Just good stuff when it matters. 💚
+            No spam, no selling your info. Just good stuff when it matters.
           </p>
         </div>
       </main>
@@ -351,7 +359,7 @@ export default function AskBuyerPage() {
           {showDisclaimer && messages.length <= 1 && (
             <div className="bg-cream-50 border border-sage-200 rounded-xl p-4 text-center">
               <p className="text-xs text-ink-500 leading-relaxed">
-                <strong>📚 Educational Purposes Only:</strong> MiniMo provides general real estate education based on Texas practices. 
+                <strong>Educational Purposes Only:</strong> MiniMo provides general real estate education based on Texas practices.
                 This is not legal, financial, or professional advice. Always verify information with licensed professionals. 
                 No agent-client or broker-client relationship is created.
               </p>
@@ -369,10 +377,13 @@ export default function AskBuyerPage() {
           {isLoading && (
             <div className="flex justify-start">
               <div className="bg-white border border-sage-100 rounded-2xl px-4 py-3">
-                <div className="flex items-center gap-2">
-                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" />
-                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
-                  <div className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
+                <div className="flex items-center gap-2 text-sage-600">
+                  <span className="text-sm">MiniMo is thinking</span>
+                  <span className="flex gap-1">
+                    <span className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <span className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <span className="w-2 h-2 bg-sage-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                  </span>
                 </div>
               </div>
             </div>
@@ -403,7 +414,9 @@ export default function AskBuyerPage() {
       <div className="border-t border-sage-100 bg-white px-4 py-4">
         <div className="max-w-2xl mx-auto">
           <div className="flex gap-3">
+            <label htmlFor="chat-input" className="sr-only">Ask me anything about real estate</label>
             <input
+              id="chat-input"
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
@@ -414,7 +427,8 @@ export default function AskBuyerPage() {
             <button
               onClick={sendMessage}
               disabled={!input.trim() || isLoading}
-              className="rounded-2xl bg-sage-500 px-5 py-3 text-white font-medium hover:bg-sage-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              aria-label="Send message"
+              className="rounded-2xl bg-sage-500 px-5 py-3 text-white font-medium hover:bg-sage-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
@@ -422,12 +436,12 @@ export default function AskBuyerPage() {
             </button>
           </div>
           <p className="text-xs text-ink-400 text-center mt-3">
-            💚 Completely free • Educational guidance only • Not professional advice
+            Completely free · Educational guidance only · Not professional advice
           </p>
         </div>
       </div>
 
-      <footer className="border-t border-sage-100 bg-white px-4 py-3">
+      <footer className="border-t border-sage-100 bg-white px-4 py-3 safe-area-bottom">
         <div className="max-w-2xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-ink-400">
           <span>© {new Date().getFullYear()} Ask MiniMo</span>
           <div className="flex items-center gap-3">
