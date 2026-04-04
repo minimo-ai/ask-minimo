@@ -46,7 +46,7 @@ export default {
           200: "#f9e0e0",
         },
         ink: {
-          400: "#888888",
+          400: "#767676",
           500: "#6d6d6d",
           600: "#5d5d5d",
           700: "#4f4f4f",
@@ -55,7 +55,7 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['var(--font-nunito)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
         display: ['var(--font-playfair)', 'Georgia', 'serif'],
       },
       boxShadow: {
@@ -69,6 +69,7 @@ export default {
       animation: {
         'fade-in': 'fade-in 0.5s ease-out',
         'slide-up': 'slide-up 0.5s ease-out',
+        'none': 'none',
       },
       keyframes: {
         'fade-in': {

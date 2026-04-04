@@ -96,7 +96,7 @@ export default function Chat() {
         </header>
 
         {/* Chat Container */}
-        <div className="rounded-4xl border border-sage-100 bg-white/90 backdrop-blur-sm shadow-softer overflow-hidden">
+        <div className="rounded-4xl border border-sage-100 bg-white/90 backdrop-blur-sm shadow-softer overflow-hidden flex flex-col h-[calc(100vh-10rem)] md:h-[calc(100vh-12rem)]">
           
           {/* Example Questions - Collapsible */}
           {showExamples && messages.length <= 1 && (
@@ -111,7 +111,7 @@ export default function Chat() {
           {/* Messages Area */}
           <div
             ref={listRef}
-            className="h-[55vh] md:h-[60vh] overflow-y-auto p-4 md:p-6"
+            className="flex-1 min-h-0 overflow-y-auto p-4 md:p-6"
           >
             <div className="space-y-4">
               {messages.map((m, idx) => (
@@ -198,7 +198,8 @@ export default function Chat() {
               <button
                 type="submit"
                 disabled={!canSend}
-                className="rounded-2xl bg-sage-500 px-6 py-3.5 font-semibold text-white disabled:opacity-40 hover:bg-sage-600 focus:ring-2 focus:ring-sage-300 focus:ring-offset-2 transition-all duration-200 flex items-center gap-2"
+                aria-label="Send message"
+                className="rounded-2xl bg-sage-500 px-6 py-3.5 font-semibold text-white disabled:opacity-40 hover:bg-sage-600 focus:ring-2 focus:ring-sage-300 focus:ring-offset-2 transition-all duration-200 flex items-center gap-2 cursor-pointer"
               >
                 <span className="hidden sm:inline">Send</span>
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -209,7 +210,7 @@ export default function Chat() {
 
             {/* Disclaimer */}
             <p className="mt-3 text-xs text-ink-400 text-center">
-              💚 Educational guidance only • Not legal, financial, or lending advice
+              Educational guidance only · Not legal, financial, or lending advice
             </p>
           </div>
         </div>
