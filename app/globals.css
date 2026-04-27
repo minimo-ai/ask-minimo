@@ -2,12 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+/* ============================================================================
+   Minimo brand foundation, April 2026.
+   Sister to Mo (moaihq.com). Same anchors: bone, navy, sage.
+   Display: Cormorant Garamond. Body: Manrope.
+   ============================================================================ */
+
+:root {
+  /* Anchors, shared with Mo. */
+  --color-bone: #F5F1EA;
+  --color-bone-soft: #EFE9DE;
+  --color-paper: #FBF8F2;
+
+  --color-navy: #1B2A3A;
+  --color-navy-soft: #2A3D52;
+  --color-navy-deep: #0F1A26;
+
+  --color-sage: #8FA08C;
+  --color-sage-soft: #A9B6A6;
+  --color-sage-deep: #6E7F6B;
+  --color-sage-tint: #E4E8E1;
+
+  --color-stone: #C7BFB1;
+  --color-stone-soft: #DCD5C7;
+
+  --color-text: #1F1D1B;
+  --color-text-soft: #4A4744;
+  --color-text-quiet: #7A7670;
+
+  /* Minimo's warmer secondary, the front-door tones. */
+  --color-cream: #F5EDD9;
+  --color-cream-soft: #FBF8F2;
+  --color-blush: #F0DDD2;
 }
 
-/* Custom scrollbar for chat */
+html {
+  scroll-behavior: smooth;
+  background: var(--color-bone);
+  color: var(--color-text);
+}
+
+body {
+  font-feature-settings: "ss01", "ss02";
+}
+
+/* Editorial display utility, mirrors Mo's marketing surface. */
+.font-editorial {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+/* Sage hairline, the brand's quiet signature. */
+.hairline {
+  display: inline-block;
+  width: 36px;
+  height: 1px;
+  background: var(--color-sage-deep);
+}
+
+/* All-caps Manrope tag, sister to Mo's .tag. */
+.tag {
+  font-family: var(--font-manrope), system-ui, sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-quiet);
+  font-weight: 500;
+}
+
+/* Custom scrollbar, navy-tinted. */
 .overflow-y-auto::-webkit-scrollbar {
   width: 6px;
 }
@@ -17,27 +81,27 @@ html {
 }
 
 .overflow-y-auto::-webkit-scrollbar-thumb {
-  background: rgba(98, 117, 98, 0.2);
+  background: rgba(27, 42, 58, 0.18);
   border-radius: 3px;
 }
 
 .overflow-y-auto::-webkit-scrollbar-thumb:hover {
-  background: rgba(98, 117, 98, 0.4);
+  background: rgba(27, 42, 58, 0.32);
 }
 
-/* Selection color */
+/* Selection. */
 ::selection {
-  background: rgba(98, 117, 98, 0.2);
+  background: rgba(110, 127, 107, 0.25);
   color: inherit;
 }
 
-/* Focus styles */
+/* Focus styles. */
 :focus-visible {
-  outline: 2px solid rgba(98, 117, 98, 0.4);
+  outline: 2px solid rgba(27, 42, 58, 0.5);
   outline-offset: 2px;
 }
 
-/* Bounce animation for loading dots */
+/* Typing-indicator bounce. */
 @keyframes bounce {
   0%, 100% {
     transform: translateY(0);
@@ -51,7 +115,7 @@ html {
   animation: bounce 0.6s ease-in-out infinite;
 }
 
-/* Respect reduced motion preferences */
+/* Reduced motion. */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
@@ -61,14 +125,14 @@ html {
   }
 }
 
-/* iOS safe area support */
+/* iOS safe area. */
 @supports (padding-bottom: env(safe-area-inset-bottom)) {
   .safe-area-bottom {
     padding-bottom: env(safe-area-inset-bottom);
   }
 }
 
-/* Print styles */
+/* Print. */
 @media print {
   .no-print {
     display: none !important;
