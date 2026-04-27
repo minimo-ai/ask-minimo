@@ -9,7 +9,7 @@ const faqs = [
     questions: [
       {
         question: "What is MiniMo?",
-        answer: "MiniMo is an AI-powered real estate educational tool created by Mo — a licensed Texas broker with 14+ years of experience, 1,500+ families served, 1,400+ new construction transactions, and 600+ veteran clients. MiniMo helps buyers understand real estate concepts and helps agents navigate client conversations with confidence."
+        answer: "MiniMo is an AI-powered real estate educational tool created by Mo, a licensed Texas broker with 14+ years of experience, 1,500+ families served, 1,400+ new construction transactions, and 600+ veteran clients. MiniMo helps buyers understand real estate concepts and helps agents navigate client conversations with confidence."
       },
       {
         question: "Is MiniMo a real estate agent or broker?",
@@ -21,7 +21,7 @@ const faqs = [
       },
       {
         question: "Who created MiniMo?",
-        answer: "MiniMo was created by Maureen 'Mo' Cappallo, founder and CEO of Momentus Real Estate Group — a boutique brokerage in Grapevine, Texas. Mo has 14+ years of real estate experience, specializing in new construction and serving military families. MiniMo is Mo's brain, scaled to help more people than she could ever reach alone — while maintaining clear boundaries about what an educational AI tool can and cannot do."
+        answer: "MiniMo was created by Maureen 'Mo' Cappallo, founder and CEO of Momentus Real Estate Group, a boutique brokerage in Grapevine, Texas. Mo has 14+ years of real estate experience, specializing in new construction and serving military families. MiniMo is Mo's brain, scaled to help more people than she could ever reach alone, while maintaining clear boundaries about what an educational AI tool can and cannot do."
       }
     ]
   },
@@ -30,7 +30,7 @@ const faqs = [
     questions: [
       {
         question: "Can MiniMo give me lending or mortgage advice?",
-        answer: "No — and that's intentional. MiniMo was created by a licensed real estate broker, not a loan officer. MiniMo can explain how different loan types generally work (VA, FHA, Conventional), but will always refer you to a licensed lender for specific advice about rates, qualification, or your personal situation. This keeps you protected and ensures you get accurate, personalized information from the right professional."
+        answer: "No, and that's intentional. MiniMo was created by a licensed real estate broker, not a loan officer. MiniMo can explain how different loan types generally work (VA, FHA, Conventional), but will always refer you to a licensed lender for specific advice about rates, qualification, or your personal situation. This keeps you protected and ensures you get accurate, personalized information from the right professional."
       },
       {
         question: "Can MiniMo tell me how much house I can afford?",
@@ -51,15 +51,15 @@ const faqs = [
     questions: [
       {
         question: "Why use MiniMo instead of ChatGPT?",
-        answer: "Great question! ChatGPT gives generic information — you'd have to spend hours training it on Texas real estate, TREC rules, new construction contracts, and VA loans. MiniMo already has all of that built in, plus guardrails to keep you safe from crossing into areas that require a licensed professional. MiniMo is ready to help in 30 seconds, no setup required."
+        answer: "Great question! ChatGPT gives generic information, you'd have to spend hours training it on Texas real estate, TREC rules, new construction contracts, and VA loans. MiniMo already has all of that built in, plus guardrails to keep you safe from crossing into areas that require a licensed professional. MiniMo is ready to help in 30 seconds, no setup required."
       },
       {
         question: "Is MiniMo free?",
-        answer: "Yes! You get 15 free messages to try MiniMo with no credit card required. If you love it, you can upgrade to unlimited access — Clarity Plus is $9/mo for buyers, and Agent Pro is $19/mo (launch pricing) for agents."
+        answer: "Yes! You get 15 free messages to try MiniMo with no credit card required. If you love it, you can upgrade to unlimited access, Clarity Plus is $9/mo for buyers, and Agent Pro is $19/mo (launch pricing) for agents."
       },
       {
         question: "What's the difference between Clarity Plus and Agent Pro?",
-        answer: "Clarity Plus ($9/mo) is for home buyers and sellers who want unlimited access to MiniMo for their real estate journey — understanding processes, terminology, and what questions to ask. Agent Pro ($19/mo) is for real estate agents who need help with client conversations, scripts, objection handling, and staying TREC-compliant."
+        answer: "Clarity Plus ($9/mo) is for home buyers and sellers who want unlimited access to MiniMo for their real estate journey, understanding processes, terminology, and what questions to ask. Agent Pro ($19/mo) is for real estate agents who need help with client conversations, scripts, objection handling, and staying TREC-compliant."
       },
       {
         question: "Can I cancel anytime?",
@@ -67,7 +67,7 @@ const faqs = [
       },
       {
         question: "How do I get MiniMo on my phone like an app?",
-        answer: "Easy! Visit askminimo.com on your phone, then tap Share → 'Add to Home Screen.' MiniMo will appear on your phone just like an app — no app store needed!"
+        answer: "Easy! Visit askminimo.com on your phone, then tap Share → 'Add to Home Screen.' MiniMo will appear on your phone just like an app, no app store needed!"
       }
     ]
   },
@@ -76,11 +76,11 @@ const faqs = [
     questions: [
       {
         question: "Is MiniMo only for Texas?",
-        answer: "MiniMo is built on Texas real estate expertise, so it's most helpful for Texas transactions — especially in the Dallas-Fort Worth area. MiniMo knows TREC rules, Texas contracts, and DFW market specifics. It can still help with general real estate education for other states, but its specialty is Texas."
+        answer: "MiniMo is built on Texas real estate expertise, so it's most helpful for Texas transactions, especially in the Dallas-Fort Worth area. MiniMo knows TREC rules, Texas contracts, and DFW market specifics. It can still help with general real estate education for other states, but its specialty is Texas."
       },
       {
         question: "How is MiniMo different from other real estate AI tools?",
-        answer: "Most AI tools are generic. MiniMo is specific. It's trained on 14 years of real-world Texas real estate experience — not just information, but the nuances that only come from 1,500+ transactions. MiniMo knows what's actually negotiable with builders, what TREC wants you to say, and how to explain VA loans without crossing compliance lines. Plus, MiniMo has clear guardrails to keep conversations educational rather than venturing into areas that require licensed professionals."
+        answer: "Most AI tools are generic. MiniMo is specific. It's trained on 14 years of real-world Texas real estate experience, not just information, but the nuances that only come from 1,500+ transactions. MiniMo knows what's actually negotiable with builders, what TREC wants you to say, and how to explain VA loans without crossing compliance lines. Plus, MiniMo has clear guardrails to keep conversations educational rather than venturing into areas that require licensed professionals."
       }
     ]
   },
@@ -89,11 +89,11 @@ const faqs = [
     questions: [
       {
         question: "I'm an agent. Will MiniMo replace me?",
-        answer: "Absolutely not! MiniMo is a tool to make you BETTER, not replace you. MiniMo helps you find the right words, stay compliant, and serve your clients with more confidence. Think of MiniMo as a mentor on speed dial, not competition. Clients still need licensed agents for transactions — MiniMo just helps you communicate more effectively."
+        answer: "Absolutely not! MiniMo is a tool to make you BETTER, not replace you. MiniMo helps you find the right words, stay compliant, and serve your clients with more confidence. Think of MiniMo as a mentor on speed dial, not competition. Clients still need licensed agents for transactions, MiniMo just helps you communicate more effectively."
       },
       {
         question: "How does MiniMo help with TREC compliance?",
-        answer: "MiniMo is built with TREC rules in mind, helping you phrase things in compliant ways and avoid crossing into areas that could get you in trouble — like giving lending advice when you're not a lender. MiniMo provides talking points and language suggestions, not rigid scripts, so you can adapt them to your style while staying safe."
+        answer: "MiniMo is built with TREC rules in mind, helping you phrase things in compliant ways and avoid crossing into areas that could get you in trouble, like giving lending advice when you're not a lender. MiniMo provides talking points and language suggestions, not rigid scripts, so you can adapt them to your style while staying safe."
       }
     ]
   },
@@ -203,7 +203,7 @@ export default function FAQPage() {
             Ready to get clarity?
           </h2>
           <p className="text-ink-600 mb-8">
-            Try MiniMo free — 15 messages, no credit card required.
+            Try MiniMo free, 15 messages, no credit card required.
           </p>
           <Link
             href="/ask"

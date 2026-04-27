@@ -34,7 +34,7 @@ export default function AgentsPage() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-sage-100 text-sage-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
             <span>🏠</span>
-            <span>Built by agents, for agents — 100% free</span>
+            <span>Built by agents, for agents, 100% free</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-ink-800 mb-6 leading-tight">
@@ -44,7 +44,7 @@ export default function AgentsPage() {
           
           <p className="text-lg md:text-xl text-ink-600 mb-8 max-w-2xl mx-auto leading-relaxed">
             MiniMo is your free AI clarity companion for client conversations, compliance questions, 
-            and those moments when you need the perfect script — fast.
+            and those moments when you need the perfect script, fast.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -52,7 +52,7 @@ export default function AgentsPage() {
               href="/ask/agent"
               className="bg-sage-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-600 transition shadow-soft"
             >
-              Start Chatting — It's Free →
+              Start Chatting, It's Free →
             </Link>
             <a
               href="#features"
@@ -79,11 +79,11 @@ export default function AgentsPage() {
               <div className="space-y-4 text-ink-600">
                 <p>
                   A buyer asks about earnest money. A seller wants to know about disclosure requirements. 
-                  A first-timer needs you to explain the whole process — clearly and compliantly.
+                  A first-timer needs you to explain the whole process, clearly and compliantly.
                 </p>
                 <p>
-                  You know the answer. But finding the <em>right words</em> — the clear, compliant, 
-                  client-friendly words — that's the challenge.
+                  You know the answer. But finding the <em>right words</em>, the clear, compliant, 
+                  client-friendly words, that's the challenge.
                 </p>
                 <p className="font-semibold text-ink-800">
                   MiniMo gives you those words, instantly. And it's completely free.
@@ -157,7 +157,7 @@ export default function AgentsPage() {
               },
               {
                 emoji: "⏰",
-                title: "My buyer wants to waive inspection — what do I say?",
+                title: "My buyer wants to waive inspection, what do I say?",
                 description: "Navigate tricky conversations professionally"
               },
               {
@@ -190,7 +190,7 @@ export default function AgentsPage() {
           <div className="rounded-4xl border-2 border-sage-300 bg-gradient-to-br from-sage-50 to-white p-8 md:p-10 text-center">
             <div className="inline-flex items-center gap-2 rounded-full bg-sage-100 px-4 py-2 text-sm text-sage-700 font-medium mb-6">
               <span>💚</span>
-              <span>100% Free — No Catch</span>
+              <span>100% Free, No Catch</span>
             </div>
             
             <h2 className="text-2xl md:text-3xl font-display font-semibold text-ink-800 mb-4">
@@ -223,7 +223,7 @@ export default function AgentsPage() {
               href="/ask/agent"
               className="inline-block bg-sage-500 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-600 transition shadow-soft"
             >
-              Start Chatting — It's Free →
+              Start Chatting, It's Free →
             </Link>
           </div>
         </div>
@@ -260,7 +260,7 @@ export default function AgentsPage() {
               </div>
               <h3 className="font-semibold text-ink-800 mb-2">Educational Focus</h3>
               <p className="text-sm text-ink-600">
-                Support tool — your professional judgment always applies
+                Support tool, your professional judgment always applies
               </p>
             </div>
           </div>
@@ -280,7 +280,7 @@ export default function AgentsPage() {
             href="/ask/agent"
             className="inline-block bg-white text-sage-600 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-sage-50 transition shadow-soft"
           >
-            Start Chatting — It's Free →
+            Start Chatting, It's Free →
           </Link>
         </div>
       </section>

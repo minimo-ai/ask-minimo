@@ -14,7 +14,16 @@ Ask MiniMo is an AI-powered real estate education companion built by Momentus Re
 - **UI**: React 18.3.1, TypeScript 5.4.5
 - **Styling**: Tailwind CSS 3.4.3 with custom design tokens
 - **AI**: OpenAI GPT-4o integration
-- **Fonts**: Playfair Display (headings), Inter (body)
+- **Fonts**: Cormorant Garamond (display), Manrope (body). Locked April 2026 to match Mo (moaihq.com), MiniMo's sister brand.
+
+## Brand Discipline
+
+These rules apply to all user-facing copy in this repo: chat greetings, agent-mode greetings, page bodies, button labels, error messages, modal copy.
+
+1. **No em dashes.** Use commas, periods, or parentheses. Em dashes are banned in all Mo and MiniMo content. Don't restructure intentional phrasing under "grammar fix" pretext.
+2. **No sentence-initial conjunctions.** Do not begin sentences with And, But, So, Because, Or, Yet, Nor.
+3. **Use "she" for MiniMo's actions and qualities.** "She helps you understand," not "it helps you understand." "MiniMo" only when naming the platform itself.
+4. **Brand mark is "MiniMo"** (camelcase, two capitals). Sister to Mo (single capital). Do not silently rewrite to "Minimo".
 
 ## Project Structure
 
@@ -92,18 +101,38 @@ Consumer chat requires email capture with validation:
 
 ## Design System (Tailwind)
 
-**Custom Colors:**
-- `sage` - Primary (trusted, calm)
-- `cream` - Secondary warm (welcoming)
-- `coral` - Accent (friendly)
-- `blush` - Soft accent (gentle)
-- `ink` - Text color
+Sister brand to Mo (moaihq.com). Same anchors, warmer secondary so MiniMo reads as the front-door sister.
+
+**Anchors (shared with Mo):**
+- `bone` (`#F5F1EA`) - base surface
+- `bone-soft` (`#EFE9DE`), `bone-paper` (`#FBF8F2`) - softer surfaces and cards
+- `navy` (`#1B2A3A`) - text anchor and primary CTA fill
+- `navy-soft`, `navy-deep` - soft and deep navy variants
+- `sage` 50-900, with `sage-500` (`#6E7F6B`) as the brand sage and `sage-100` (`#E4E8E1`) as the tint
+- `stone` (`#C7BFB1`), `stone-soft` (`#DCD5C7`) - borders and dividers
+- `ink` 400-900 - body text scale, `ink-800` is the default body color
+
+**Warm secondary (MiniMo's softer voice):**
+- `cream` 50-400 - warm paper and accents
+- `blush` 50-200 - soft warm peach for gentle moments
+- `coral` (back-compat alias mapped to a warmer earth tone)
+- `warm` (back-compat alias mapped to cream)
 
 **Typography:**
-- `font-playfair` - Display/headlines (serif)
-- `font-inter` - Body text (sans-serif)
+- `font-display` - Cormorant Garamond, used for headlines
+- `font-sans` - Manrope, used for body
+- `.font-editorial` (in globals.css) - Cormorant Garamond medium 500, the editorial display style mirroring Mo's marketing surface
+- `font-playfair` and `font-inter` are aliased to Cormorant and Manrope respectively for back-compat
 
-**Custom Classes:**
+**Brand utility classes (in globals.css):**
+- `.hairline` - sage hairline rule, the brand's quiet signature (paired with `.tag` for editorial section dividers)
+- `.tag` - all-caps Manrope eyebrow, sister to Mo's `.tag`
+- `.font-editorial` - Cormorant Garamond Medium with brand-correct letter spacing
+
+**CSS variables (in globals.css):**
+All anchors and warm secondary tones are also exposed as CSS custom properties (`--color-bone`, `--color-navy`, `--color-sage-deep`, etc.) so inline styles can reference brand tokens without going through Tailwind classes.
+
+**Other custom classes:**
 - `shadow-soft`, `shadow-softer`, `shadow-glow`
 - `animate-fade-in`, `animate-slide-up`
 

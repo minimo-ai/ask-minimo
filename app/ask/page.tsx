@@ -10,7 +10,7 @@ interface Message {
 }
 
 // MiniMo's New Greeting (January 2026) - New Soul
-const INITIAL_GREETING = `Hey there, I'm MiniMo. Think of me as your calm guide for all things real estate. No pressure, no sales pitch — just clarity and next steps that fit your life.
+const INITIAL_GREETING = `Hey there, I'm MiniMo. Think of me as your calm guide for all things real estate. No pressure, no sales pitch, just clarity and next steps that fit your life.
 
 What's on your mind?`;
 
@@ -268,7 +268,7 @@ export default function AskBuyerPage() {
             onClick={() => setAcceptedDisclaimer(true)}
             className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition cursor-pointer"
           >
-            I Understand — Continue
+            I Understand, Continue
           </button>
 
           <p className="text-xs text-ink-400 text-center mt-4">
@@ -297,7 +297,7 @@ export default function AskBuyerPage() {
               Let&apos;s Stay Connected
             </h1>
             <p className="text-ink-600">
-              Drop your email so we can let you know when MiniMo gets even smarter — like new features,
+              Drop your email so we can let you know when MiniMo gets even smarter, like new features,
               Texas market tips, and updates that actually help.
             </p>
           </div>

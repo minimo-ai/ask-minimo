@@ -47,7 +47,7 @@ export default function TermsPage() {
             <div className="bg-sage-50 border-2 border-sage-200 rounded-xl p-6">
               <h2 className="text-xl font-semibold text-ink-800 mb-4 flex items-center gap-2">
                 <span className="text-sage-500">⚠️</span>
-                Critical Disclaimers — Please Read Carefully
+                Critical Disclaimers, Please Read Carefully
               </h2>
               
               <div className="space-y-4 text-ink-600 leading-relaxed">
@@ -101,14 +101,14 @@ export default function TermsPage() {
                 To be absolutely clear, MiniMo is <strong>NOT</strong> any of the following:
               </p>
               <ul className="list-disc pl-6 space-y-2 text-ink-600">
-                <li><strong>Not a real estate agent or broker</strong> — MiniMo cannot represent you in any transaction, 
+                <li><strong>Not a real estate agent or broker</strong>, MiniMo cannot represent you in any transaction, 
                 negotiate on your behalf, or provide property valuations</li>
-                <li><strong>Not a lender or loan officer</strong> — MiniMo cannot quote interest rates, estimate payments, 
+                <li><strong>Not a lender or loan officer</strong>, MiniMo cannot quote interest rates, estimate payments, 
                 pre-qualify you for a mortgage, or provide lending advice</li>
-                <li><strong>Not an attorney</strong> — MiniMo cannot provide legal advice or interpret contracts</li>
-                <li><strong>Not a financial advisor</strong> — MiniMo cannot provide investment advice or financial planning</li>
-                <li><strong>Not a tax professional</strong> — MiniMo cannot provide tax advice</li>
-                <li><strong>Not a licensed appraiser</strong> — MiniMo cannot provide property valuations or appraisals</li>
+                <li><strong>Not an attorney</strong>, MiniMo cannot provide legal advice or interpret contracts</li>
+                <li><strong>Not a financial advisor</strong>, MiniMo cannot provide investment advice or financial planning</li>
+                <li><strong>Not a tax professional</strong>, MiniMo cannot provide tax advice</li>
+                <li><strong>Not a licensed appraiser</strong>, MiniMo cannot provide property valuations or appraisals</li>
               </ul>
             </div>
 

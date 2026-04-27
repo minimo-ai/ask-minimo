@@ -7,11 +7,11 @@ type Props = {
 // Targeted questions for Mo's ideal clients: veterans, first-time buyers, sellers, new construction
 const questions = [
   // Veteran focus
-  "I'm a veteran — what should I know about VA loans?",
+  "I'm a veteran, what should I know about VA loans?",
   // Buyer myths
   "Do I really need 20% down to buy a house?",
   // Seller focus
-  "I'm thinking about selling — where do I even start?",
+  "I'm thinking about selling, where do I even start?",
   // New construction
   "What's the difference between buying new construction vs. resale?",
   // Seller pricing

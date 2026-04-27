@@ -10,9 +10,9 @@ interface Message {
 }
 
 // MiniMo's New Greeting for Agents (January 2026) - New Soul
-const AGENT_GREETING = `Hey there, fellow agent! I'm MiniMo — think of me as your calm guide when you need the right words for client conversations.
+const AGENT_GREETING = `Hey there, fellow agent! I'm MiniMo, think of me as your calm guide when you need the right words for client conversations.
 
-Whether you need help explaining something clearly, staying TREC-compliant, or navigating a tough conversation — I've got you.
+Whether you need help explaining something clearly, staying TREC-compliant, or navigating a tough conversation, I've got you.
 
 What's on your mind?`;
 
@@ -301,7 +301,7 @@ export default function AskAgentPage() {
             onClick={() => setAcceptedDisclaimer(true)}
             className="w-full bg-sage-500 text-white py-4 rounded-2xl font-semibold hover:bg-sage-600 transition"
           >
-            I Understand — Continue
+            I Understand, Continue
           </button>
 
           <p className="text-xs text-ink-400 text-center mt-4">
